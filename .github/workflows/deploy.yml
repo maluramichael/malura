@@ -30,7 +30,7 @@ jobs:
         known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
         config: |
           Host malura_malura
-            HostName 159.69.116.230
+            HostName malura.de
             Port 13456
             User root
             IdentityFile ~/.ssh/id_rsa
