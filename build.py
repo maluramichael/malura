@@ -272,6 +272,20 @@ def render_project_list(): return render_list_index(
     get_template('post_list_entry')
 )
 
+def generate_sitemap():
+    sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+
+    for page in pages + posts:
+        sitemap += f"<url>\n  <loc>https://malura.de{page.url}</loc>\n  <lastmod>{page.date.strftime('%Y-%m-%d')}</lastmod>\n</url>\n"
+
+    for tag in tags:
+        sitemap += f"<url>\n  <loc>https://malura.de/blog/tag/{tag}</loc>\n  <lastmod>{datetime.datetime.now().strftime('%Y-%m-%d')}</lastmod>\n</url>\n"
+
+    sitemap += '</urlset>'
+
+    with open(os.path.join(output_dir, 'sitemap.xml'), 'w') as output_file:
+        output_file.write(sitemap)
 
 load_templates()
 
@@ -326,3 +340,5 @@ if not os.path.exists(os.path.join(output_dir, 'assets')):
 
 for asset_file in asset_files:
     copy(asset_file, os.path.join(output_dir, 'assets'))
+
+generate_sitemap()

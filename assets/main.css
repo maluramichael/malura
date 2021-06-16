@@ -22,3 +22,7 @@ nav {
 nav img {
     float: right;
 }
+
+.codehilite {
+    padding: 3px 20px;
+}
