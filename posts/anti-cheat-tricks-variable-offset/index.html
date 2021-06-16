@@ -1,0 +1,46 @@
+<!--
+{
+"title": "Anti cheat tricks - Variable offset",
+"date": "2018-11-14",
+"tags": "cpp reverse-engineering code"
+}
+-->
+<p>A little class which shows you how some developers obfuscate values in their games.</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">OffsetVariable</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">offset</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">explicit</span> <span class="n">OffsetVariable</span><span class="p">(</span><span class="n">T</span> <span class="n">initial</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">1337</span><span class="p">;</span> <span class="c1">// Generate a random number here</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">initial</span> <span class="o">+</span> <span class="n">offset</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">T</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">-</span> <span class="n">offset</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">set</span><span class="p">(</span><span class="n">T</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">v</span> <span class="o">+</span> <span class="n">offset</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">OffsetVariable</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">health</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+  <span class="n">OffsetVariable</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">mana</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Player health: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">health</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Player mana: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">mana</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="n">health</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">mana</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Player health: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">health</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Player mana: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">mana</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>

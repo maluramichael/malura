@@ -1,0 +1,87 @@
+<!--
+{
+"title": "Meine liebsten Docker Container",
+"date": "2019-01-17",
+"tags": "docker deluge plex rss"
+}
+-->
+<p>Die folgenden Docker Container laufen aktuell in meinem Homelab.</p>
+<h2>Deluge</h2>
+<p>Deluge ist ein Torrent Server. Ich lade meine Linux ISOs am liebsten ueber Torrent und moechte der Community natuerlich auch etwas zurueck geben.</p>
+<p>Darum seede ich meine lieblings ISOs von meinem Homeserver aus in die weite Welt hinaus.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span> <span class="s">&quot;2&quot;</span>
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">deluge</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">linuxserver/deluge</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">deluge</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PUID=1002</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PGID=1003</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">TZ=Europe/London</span>
+    <span class="nt">ports</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;8112:8112&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;58846:58846&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;58946:58946&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;58946:58946/udp&quot;</span>
+    <span class="nt">volumes</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/srv/dev-disk-by-label-tank/torrent/config:/config</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/srv/dev-disk-by-label-tank/torrent/downloads:/downloads</span>
+    <span class="nt">mem_limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2048m</span>
+    <span class="nt">restart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+</code></pre></div>
+
+<h2>Plex</h2>
+<p>Natuerlich darf die Home-Version von Netflix nicht fehlen</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span> <span class="s">&quot;3&quot;</span>
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">plex</span><span class="p">:</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">plex</span>
+    <span class="nt">restart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">plexinc/pms-docker</span>
+    <span class="nt">ports</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;32400:32400&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;1900:1900&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;3005:3005&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;5353:5353&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;8324:8324&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;32410:32410&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;32412:32412&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;32413:32413&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;32414:32414&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;32469:32469&quot;</span>
+    <span class="nt">volumes</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/srv/dev-disk-by-label-tank/docker/plex/config:/config</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/srv/dev-disk-by-label-tank/docker/plex/transcode:/transcode</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/srv/dev-disk-by-label-tank/docker/plex/shared:/shared</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/srv/dev-disk-by-label-tank/media:/media</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">TZ=Europe/London</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">HOSTNAME=&quot;Docker Plex&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PLEX_UID=121</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PLEX_GID=1001</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PLEX_CLAIM=xxxxxxxxxxxxxxx</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ADVERTISE_IP=&quot;http://192.168.178.100:32400/&quot;</span>
+</code></pre></div>
+
+<h2>RSS Reader</h2>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span> <span class="s">&quot;3&quot;</span>
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">rss</span><span class="p">:</span>
+    <span class="nt">restart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">linuxserver/tt-rss</span>
+    <span class="nt">ports</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;7800:80&quot;</span>
+    <span class="nt">volumes</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/etc/localtime:/etc/localtime:ro</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/tank/docker/tt-rss/config:/config</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/tank/docker/tt-rss/data:/var/lib/postgresql/data</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">TZ=Europe/Berlin</span>
+    <span class="nt">links</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">db</span>
+  <span class="nt">db</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
+    <span class="nt">restart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tt-rss</span>
+</code></pre></div>
