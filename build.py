@@ -228,13 +228,13 @@ def render_and_write_tags_to_disk():
     with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
         f.write(tag_list_result)
 
-    for tag, posts in posts_grouped_by_tags.items():
+    for tag, posts_by_tag in posts_grouped_by_tags.items():
         post_list = '\n'.join([get_template('post_list_entry').substitute({
             'date': post.date.strftime('%d.%m.%Y'),
             'title': post.title,
             'url': post.url,
             'teaser': post.teaser
-        }) for post in posts])
+        }) for post in posts_by_tag])
         rendered_page_content = get_template('post_list_by_tag').substitute(content=post_list, tag=tag)
         header_content = get_template('header').substitute()
         tag_list_result = get_template('root').substitute(
@@ -247,15 +247,6 @@ def render_and_write_tags_to_disk():
             os.makedirs(destination_dir)
         with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
             f.write(tag_list_result)
-    # list_page_content = list_template.substitute(content=rendered_list)
-    # rendered_page_content = get_template('page').substitute(content=list_page_content)
-    # header_content = get_template('header').substitute()
-    # final_result = get_template('root').substitute(
-    #     title=title,
-    #     header=header_content,
-    #     content=rendered_page_content
-    # )
-    # return final_result
 
 
 def render_blog_list(): return render_list_index(
@@ -313,8 +304,8 @@ for post in posts:
 
         posts_grouped_by_tags[tag].append(post)
 
-for tag, posts in posts_grouped_by_tags.items():
-    posts.sort(key=lambda x: x.date, reverse=True)
+for tag_group, posts_by_tag in posts_grouped_by_tags.items():
+    posts_by_tag.sort(key=lambda x: x.date, reverse=True)
 
 tags.sort()
 
