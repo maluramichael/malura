@@ -59,18 +59,19 @@ def get_template(template_name):
 
 def render_post(post):
     content = post.content
-    rendered_post_content = get_template('post').substitute(content=content)
+    rendered_tag_list = '\n'.join([f'<a href="/blog/tag/{tag}">{tag}</a>' for tag in post.tags.split(' ')])
+    rendered_post_content = get_template('post').substitute(content=content, tags=rendered_tag_list)
     header_content = get_template('header').substitute()
     final_result = get_template('root').substitute(
-        title=post.title or "Hello world",
+        title=post.title or "Michael Malura",
         header=header_content,
         content=rendered_post_content
     )
     return final_result
 
 
-def render_page(page_content):
-    rendered_page_content = get_template('page').substitute(content=page_content)
+def render_page(page):
+    rendered_page_content = get_template('page').substitute(content=page.content)
     header_content = get_template('header').substitute()
     final_result = get_template('root').substitute(
         title="Hello world",
@@ -130,12 +131,18 @@ def write_page_as_html_to_disk(page, destination_dir):
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
 
-    rendered_page = render_page(page.content)
-    rendered_page = re.sub("(<!--.*?-->)", "", rendered_page, flags=re.DOTALL)
-    page.rendered = rendered_page
+    if page.rendered == '':
+        raise Exception(f'{page}')
 
     with open(os.path.join(destination_dir, 'index.html'), 'w') as output_file:
-        output_file.write(rendered_page)
+        output_file.write(page.rendered)
+
+
+def render_and_write_page_has_html_to_disk(page, destination_dir):
+    rendered_page = render_page(page)
+    page.rendered = rendered_page
+
+    write_page_as_html_to_disk(page, destination_dir)
 
 
 # Render posts
@@ -154,8 +161,9 @@ def render_and_write_blog_posts_to_disk(entries):
         else:
             destination_dir += filename + '/'
 
-        rendered_post = render_post(page)
-        page.rendered = rendered_post
+        rendered_page = render_post(page)
+        page.rendered = rendered_page
+        page.url = destination_dir
 
         write_page_as_html_to_disk(page, destination_dir)
 
@@ -173,7 +181,7 @@ def render_and_write_list_entries_to_disk(entries, destination_dir=''):
         if filename != 'index':
             final_dir = os.path.join(final_dir, filename)
 
-        write_page_as_html_to_disk(page, final_dir)
+        render_and_write_page_has_html_to_disk(page, final_dir)
 
 
 # Render blog list
@@ -198,6 +206,56 @@ def render_list_index(title, entries, list_template, entry_template):
         content=rendered_page_content
     )
     return final_result
+
+
+def render_and_write_tags_to_disk():
+    tag_list = '\n'.join(
+        [
+            f'<li><a href="/blog/tag/{tag}">{tag} ({len(posts_grouped_by_tags[tag])})</a></li>' for tag in tags
+        ]
+    )
+    tag_list = f'<ul>{tag_list}</ul>'
+    rendered_page_content = get_template('page').substitute(content=tag_list)
+    header_content = get_template('header').substitute()
+    tag_list_result = get_template('root').substitute(
+        title="Tags",
+        header=header_content,
+        content=rendered_page_content
+    )
+    destination_dir = os.path.join(output_dir, 'blog/tag')
+    if not os.path.exists(destination_dir):
+        os.makedirs(destination_dir)
+    with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
+        f.write(tag_list_result)
+
+    for tag, posts in posts_grouped_by_tags.items():
+        post_list = '\n'.join([get_template('post_list_entry').substitute({
+            'date': post.date.strftime('%d.%m.%Y'),
+            'title': post.title,
+            'url': post.url,
+            'teaser': post.teaser
+        }) for post in posts])
+        rendered_page_content = get_template('post_list_by_tag').substitute(content=post_list, tag=tag)
+        header_content = get_template('header').substitute()
+        tag_list_result = get_template('root').substitute(
+            title=f'Beiträge mit dem Tag "{tag}"',
+            header=header_content,
+            content=rendered_page_content
+        )
+        destination_dir = os.path.join(output_dir, 'blog/tag', tag)
+        if not os.path.exists(destination_dir):
+            os.makedirs(destination_dir)
+        with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
+            f.write(tag_list_result)
+    # list_page_content = list_template.substitute(content=rendered_list)
+    # rendered_page_content = get_template('page').substitute(content=list_page_content)
+    # header_content = get_template('header').substitute()
+    # final_result = get_template('root').substitute(
+    #     title=title,
+    #     header=header_content,
+    #     content=rendered_page_content
+    # )
+    # return final_result
 
 
 def render_blog_list(): return render_list_index(
@@ -255,9 +313,15 @@ for post in posts:
 
         posts_grouped_by_tags[tag].append(post)
 
+for tag, posts in posts_grouped_by_tags.items():
+    posts.sort(key=lambda x: x.date, reverse=True)
+
+tags.sort()
+
 render_and_write_blog_posts_to_disk(posts)
 render_and_write_list_entries_to_disk(pages)
 render_and_write_list_entries_to_disk(projects, 'projects')
+render_and_write_tags_to_disk()
 
 with open(os.path.join(output_dir, 'blog/index.html'), 'w') as output_file:
     output_file.write(render_blog_list())
