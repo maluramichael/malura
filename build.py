@@ -98,7 +98,7 @@ def render_page(page):
     rendered_page_content = get_template('page').substitute(content=page.content)
     header_content = get_template('header').substitute()
     final_result = get_template('root').substitute(
-        title="Hello world",
+        title=post.title or "Michael Malura",
         header=header_content,
         content=rendered_page_content
     )
