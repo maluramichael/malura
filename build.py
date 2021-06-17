@@ -335,7 +335,7 @@ def generate_rss_feed_posts():
         <item>
             <title>{page.title}</title>
             <link>{url}</link>
-            <author>michael@malura.de</author>
+            <author>michael@malura.de (Michael Malura)</author>
             <guid isPermaLink="true">{url}</guid>
             <pubDate>{page_2822}</pubDate>
             {description}
