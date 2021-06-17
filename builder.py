@@ -43,10 +43,6 @@ class HtmlStripper(HTMLParser):
         return self.text.getvalue()
 
 
-class CustomTemplate(Template):
-    delimiter = '##'
-
-
 def strip_tags(html):
     s = HtmlStripper()
     s.feed(html)
