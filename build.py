@@ -326,7 +326,6 @@ def generate_rss_feed_posts():
     for page in posts:
         page_2822 = utils.format_datetime(page.date)
         url = f'https://malura.de{page.url}'
-        hash = hashlib.md5(page.title.encode('utf-8')).hexdigest()
         description = '<description/>'
 
         if page.teaser != '':
@@ -336,14 +335,14 @@ def generate_rss_feed_posts():
         <item>
             <title>{page.title}</title>
             <link>{url}</link>
-            <author>Michael Malura michael@malura.de</author>
-            <guid>{hash}</guid>
+            <author>michael@malura.de</author>
+            <guid isPermaLink="true">{url}</guid>
             <pubDate>{page_2822}</pubDate>
             {description}
         </item>'''
 
     feed = f'    <channel>{channel}\n    </channel>'
-    feed = f'<rss>\n{feed}\n</rss>'
+    feed = f'<rss version="2.0">\n{feed}\n</rss>'
     feed = f'<?xml version="1.0" encoding="UTF-8"?>\n{feed}'
 
     with open(os.path.join(output_dir, 'feed.xml'), 'w') as output_file:
