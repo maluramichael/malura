@@ -29,6 +29,7 @@ jobs:
         if_key_exists: fail
         known_hosts: just-some-random-string
         config: |
+          LogLevel ERROR
           Host ${{ secrets.SSH_HOST }}
             HostName ${{ secrets.SSH_HOST }}
             Port ${{ secrets.SSH_PORT }}
