@@ -1,0 +1,3 @@
+{% macro render_tag_list(tags) -%}
+    Tags: {% for tag in tags.split(' ') %}<a href="/blog/tag/{{tag}}">{{tag}}</a> {% endfor %}
+{%- endmacro %}

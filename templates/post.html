@@ -1,2 +1,14 @@
-##tags
-##content
+{% extends 'root.html' %}
+{% import 'helper_macros.html' as helper %}
+{% block title %}{{page.title}}{% endblock %}
+{% block content %}
+<h1>
+    {{ page.title }}
+</h1>
+<div>
+    {{ helper.render_tag_list(page.tags) }}
+</div>
+<div>
+    {{ page.content|safe }}
+</div>
+{% endblock %}

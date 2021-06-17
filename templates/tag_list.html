@@ -1,0 +1,17 @@
+{% extends 'root.html' %}
+{% import 'helper_macros.html' as helper %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% if title %}
+<h1>{{ title }}</h1>
+{% endif %}
+<ul>
+    {% for tag in tags %}
+        <li>
+            <a href="/blog/tag/{tag_entry}">
+                {{ tag }} ({{  posts_grouped_by_tags[tag]|length }})
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

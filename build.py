@@ -15,8 +15,6 @@ page_files = Path('pages').rglob('*.html')
 project_files = Path('projects').rglob('*.html')
 asset_files = Path('assets').rglob('*')
 
-builder.load_templates()
-
 posts = [builder.parse_file_and_create_page_entity(file_path) for file_path in post_files]
 pages = [builder.parse_file_and_create_page_entity(file_path) for file_path in page_files]
 projects = [builder.parse_file_and_create_page_entity(file_path) for file_path in project_files]
