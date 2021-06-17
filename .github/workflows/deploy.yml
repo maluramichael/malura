@@ -27,14 +27,15 @@ jobs:
         key: ${{ secrets.SSH_DEPLOY_SECRET }}
         name: id_rsa
         if_key_exists: fail
-        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
         config: |
-          Host malura_malura
-            HostName malura.de
-            Port 13456
+          Host ${{ secrets.SSH_HOST }}
+            HostName ${{ secrets.SSH_HOST }}
+            Port ${{ secrets.SSH_PORT }}
             User root
             IdentityFile ~/.ssh/id_rsa
+    - name: Adding Known Hosts
+      run: ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     - name: Build
       run: python build.py
     - name: Deploy
-      run: ./deploy.sh
+      run: ./deploy.sh ${{ secrets.SSH_HOST }}
