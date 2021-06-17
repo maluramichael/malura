@@ -27,6 +27,7 @@ jobs:
         key: ${{ secrets.SSH_DEPLOY_SECRET }}
         name: id_rsa
         if_key_exists: fail
+        known_hosts: just-some-random-string
         config: |
           Host ${{ secrets.SSH_HOST }}
             HostName ${{ secrets.SSH_HOST }}
