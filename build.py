@@ -315,8 +315,7 @@ def generate_sitemap():
 
 def generate_rss_feed_posts():
     now_2822 = utils.format_datetime(datetime.datetime.now())
-    feed = '<?xml version="1.0" encoding="UTF-8"?>'
-    feed += f'''
+    channel = f'''
         <title>Michael Malura</title>
         <link>https://malura.de</link>
         <description>Mein persoenlicher Blog</description>
@@ -333,7 +332,7 @@ def generate_rss_feed_posts():
         if page.teaser != '':
             description = f'<description>{strip_tags(page.teaser).strip()}</description>'
 
-        feed += f'''
+        channel += f'''
         <item>
             <title>{page.title}</title>
             <link>{url}</link>
@@ -343,8 +342,9 @@ def generate_rss_feed_posts():
             {description}
         </item>'''
 
-    feed = f'<channel>\n{feed}\n</channel>'
+    feed = f'    <channel>{channel}\n    </channel>'
     feed = f'<rss>\n{feed}\n</rss>'
+    feed = f'<?xml version="1.0" encoding="UTF-8"?>\n{feed}'
 
     with open(os.path.join(output_dir, 'feed.xml'), 'w') as output_file:
         output_file.write(feed)
