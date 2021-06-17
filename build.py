@@ -1,5 +1,7 @@
 import datetime
+import hashlib
 import re
+from io import StringIO
 from string import Template
 from pathlib import Path
 import os
@@ -8,6 +10,7 @@ from shutil import copy
 from html.parser import HTMLParser
 import json
 from dataclasses import dataclass, field, fields
+from email import utils
 
 output_dir = '_output'
 posts_dir = 'posts'
@@ -36,6 +39,27 @@ class MetaDataHtmlParser(HTMLParser):
 
         self.parsed = True
         self.meta_data = json.loads(data)
+
+
+class HtmlStripper(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.strict = False
+        self.convert_charrefs = True
+        self.text = StringIO()
+
+    def handle_data(self, d):
+        self.text.write(d)
+
+    def get_data(self):
+        return self.text.getvalue()
+
+
+def strip_tags(html):
+    s = HtmlStripper()
+    s.feed(html)
+    return s.get_data()
 
 
 # TEMPLATES
@@ -272,6 +296,7 @@ def render_project_list(): return render_list_index(
     get_template('post_list_entry')
 )
 
+
 def generate_sitemap():
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -286,6 +311,44 @@ def generate_sitemap():
 
     with open(os.path.join(output_dir, 'sitemap.xml'), 'w') as output_file:
         output_file.write(sitemap)
+
+
+def generate_rss_feed_posts():
+    now_2822 = utils.format_datetime(datetime.datetime.now())
+    feed = '<?xml version="1.0" encoding="UTF-8"?>'
+    feed += f'''
+        <title>Michael Malura</title>
+        <link>https://malura.de</link>
+        <description>Mein persoenlicher Blog</description>
+        <language>de-de</language>
+        <copyright>Michael Malura</copyright>
+        <pubDate>{now_2822}</pubDate>'''
+
+    for page in posts:
+        page_2822 = utils.format_datetime(page.date)
+        url = f'https://malura.de{page.url}'
+        hash = hashlib.md5(page.title.encode('utf-8')).hexdigest()
+        description = '<description/>'
+
+        if page.teaser != '':
+            description = f'<description>{strip_tags(page.teaser).strip()}</description>'
+
+        feed += f'''
+        <item>
+            <title>{page.title}</title>
+            <link>{url}</link>
+            <author>Michael Malura michael@malura.de</author>
+            <guid>{hash}</guid>
+            <pubDate>{page_2822}</pubDate>
+            {description}
+        </item>'''
+
+    feed = f'<channel>\n{feed}\n</channel>'
+    feed = f'<rss>\n{feed}\n</rss>'
+
+    with open(os.path.join(output_dir, 'feed.xml'), 'w') as output_file:
+        output_file.write(feed)
+
 
 load_templates()
 
@@ -342,3 +405,4 @@ for asset_file in asset_files:
     copy(asset_file, os.path.join(output_dir, 'assets'))
 
 generate_sitemap()
+generate_rss_feed_posts()
