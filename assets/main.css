@@ -13,10 +13,22 @@ img {
     max-width: 100%;
 }
 
+a {
+    color: crimson;
+}
+
+a:visited {
+    color: darkred;
+}
+
 nav {
     border-bottom: 3px solid black;
     padding-bottom: 10px;
     margin: 10px 0;
+}
+
+nav a {
+    font-size: 20px;
 }
 
 nav img {
