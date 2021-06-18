@@ -9,6 +9,9 @@ from html.parser import HTMLParser
 from io import StringIO
 from shutil import copy
 from jinja2 import Environment, select_autoescape, FileSystemLoader
+from tqdm import tqdm
+import pathlib
+
 
 jinja_env = Environment(
     loader=FileSystemLoader(['templates']),
@@ -63,6 +66,7 @@ class Page:
     tags: str = ''
     url: str = '/'
     date: datetime.datetime = datetime.datetime.now()
+    last_update_time: datetime.datetime = datetime.datetime.now()
 
 
 def render_page(page_to_render, template_name='page.html'):
@@ -83,14 +87,18 @@ def parse_file_and_create_page_entity(file_path):
 
         if htmlParser.parsed and htmlParser.meta_data != None:
             names = set([f.name for f in fields(page)])
-            for k, v in htmlParser.meta_data.items():
-                if k in names:
-                    if k == 'date':
-                        setattr(page, k, datetime.datetime.strptime(v, "%Y-%m-%d"))
+            for key, value in htmlParser.meta_data.items():
+                if key in names:
+                    if key == 'date':
+                        setattr(page, key, datetime.datetime.strptime(value, "%Y-%m-%d"))
                     else:
-                        setattr(page, k, v)
+                        setattr(page, key, value)
 
-        # remove comment
+
+        path_object = pathlib.Path(file_path)
+        stat = path_object.stat()
+        modification_date = datetime.datetime.fromtimestamp(stat.st_mtime)
+        page.last_update_time = modification_date
 
         if more_tag in page.content:
             more_start = page.content.index(more_tag)
@@ -105,10 +113,10 @@ def generate_sitemap(output_dir, pages, posts, tags):
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
-    for page in pages + posts:
+    for page in tqdm(pages + posts, desc='Write pages and posts to sitemap'):
         sitemap += f"<url>\n  <loc>https://malura.de{page.url}</loc>\n  <lastmod>{page.date.strftime('%Y-%m-%d')}</lastmod>\n</url>\n"
 
-    for tag in tags:
+    for tag in tqdm(tags, desc='Write tags to sitemap'):
         sitemap += f"<url>\n  <loc>https://malura.de/blog/tag/{tag}</loc>\n  <lastmod>{datetime.datetime.now().strftime('%Y-%m-%d')}</lastmod>\n</url>\n"
 
     sitemap += '</urlset>'
@@ -127,7 +135,7 @@ def generate_rss_feed_posts(output_dir, posts):
         <copyright>Michael Malura</copyright>
         <pubDate>{now_2822}</pubDate>'''
 
-    for page in posts:
+    for page in tqdm(posts, desc='Write posts to rss feed'):
         page_2822 = utils.format_datetime(page.date)
         url = f'https://malura.de{page.url}'
         description = '<description/>'
@@ -176,7 +184,7 @@ def render_and_write_page_has_html_to_disk(page, output_dir, destination_dir):
 
 
 def render_and_write_blog_posts_to_disk(entries, output_dir):
-    for entry in entries:
+    for entry in tqdm(entries, desc='Write posts to disk'):
         directory, filename = os.path.split(entry.file_path)
         destination_dir = 'blog/'
         filename, extension = os.path.splitext(filename)
@@ -200,7 +208,7 @@ def render_and_write_blog_posts_to_disk(entries, output_dir):
 
 
 def render_and_write_list_entries_to_disk(entries, output_dir, destination_dir=''):
-    for entry in entries:
+    for entry in tqdm(entries, desc='Write entries to disk'):
         _, filename = os.path.split(entry.file_path)
         filename, extension = os.path.splitext(filename)
         final_dir = destination_dir
@@ -213,7 +221,7 @@ def render_and_write_list_entries_to_disk(entries, output_dir, destination_dir='
 
 def render_list_index(title, entries):
     list_template = jinja_env.get_template('list.html')
-    return list_template.render(title=title, entries=entries)
+    return list_template.render(title=title, entries=entries, last_update_time=datetime.datetime.now())
 
 
 def render_and_write_tags_to_disk(tags, posts_grouped_by_tags, output_dir):
@@ -225,7 +233,7 @@ def render_and_write_tags_to_disk(tags, posts_grouped_by_tags, output_dir):
     with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
         f.write(tag_list_result)
 
-    for tag_name, posts_grouped_by_tag in posts_grouped_by_tags.items():
+    for tag_name, posts_grouped_by_tag in tqdm(posts_grouped_by_tags.items(), desc='Write tags to disk'):
         tag_list_result = render_list_index(f'Beiträge mit dem Tag "{tag_name}"', posts_grouped_by_tag)
         destination_dir = os.path.join(output_dir, 'blog/tag', tag_name)
         if not os.path.exists(destination_dir):

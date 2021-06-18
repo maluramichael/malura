@@ -1,8 +1,29 @@
+:root {
+    --color-bg: #fff;
+    --color-fg: #333;
+    --color-link: crimson;
+    --color-link-visited: darkred;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #333;
+        --color-fg: #fff;
+        --color-link: crimson;
+        --color-link-visited: crimson;
+    }
+}
+
 body, html {
     padding: 0;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+}
+
+html {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
 }
 
 body {
@@ -14,11 +35,11 @@ img {
 }
 
 a {
-    color: crimson;
+    color: var(--color-link);
 }
 
 a:visited {
-    color: darkred;
+    color: var(--color-link-visited);
 }
 
 nav {

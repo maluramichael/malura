@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from shutil import copy
+from tqdm import tqdm
 
 import builder
 
@@ -15,14 +16,14 @@ page_files = Path('pages').rglob('*.html')
 project_files = Path('projects').rglob('*.html')
 asset_files = Path('assets').rglob('*')
 
-posts = [builder.parse_file_and_create_page_entity(file_path) for file_path in post_files]
-pages = [builder.parse_file_and_create_page_entity(file_path) for file_path in page_files]
-projects = [builder.parse_file_and_create_page_entity(file_path) for file_path in project_files]
+posts = [builder.parse_file_and_create_page_entity(file_path) for file_path in tqdm(post_files, desc='Parse posts')]
+pages = [builder.parse_file_and_create_page_entity(file_path) for file_path in tqdm(page_files, desc='Parse pages')]
+projects = [builder.parse_file_and_create_page_entity(file_path) for file_path in tqdm(project_files, desc='Parse projects')]
 
 posts.sort(key=lambda x: x.date, reverse=True)
 
 # Group posts by tags and gather all tags
-for post in posts:
+for post in tqdm(posts, desc='Group posts by tags'):
     for tag in post.tags.split(' '):
         if tag not in tags:
             tags.append(tag)
@@ -51,7 +52,7 @@ with open(os.path.join(output_dir, 'projects/index.html'), 'w') as output_file:
 if not os.path.exists(os.path.join(output_dir, 'assets')):
     os.makedirs(os.path.join(output_dir, 'assets'))
 
-for asset_file in asset_files:
+for asset_file in tqdm(asset_files, desc='Copy assets'):
     copy(asset_file, os.path.join(output_dir, 'assets'))
 
 builder.generate_sitemap(output_dir, pages, posts, tags)
