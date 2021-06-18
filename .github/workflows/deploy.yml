@@ -38,6 +38,8 @@ jobs:
     - name: Adding Known Hosts
       run: ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     - name: Build
-      run: TOKEN=${{ secrets.TOKEN }} python build.py
+      env:
+        PAT: ${{ secrets.PAT }}
+      run: python build.py
     - name: Deploy
       run: ./deploy.sh ${{ secrets.SSH_HOST }}

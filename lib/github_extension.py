@@ -3,21 +3,15 @@ import os
 from diskcache import Cache
 
 cache = Cache("_cache")
-token = os.environ.get('TOKEN')
-
-g = None
-if token:
-    g = Github(token)
+token = os.environ.get('PAT')
+g = Github(token)
 
 
 @cache.memoize()
 def get_repos():
-    if g:
-        user = g.get_user()
-        repos = [repo for repo in user.get_repos(type='sources') if repo.owner.login == user.login and not repo.fork]
-        return repos
-    else:
-        return []
+    user = g.get_user()
+    repos = [repo for repo in user.get_repos(type='sources') if repo.owner.login == user.login and not repo.fork]
+    return repos
 
 
 def get_github_infos():
