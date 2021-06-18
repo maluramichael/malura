@@ -2,3 +2,4 @@
 _output
 .idea
 venv
+__pycache__

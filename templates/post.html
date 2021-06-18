@@ -2,12 +2,14 @@
 {% import 'helper_macros.html' as helper %}
 {% block title %}{{page.title}}{% endblock %}
 {% block content %}
+<div>
+    Erstellt am {{ helper.render_date(page.date) }}
+    <br>
+    Tags: {{ helper.render_tag_list(page.tags) }}
+</div>
 <h1>
     {{ page.title }}
 </h1>
-<div>
-    {{ helper.render_tag_list(page.tags) }}
-</div>
 <div>
     {{ page.content|safe }}
 </div>

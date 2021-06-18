@@ -15,9 +15,8 @@ import pathlib
 
 jinja_env = Environment(
     loader=FileSystemLoader(['templates']),
-    autoescape=select_autoescape()
+    autoescape=select_autoescape(),
 )
-
 
 class MetaDataHtmlParser(HTMLParser):
     parsed = False
@@ -71,8 +70,8 @@ class Page:
 
 def render_page(page_to_render, template_name='page.html'):
     page_template = jinja_env.get_template(template_name)
-
-    return page_template.render(page=page_to_render)
+    is_debug = os.environ.get('DEBUG') is not None
+    return page_template.render(page=page_to_render, debug=is_debug)
 
 
 def parse_file_and_create_page_entity(file_path):
@@ -93,7 +92,6 @@ def parse_file_and_create_page_entity(file_path):
                         setattr(page, key, datetime.datetime.strptime(value, "%Y-%m-%d"))
                     else:
                         setattr(page, key, value)
-
 
         path_object = pathlib.Path(file_path)
         stat = path_object.stat()

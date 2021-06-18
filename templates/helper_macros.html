@@ -1,3 +1,7 @@
 {% macro render_tag_list(tags) -%}
-    Tags: {% for tag in tags.split(' ') %}<a href="/blog/tag/{{tag}}">{{tag}}</a> {% endfor %}
+    {% for tag in tags.split(' ')|sort %}<a href="/blog/tag/{{tag}}">{{tag}}</a>{{ " - " if not loop.last else "" }}{% endfor %}
+{%- endmacro %}
+
+{% macro render_date(date) -%}
+    {{ date.strftime('%d.%m.%Y') }}
 {%- endmacro %}

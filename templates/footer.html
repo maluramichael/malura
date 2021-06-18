@@ -1,10 +1,9 @@
+{% import 'helper_macros.html' as helper %}
 <footer>
-    <hr>
     {% block footer %}{% endblock %}
     {% if page and page.last_update_time %}
-        Letztes Update: {{ page.last_update_time }}
+        Letztes Update: {{ helper.render_date(page.last_update_time) }}
     {% elif last_update_time %}
-        Letztes Update: {{ last_update_time }}
+        Letztes Update: {{ helper.render_date(last_update_time) }}
     {% endif %}
-
 </footer>

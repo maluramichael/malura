@@ -1,7 +1,7 @@
 :root {
     --color-bg: #fff;
     --color-fg: #333;
-    --color-link: crimson;
+    --color-link: cornfowerblue;
     --color-link-visited: darkred;
 }
 
@@ -27,7 +27,9 @@ html {
 }
 
 body {
-    padding: 30px;
+    padding: 30px 10px;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
 img {
@@ -49,11 +51,25 @@ nav {
 }
 
 nav a {
-    font-size: 20px;
+    padding: 10px;
+}
+
+nav a:first-child {
+    padding-left: 0px;
+}
+
+nav a:last-child {
+    padding-right: 0px;
 }
 
 nav img {
     float: right;
+}
+
+footer {
+    border-top: 3px solid black;
+    padding-top: 10px;
+    margin: 10px 0;
 }
 
 .codehilite {
