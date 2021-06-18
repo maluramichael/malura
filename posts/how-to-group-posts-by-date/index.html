@@ -7,23 +7,3 @@
 -->
 <p>I wanted to remove the plain list of blog posts and create a list that is grouped by years and months.</p>
 <h2>Code</h2>
-<div class="codehilite"><pre><span></span><code>{% assign years = site.posts | group_by_exp:&quot;post&quot;, &quot;post.date | date: &#39;%Y&#39;&quot; %}
-{% for year in years %}
-  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{{year.name}}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-  {% assign months = year.items | group_by_exp:&quot;post&quot;, &quot;post.date | date: &#39;%B&#39;&quot; %}
-  {% for month in months %}
-  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{{month.name}}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-    {% for post in month.items %}
-      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ post.url }}&quot;</span><span class="p">&gt;</span>{{ post.title }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-    {% endfor %}
-    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-  {% endfor %}
-  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-{% endfor %}
-</code></pre></div>

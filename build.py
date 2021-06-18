@@ -3,8 +3,8 @@ import os
 from shutil import copy
 from tqdm import tqdm
 import art
-import builder
 
+from lib import builder
 
 output_dir = '_output'
 posts_dir = 'posts'
@@ -21,9 +21,10 @@ asset_files = Path('assets').rglob('*')
 
 print(art.text2art('Parse files'))
 
+projects = [builder.parse_file_and_create_page_entity(file_path) for file_path in
+            tqdm(project_files, desc='Parse projects')]
 posts = [builder.parse_file_and_create_page_entity(file_path) for file_path in tqdm(post_files, desc='Parse posts')]
 pages = [builder.parse_file_and_create_page_entity(file_path) for file_path in tqdm(page_files, desc='Parse pages')]
-projects = [builder.parse_file_and_create_page_entity(file_path) for file_path in tqdm(project_files, desc='Parse projects')]
 
 posts.sort(key=lambda x: x.date, reverse=True)
 
@@ -43,11 +44,17 @@ for tag_group, posts_by_tag in posts_grouped_by_tags.items():
 
 tags.sort()
 
+context = {
+    'projects': projects,
+    'pages': pages,
+    'posts': posts,
+}
+
 print(art.text2art('Write to disk'))
 
-builder.render_and_write_blog_posts_to_disk(posts, output_dir)
-builder.render_and_write_list_entries_to_disk(pages, output_dir)
-builder.render_and_write_list_entries_to_disk(projects, output_dir, 'projects')
+builder.render_and_write_blog_posts_to_disk(posts, context, output_dir)
+builder.render_and_write_list_entries_to_disk(pages, context, output_dir)
+builder.render_and_write_list_entries_to_disk(projects, context, output_dir, 'projects')
 builder.render_and_write_tags_to_disk(tags, posts_grouped_by_tags, output_dir)
 
 with open(os.path.join(output_dir, 'blog/index.html'), 'w') as output_file:

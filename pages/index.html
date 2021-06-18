@@ -41,4 +41,9 @@
     <li>
         Ich habe Wurzeln in <a href="https://de.wikipedia.org/wiki/Racib%C3%B3rz">Racibórz</a>.
     </li>
+
+    {% if github %}
+        <li>Auf <a href="https://github.com/maluramichael">Github</a> habe ich {{ github.repo_count }} Repositories, {{ github.star_count }} Sterne und {{ github.fork_count }} Forks.</li>
+    {% endif %}
+    <li>Dieser Blog hat {{ posts | length }} Beiträge.</li>
 </ul>

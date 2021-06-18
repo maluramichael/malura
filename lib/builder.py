@@ -8,15 +8,22 @@ from glob import glob
 from html.parser import HTMLParser
 from io import StringIO
 from shutil import copy
-from jinja2 import Environment, select_autoescape, FileSystemLoader
+from jinja2 import Environment, select_autoescape, FileSystemLoader, BaseLoader, TemplateNotFound
 from tqdm import tqdm
 import pathlib
 
+from .github_extension import get_github_infos
+
+global_context = {
+    'debug': os.environ.get('DEBUG') is not None,
+    'github': get_github_infos()
+}
 
 jinja_env = Environment(
     loader=FileSystemLoader(['templates']),
     autoescape=select_autoescape(),
 )
+
 
 class MetaDataHtmlParser(HTMLParser):
     parsed = False
@@ -68,10 +75,32 @@ class Page:
     last_update_time: datetime.datetime = datetime.datetime.now()
 
 
-def render_page(page_to_render, template_name='page.html'):
-    page_template = jinja_env.get_template(template_name)
-    is_debug = os.environ.get('DEBUG') is not None
-    return page_template.render(page=page_to_render, debug=is_debug)
+class MyFileSystemLoader(FileSystemLoader):
+    def __init__(self, searchpath):
+        super().__init__(searchpath)
+
+        self.original_get_source = self.get_source
+
+        def wrapped_get_source(environment, template):
+            contents, filename, uptodate = self.original_get_source(environment, template)
+
+            if 'posts' in filename or 'pages' in filename:
+                contents = f'{{% extends "page.html" %}}\n{{% block content %}}\n<h1>{{{{ page.title }}}}</h1>\n{contents}\n{{% endblock %}}'
+
+            return contents, filename, uptodate
+
+        self.get_source = wrapped_get_source
+
+
+def render_page(page_to_render, context):
+    directory, filename = os.path.split(page_to_render.file_path)
+    temporary_env = Environment(
+        loader=MyFileSystemLoader(['.', 'templates'])
+    )
+    file_template = temporary_env.get_template(str(page_to_render.file_path))
+
+    rendered = file_template.render(page=page_to_render, **context, **global_context)
+    return rendered
 
 
 def parse_file_and_create_page_entity(file_path):
@@ -89,7 +118,8 @@ def parse_file_and_create_page_entity(file_path):
             for key, value in htmlParser.meta_data.items():
                 if key in names:
                     if key == 'date':
-                        setattr(page, key, datetime.datetime.strptime(value, "%Y-%m-%d"))
+                        setattr(page, key, datetime.datetime.strptime(
+                            value, "%Y-%m-%d"))
                     else:
                         setattr(page, key, value)
 
@@ -101,7 +131,8 @@ def parse_file_and_create_page_entity(file_path):
         if more_tag in page.content:
             more_start = page.content.index(more_tag)
             page.teaser = page.content[0:more_start]
-            lines = [line for line in page.content.splitlines() if more_tag not in line]
+            lines = [line for line in page.content.splitlines()
+                     if more_tag not in line]
             page.content = '\n'.join(lines)
 
         return page
@@ -174,14 +205,14 @@ def write_page_as_html_to_disk(page_to_write, output_dir, destination_dir):
         f.write(page_to_write.rendered)
 
 
-def render_and_write_page_has_html_to_disk(page, output_dir, destination_dir):
-    rendered_page = render_page(page)
+def render_and_write_page_has_html_to_disk(page, context, output_dir, destination_dir):
+    rendered_page = render_page(page, context)
     page.rendered = rendered_page
 
     write_page_as_html_to_disk(page, output_dir, destination_dir)
 
 
-def render_and_write_blog_posts_to_disk(entries, output_dir):
+def render_and_write_blog_posts_to_disk(entries, context, output_dir):
     for entry in tqdm(entries, desc='Write posts to disk'):
         directory, filename = os.path.split(entry.file_path)
         destination_dir = 'blog/'
@@ -196,7 +227,7 @@ def render_and_write_blog_posts_to_disk(entries, output_dir):
         else:
             destination_dir += filename + '/'
 
-        entry.rendered = render_page(entry, 'post.html')
+        entry.rendered = render_page(entry, context)
         entry.url = destination_dir
 
         write_page_as_html_to_disk(entry, output_dir, destination_dir)
@@ -205,7 +236,7 @@ def render_and_write_blog_posts_to_disk(entries, output_dir):
             copy(other_file, os.path.join(output_dir, destination_dir))
 
 
-def render_and_write_list_entries_to_disk(entries, output_dir, destination_dir=''):
+def render_and_write_list_entries_to_disk(entries, context, output_dir, destination_dir=''):
     for entry in tqdm(entries, desc='Write entries to disk'):
         _, filename = os.path.split(entry.file_path)
         filename, extension = os.path.splitext(filename)
@@ -214,7 +245,7 @@ def render_and_write_list_entries_to_disk(entries, output_dir, destination_dir='
         if filename != 'index':
             final_dir = os.path.join(final_dir, filename)
 
-        render_and_write_page_has_html_to_disk(entry, output_dir, final_dir)
+        render_and_write_page_has_html_to_disk(entry, context, output_dir, final_dir)
 
 
 def render_list_index(title, entries):
@@ -224,7 +255,8 @@ def render_list_index(title, entries):
 
 def render_and_write_tags_to_disk(tags, posts_grouped_by_tags, output_dir):
     tag_list_template = jinja_env.get_template('tag_list.html')
-    tag_list_result = tag_list_template.render(tags=tags, posts_grouped_by_tags=posts_grouped_by_tags)
+    tag_list_result = tag_list_template.render(
+        tags=tags, posts_grouped_by_tags=posts_grouped_by_tags)
     destination_dir = os.path.join(output_dir, 'blog/tag')
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
@@ -232,7 +264,8 @@ def render_and_write_tags_to_disk(tags, posts_grouped_by_tags, output_dir):
         f.write(tag_list_result)
 
     for tag_name, posts_grouped_by_tag in tqdm(posts_grouped_by_tags.items(), desc='Write tags to disk'):
-        tag_list_result = render_list_index(f'Beiträge mit dem Tag "{tag_name}"', posts_grouped_by_tag)
+        tag_list_result = render_list_index(
+            f'Beiträge mit dem Tag "{tag_name}"', posts_grouped_by_tag)
         destination_dir = os.path.join(output_dir, 'blog/tag', tag_name)
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
