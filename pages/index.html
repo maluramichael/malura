@@ -45,5 +45,9 @@
     {% if github %}
         <li>Auf <a href="https://github.com/maluramichael">Github</a> habe ich {{ github.repo_count }} Repositories, {{ github.star_count }} Sterne und {{ github.fork_count }} Forks.</li>
     {% endif %}
+
+    {% if npmjs %}
+        <li>Meine Libraries auf <a href="https://www.npmjs.com/~maluramichael">NPM</a> wurden dieses Jahr {{ npmjs.downloads['this-year'] }} mal heruntergeladen. Letztes Jahr waren es {{ npmjs.downloads['last-year'] }}.</li>
+    {% endif %}
     <li>Dieser Blog hat {{ posts | length }} Beiträge.</li>
 </ul>
