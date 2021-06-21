@@ -3,18 +3,24 @@ import os
 from diskcache import Cache
 
 cache = Cache("_cache")
+
+if 'PAT' not in os.environ:
+    raise EnvironmentError('PAT environment variable not defined')
+
 token = os.environ.get('PAT')
 g = Github(token)
 
 
-@cache.memoize()
+@cache.memoize(expire=60 * 60 * 24 * 7)
 def get_repos():
+    print('Get github repos')
     user = g.get_user()
     repos = [repo for repo in user.get_repos(type='sources') if repo.owner.login == user.login and not repo.fork]
     return repos
 
 
 def get_github_infos():
+    print('Get github infos')
     repos = get_repos()
     return {
         'repos': repos,

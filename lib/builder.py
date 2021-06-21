@@ -15,6 +15,7 @@ import pathlib
 from .github_extension import get_github_infos
 from .npmjs_extension import get_npm_infos
 
+
 global_context = {
     'debug': os.environ.get('DEBUG') is not None,
     'github': get_github_infos(),

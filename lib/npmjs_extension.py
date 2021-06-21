@@ -1,15 +1,19 @@
 import datetime
 
 import requests
-from github import Github
 import os
 from diskcache import Cache
+from tqdm import tqdm
 
 cache = Cache("_cache")
+
+if 'NPMJS_TOKEN' not in os.environ:
+    raise EnvironmentError('NPMJS_TOKEN environment variable not defined')
+
 token = os.environ.get('NPMJS_TOKEN')
 
 
-@cache.memoize()
+@cache.memoize(expire=60 * 60 * 24 * 7)
 def get_downloads_for_package(name, today):
     year = 2021
 
@@ -25,7 +29,7 @@ def get_downloads_for_package(name, today):
     return result
 
 
-@cache.memoize()
+@cache.memoize(expire=60 * 60 * 24 * 7)
 def get_packages():
     resp = requests.get(url='https://registry.npmjs.org/-/user/maluramichael/package')
     data = resp.json()
@@ -33,7 +37,7 @@ def get_packages():
 
     packages = {}
 
-    for name in names:
+    for name in tqdm(names, desc='Get npm download statistics'):
         today = datetime.datetime.now().strftime("%Y-%m-%d")
         packages[name] = get_downloads_for_package(name, today)
 
@@ -55,6 +59,7 @@ def get_downloads_for_all_packages():
 
 
 def get_npm_infos():
+    print('Get npmjs infos')
     packages = get_packages()
     return {
         'packages': packages,
