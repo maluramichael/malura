@@ -1,8 +1,8 @@
 :root {
     --color-bg: #fff;
     --color-fg: #333;
-    --color-link: cornfowerblue;
-    --color-link-visited: darkred;
+    --color-link: cornflowerblue;
+    --color-link-visited: #42639e;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,19 +55,23 @@ nav a {
 }
 
 nav a:first-child {
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 nav a:last-child {
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 nav img {
     float: right;
 }
 
+.metadata {
+    font-style: italic;
+    font-size: 14px;
+}
+
 footer {
-    border-top: 3px solid black;
     padding-top: 10px;
     margin: 10px 0;
 }

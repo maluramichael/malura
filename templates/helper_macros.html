@@ -5,3 +5,21 @@
 {% macro render_date(date) -%}
     {{ date.strftime('%d.%m.%Y') }}
 {%- endmacro %}
+
+{% macro render_metadata(page) -%}
+    <div class="metadata">
+        {% if page %}
+        Erstellt am: {{ render_date(page.date) }}
+        <br>
+        {% if page.last_update_time %}
+        Letztes Update: {{ render_date(page.last_update_time) }}
+        {% elif last_update_time %}
+        Letztes Update: {{ render_date(last_update_time) }}
+        {% endif %}
+        {% if page.tags | length > 0 %}
+        <br>
+        Tags: {{ render_tag_list(page.tags) }}
+        {% endif %}
+        {% endif %}
+    </div>
+{%- endmacro %}

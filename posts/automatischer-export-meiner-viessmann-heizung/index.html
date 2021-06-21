@@ -7,7 +7,7 @@
 -->
 
 <p>Ende 2017 haben wir die 40 Jahre alte Oelheizung durch eine neue Anlage von Viessmann ersetzt. Das moderne Geraet stellt viele verschiedene Datenpunkte bereit und ich erklaere wie ich diese auslese und verarbeite.</p>
-<p>MORE</p>
+__MORE__
 <p><img alt="Grafana Dashboard" src="heizung.png" title="Grafana" /></p>
 <h2>Welche Anlage besitze ich?</h2>
 <ul>
@@ -38,7 +38,7 @@ status,source=pump_internal,provider=heating current=$21
 
 <h2>Meine vcontrold.xml</h2>
 <div class="codehilite"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-<span class="nt">&lt;V-Control</span> <span class="na">xmlns:vcontrol=</span><span class="s">&quot;http://www.openv.de/vcontrol&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;V-Control</span> <span class="na">xmlns:vcontrol=</span><span class="s">&quot;https://www.openv.de/vcontrol&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;unix&gt;</span>
     <span class="nt">&lt;config&gt;</span>
       <span class="nt">&lt;serial&gt;</span>
@@ -366,7 +366,7 @@ status,source=pump_internal,provider=heating current=$21
       <span class="nt">&lt;/commands&gt;</span>
     <span class="nt">&lt;/protocol&gt;</span>
   <span class="nt">&lt;/protocols&gt;</span>
-  <span class="nt">&lt;extern</span> <span class="na">xmlns:xi=</span><span class="s">&quot;http://www.w3.org/2003/XInclude&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;extern</span> <span class="na">xmlns:xi=</span><span class="s">&quot;https://www.w3.org/2003/XInclude&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;xi:include</span> <span class="na">href=</span><span class="s">&quot;vito.xml&quot;</span> <span class="na">parse=</span><span class="s">&quot;xml&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;/extern&gt;</span>
 <span class="nt">&lt;/V-Control&gt;</span>
