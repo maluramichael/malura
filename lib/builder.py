@@ -9,6 +9,7 @@ from shutil import copy
 from jinja2 import Environment, select_autoescape, FileSystemLoader, Template
 from tqdm import tqdm
 import pathlib
+import minify_html
 
 from .npmjs_extension import get_npm_infos
 from .github_extension import get_github_infos
@@ -117,7 +118,8 @@ def write_page_as_html_to_disk(page_to_write, output_dir, destination_dir):
     page_to_write.rendered = rendered
 
     with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
-        f.write(page_to_write.rendered)
+        minified = minify_html.minify(rendered)
+        f.write(minified)
 
 
 def get_destination_dir_for_blog_post(entry, absolute=False):
@@ -186,7 +188,10 @@ def write_list_entries(entries, output_dir, destination_dir=''):
 def render_list_index(title, entries):
     list_template = default_jinja_env.get_template('list.html')
     published_entries = [p for p in entries if not p.draft]
-    return list_template.render(title=title, entries=published_entries, last_update_time=datetime.datetime.now())
+    rendered = list_template.render(title=title, entries=published_entries, last_update_time=datetime.datetime.now())
+    minified = minify_html.minify(rendered)
+
+    return minified
 
 
 def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):

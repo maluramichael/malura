@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from shutil import copy
 from tqdm import tqdm
+import rcssmin
 
 from lib import builder
 from lib.html_parser import LinkParser
@@ -11,10 +12,10 @@ from lib.sitemap import generate_sitemap
 output_dir = '_output'
 posts_dir = 'posts'
 
-post_files = Path('posts').rglob('*.html')
-page_files = Path('pages').rglob('*.html')
-project_files = Path('projects').rglob('*.html')
-asset_files = Path('assets').rglob('*')
+post_files = list(Path('posts').rglob('*.html'))
+page_files = list(Path('pages').rglob('*.html'))
+project_files = list(Path('projects').rglob('*.html'))
+asset_files = list(Path('assets').rglob('*'))
 
 context = {
     'projects': [
@@ -86,6 +87,17 @@ if not os.path.exists(os.path.join(output_dir, 'assets')):
 
 for asset_file in tqdm(asset_files, desc='Copy assets'):
     copy(asset_file, os.path.join(output_dir, 'assets'))
+
+css_files = [str(file) for file in asset_files if str(file).endswith('.css')]
+combined_css_files = ''
+
+for css_file in css_files:
+    with open(css_file, 'r') as f:
+        combined_css_files += f.read()
+
+with open(os.path.join(output_dir, 'assets', 'styles.css'), 'w') as f:
+    minified = rcssmin.cssmin(combined_css_files)
+    f.write(minified)
 
 generate_sitemap(output_dir, context['pages'], context['posts'], context['tags'])
 generate_rss_feed_posts(output_dir, context['posts'])

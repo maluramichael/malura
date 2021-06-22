@@ -8,7 +8,7 @@ from lib.html_parser import HtmlStripper
 cache = Cache("_cache")
 
 
-# @cache.memoize(expire=60 * 60 * 24 * 7)
+@cache.memoize(expire=60 * 60 * 24 * 7)
 def get_games_count():
     data = requests.get(url='https://www.gog.com/u/maluramichael').text
     stripper = HtmlStripper()
