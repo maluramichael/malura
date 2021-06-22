@@ -15,6 +15,8 @@ from .github_extension import get_github_infos
 
 from .html_parser import MetaDataHtmlParser
 from .page import Page
+from .steam_extension import get_steam_infos
+from .gog_extension import get_gog_infos
 from .twitter_extension import get_twitter_infos
 
 more_tag = '__MORE__'
@@ -23,7 +25,9 @@ global_context = {
     'debug': os.environ.get('DEBUG') is not None,
     'github': get_github_infos(),
     'npmjs': get_npm_infos(),
-    'twitter': get_twitter_infos()
+    'twitter': get_twitter_infos(),
+    'steam': get_steam_infos(),
+    'gog': get_gog_infos(),
 }
 
 default_jinja_env = Environment(
@@ -189,7 +193,7 @@ def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
     tag_list_template = default_jinja_env.get_template('tag_list.html')
     tag_list_result = tag_list_template.render(
         tags=tags, pages_grouped_by_tags=pages_grouped_by_tags)
-    destination_dir = os.path.join(output_dir, 'blog/tag')
+    destination_dir = os.path.join(output_dir, 'tag')
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
     with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
@@ -197,8 +201,8 @@ def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
 
     for tag_name, posts_grouped_by_tag in tqdm(pages_grouped_by_tags.items(), desc='Write tags to disk'):
         tag_list_result = render_list_index(
-            f'Beiträge mit dem Tag "{tag_name}"', posts_grouped_by_tag)
-        destination_dir = os.path.join(output_dir, 'blog/tag', tag_name)
+            f'Seiten mit dem Tag "{tag_name}"', posts_grouped_by_tag)
+        destination_dir = os.path.join(output_dir, 'tag', tag_name)
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
         with open(os.path.join(destination_dir, 'index.html'), 'w') as f:

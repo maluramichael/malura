@@ -1,6 +1,6 @@
 {% macro render_tag_list(tags) -%}
 {% for tag in tags.split(' ')|sort %}<a
-        href="/blog/tag/{{tag}}">{{tag}}</a>{{ " - " if not loop.last else "" }}{% endfor %}
+        href="/tag/{{tag}}">{{tag}}</a>{{ " - " if not loop.last else "" }}{% endfor %}
 {%- endmacro %}
 
 {% macro render_date(date) -%}

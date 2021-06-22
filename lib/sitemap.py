@@ -13,7 +13,7 @@ def generate_sitemap(output_dir, pages, posts, tags):
         sitemap += f"<url>\n  <loc>https://malura.de{page.url}</loc>\n  <lastmod>{page.date.strftime('%Y-%m-%d')}</lastmod>\n</url>\n"
 
     for tag in tqdm(tags, desc='Write tags to sitemap'):
-        sitemap += f"<url>\n  <loc>https://malura.de/blog/tag/{tag}</loc>\n  <lastmod>{datetime.datetime.now().strftime('%Y-%m-%d')}</lastmod>\n</url>\n"
+        sitemap += f"<url>\n  <loc>https://malura.de/tag/{tag}</loc>\n  <lastmod>{datetime.datetime.now().strftime('%Y-%m-%d')}</lastmod>\n</url>\n"
 
     sitemap += '</urlset>'
 
