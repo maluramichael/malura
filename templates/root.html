@@ -4,7 +4,9 @@
 <body>
 {% include 'header.html' %}
 {% block content %}{% endblock %}
-{% include 'footer.html' %}
+<footer>
+    {% block footer %}{% endblock %}
+</footer>
 <!--{% if debug %}{% include 'browsersync.html' %}{% endif %}-->
 </body>
 </html>

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: "Final Fantasy 3/6 Font Regular";
+    src: url("final_fantasy_36_font.eot?") format("eot"), url("final_fantasy_36_font.woff") format("woff"), url("final_fantasy_36_font.ttf") format("truetype"), url("final_fantasy_36_font.svg#Final-Fantasy-3/6-Font") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --color-bg: #fff;
     --color-fg: #333;
@@ -17,8 +24,11 @@
 body, html {
     padding: 0;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+}
+
+body, html, code, pre {
+    font-size: 22px;
+    font-family: 'Final Fantasy 3/6 Font Regular', monospace;
 }
 
 html {
@@ -27,9 +37,8 @@ html {
 }
 
 body {
-    padding: 30px 10px;
-    max-width: 1280px;
-    margin: 0 auto;
+    padding: 10px;
+    max-width: 960px;
 }
 
 img {
@@ -48,6 +57,7 @@ nav {
     border-bottom: 3px solid black;
     padding-bottom: 10px;
     margin: 10px 0;
+    font-size: 30px;
 }
 
 nav a {
@@ -67,15 +77,29 @@ nav img {
 }
 
 .metadata {
-    font-style: italic;
-    font-size: 14px;
 }
 
 footer {
     padding-top: 10px;
     margin: 10px 0;
+    border-top: 3px solid black;
 }
 
 .codehilite {
-    padding: 3px 20px;
+    padding: 10px;
+    overflow: auto;
+}
+
+.codehilite pre {
+    line-height: 1;
+    margin: 0;
+}
+
+.codehilite pre code {
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.codehilite + .codehilite {
+    margin-top: 10px;
 }
