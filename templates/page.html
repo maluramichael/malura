@@ -8,3 +8,7 @@
     {{ page.rendered|safe }}
 </div>
 {% endblock %}
+{% block footer %}
+{{ helper.render_metadata(page) }}
+{{ helper.render_related_pages(page) }}
+{% endblock %}

@@ -10,15 +10,5 @@
 {% endblock %}
 {% block footer %}
 {{ helper.render_metadata(page) }}
-
-{% if page.related_pages | length %}
-<div>Ähnliche Beiträge:</div>
-<ul>
-    {% for related in page.related_pages %}
-    <li>
-        {{helper.render_link(related)}}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+{{ helper.render_related_pages(page) }}
 {% endblock %}

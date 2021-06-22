@@ -14,6 +14,7 @@ class Page:
     tags: str = ''
     url: str = '/'
     draft: bool = False
+    show_create_date: bool = True
     related_pages: List[object] = dataclasses.field(default_factory=list)
     other_files: List[str] = dataclasses.field(default_factory=list)
     date: datetime.datetime = datetime.datetime.now()

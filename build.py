@@ -31,23 +31,25 @@ context = {
     ],
     'external_links': [],
     'tags': [],
-    'posts_grouped_by_tags': {}
+    'pages_grouped_by_tags': {}
 }
 
 context['posts'].sort(key=lambda x: x.date, reverse=True)
+context['pages'].sort(key=lambda x: x.date, reverse=True)
+context['projects'].sort(key=lambda x: x.date, reverse=True)
 
-for post in tqdm(context['posts'], desc='Group posts by tags'):
+for post in tqdm(context['posts'] + context['projects'], desc='Group pages by tags'):
     for tag in post.tags.split(' '):
         if tag not in context['tags']:
             context['tags'].append(tag)
 
-        if tag not in context['posts_grouped_by_tags']:
-            context['posts_grouped_by_tags'][tag] = list()
+        if tag not in context['pages_grouped_by_tags']:
+            context['pages_grouped_by_tags'][tag] = list()
 
-        context['posts_grouped_by_tags'][tag].append(post)
+        context['pages_grouped_by_tags'][tag].append(post)
 
-for tag_group, posts_by_tag in context['posts_grouped_by_tags'].items():
-    posts_by_tag.sort(key=lambda x: x.date, reverse=True)
+for tag_group, pages_by_tag in context['pages_grouped_by_tags'].items():
+    pages_by_tag.sort(key=lambda x: x.date, reverse=True)
 
 context['tags'].sort()
 
@@ -59,13 +61,16 @@ for entry in context['posts'] + context['pages'] + context['projects']:
             context['external_links'].append(link)
 
 builder.set_blog_post_urls(context['posts'])
-builder.set_related_posts(context['posts'], context['posts_grouped_by_tags'])
+builder.set_related_pages(context['posts'] + context['projects'], context['pages_grouped_by_tags'])
 builder.set_urls(context['projects'], 'projects')
 builder.set_urls(context['pages'])
+
+for page in context['pages']: page.show_create_date = False
+
 builder.render_entries(context['posts'], context)
 builder.render_entries(context['pages'], context)
 builder.render_entries(context['projects'], context)
-builder.render_and_write_tags_to_disk(context['tags'], context['posts_grouped_by_tags'], output_dir)
+builder.render_and_write_tags_to_disk(context['tags'], context['pages_grouped_by_tags'], output_dir)
 
 builder.write_blog_posts(context['posts'], output_dir)
 builder.write_list_entries(context['pages'], output_dir)

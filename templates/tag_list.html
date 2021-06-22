@@ -9,7 +9,7 @@
     {% for tag in tags %}
         <li>
             <a href="/blog/tag/{tag_entry}">
-                {{ tag }} ({{  posts_grouped_by_tags[tag]|length }})
+                {{ tag }} ({{  pages_grouped_by_tags[tag]|length }})
             </a>
         </li>
     {% endfor %}

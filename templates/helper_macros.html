@@ -1,29 +1,46 @@
 {% macro render_tag_list(tags) -%}
-    {% for tag in tags.split(' ')|sort %}<a href="/blog/tag/{{tag}}">{{tag}}</a>{{ " - " if not loop.last else "" }}{% endfor %}
+{% for tag in tags.split(' ')|sort %}<a
+        href="/blog/tag/{{tag}}">{{tag}}</a>{{ " - " if not loop.last else "" }}{% endfor %}
 {%- endmacro %}
 
 {% macro render_date(date) -%}
-    {{ date.strftime('%d.%m.%Y') }}
+{{ date.strftime('%d.%m.%Y') }}
 {%- endmacro %}
 
 {% macro render_link(page) -%}
-    <a href="{{page.url}}">{{ page.title }}</a>
+<a href="{{page.url}}">{{ page.title }}</a>
+{%- endmacro %}
+
+
+{% macro render_related_pages(page) -%}
+{% if page.related_pages | length %}
+<div>Ähnliche Beiträge:</div>
+<ul>
+    {% for related in page.related_pages %}
+    <li>
+        {{render_link(related)}}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
 {%- endmacro %}
 
 {% macro render_metadata(page) -%}
-    <div class="metadata">
-        {% if page %}
-        Erstellt am: {{ render_date(page.date) }}
-        <br>
-        {% if page.last_update_time %}
-        Letztes Update: {{ render_date(page.last_update_time) }}
-        {% elif last_update_time %}
-        Letztes Update: {{ render_date(last_update_time) }}
-        {% endif %}
-        {% if page.tags | length > 0 %}
-        <br>
-        Tags: {{ render_tag_list(page.tags) }}
-        {% endif %}
-        {% endif %}
-    </div>
+<div class="metadata">
+    {% if page %}
+    {% if page.show_create_date %}
+    Erstellt am: {{ render_date(page.date) }}
+    <br>
+    {% endif %}
+    {% if page.last_update_time %}
+    Letztes Update: {{ render_date(page.last_update_time) }}
+    {% elif last_update_time %}
+    Letztes Update: {{ render_date(last_update_time) }}
+    {% endif %}
+    {% if page.tags | length > 0 %}
+    <br>
+    Tags: {{ render_tag_list(page.tags) }}
+    {% endif %}
+    {% endif %}
+</div>
 {%- endmacro %}
