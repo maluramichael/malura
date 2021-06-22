@@ -6,6 +6,10 @@
     {{ date.strftime('%d.%m.%Y') }}
 {%- endmacro %}
 
+{% macro render_link(page) -%}
+    <a href="{{page.url}}">{{ page.title }}</a>
+{%- endmacro %}
+
 {% macro render_metadata(page) -%}
     <div class="metadata">
         {% if page %}

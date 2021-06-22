@@ -59,6 +59,7 @@ for entry in context['posts'] + context['pages'] + context['projects']:
             context['external_links'].append(link)
 
 builder.set_blog_post_urls(context['posts'])
+builder.set_related_posts(context['posts'], context['posts_grouped_by_tags'])
 builder.set_urls(context['projects'], 'projects')
 builder.set_urls(context['pages'])
 builder.render_entries(context['posts'], context)

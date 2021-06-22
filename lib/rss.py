@@ -23,7 +23,8 @@ def generate_rss_feed_posts(output_dir, posts):
         <copyright>Michael Malura</copyright>
         <pubDate>{now_2822}</pubDate>'''
 
-    for page in tqdm(posts, desc='Write posts to rss feed'):
+    published_posts = [p for p in posts if not p.draft]
+    for page in tqdm(published_posts, desc='Write posts to rss feed'):
         page_2822 = utils.format_datetime(page.date)
         url = f'https://malura.de{page.url}'
         description = '<description/>'

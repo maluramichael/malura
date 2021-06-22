@@ -1,5 +1,6 @@
 import datetime
 import os
+import random
 import re
 from dataclasses import fields
 from glob import glob
@@ -115,7 +116,7 @@ def write_page_as_html_to_disk(page_to_write, output_dir, destination_dir):
         f.write(page_to_write.rendered)
 
 
-def get_destination_dir_for_blog_post(entry):
+def get_destination_dir_for_blog_post(entry, absolute=False):
     directory, filename = os.path.split(entry.file_path)
     destination_dir = 'blog/'
     filename, extension = os.path.splitext(filename)
@@ -128,6 +129,10 @@ def get_destination_dir_for_blog_post(entry):
     else:
         destination_dir += filename + '/'
 
+    if absolute and not destination_dir.startswith('/'):
+        destination_dir = '/' + destination_dir
+        return destination_dir
+
     return destination_dir
 
 
@@ -139,7 +144,7 @@ def get_destination_dir_for_entry(entry, destination_dir):
 
 def set_blog_post_urls(entries):
     for entry in tqdm(entries, desc='Set blog post urls'):
-        entry.url = get_destination_dir_for_blog_post(entry)
+        entry.url = get_destination_dir_for_blog_post(entry, True)
 
 
 def set_urls(entries, destination_dir=''):
@@ -176,7 +181,8 @@ def write_list_entries(entries, output_dir, destination_dir=''):
 
 def render_list_index(title, entries):
     list_template = default_jinja_env.get_template('list.html')
-    return list_template.render(title=title, entries=entries, last_update_time=datetime.datetime.now())
+    published_entries = [p for p in entries if not p.draft]
+    return list_template.render(title=title, entries=published_entries, last_update_time=datetime.datetime.now())
 
 
 def render_and_write_tags_to_disk(tags, posts_grouped_by_tags, output_dir):
@@ -197,3 +203,17 @@ def render_and_write_tags_to_disk(tags, posts_grouped_by_tags, output_dir):
             os.makedirs(destination_dir)
         with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
             f.write(tag_list_result)
+
+
+def set_related_posts(posts, posts_grouped_by_tags):
+    for post in posts:
+        post.related_pages = []
+
+        for tag in post.tags.split():
+            if tag in posts_grouped_by_tags.keys():
+                posts_by_tag = [p for p in posts_grouped_by_tags[tag] if p != post]
+                if len(posts_by_tag):
+                    random_post_by_tag = random.choice(posts_by_tag)
+
+                    if random_post_by_tag not in post.related_pages:
+                        post.related_pages.append(random_post_by_tag)

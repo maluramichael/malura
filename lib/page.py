@@ -13,6 +13,8 @@ class Page:
     teaser: str = ''
     tags: str = ''
     url: str = '/'
+    draft: bool = False
+    related_pages: List[object] = dataclasses.field(default_factory=list)
     other_files: List[str] = dataclasses.field(default_factory=list)
     date: datetime.datetime = datetime.datetime.now()
     last_update_time: datetime.datetime = datetime.datetime.now()
