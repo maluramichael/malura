@@ -5,11 +5,18 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "HeinzHeinrich-Regular";
+    src: url("HeinzHeinrich-Regular.eot?") format("eot"), url("HeinzHeinrich-Regular.woff") format("woff"), url("HeinzHeinrich-Regular.ttf") format("truetype"), url("HeinzHeinrich-Regular.svg#HeinzHeinrich-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --color-bg: #fff;
     --color-fg: #333;
     --color-link: cornflowerblue;
-    --color-link-visited: #42639e;
+    --color-link-visited: #4e80dc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,8 +34,8 @@ body, html {
 }
 
 body, html, code, pre {
-    font-size: 22px;
-    font-family: 'Final Fantasy 3/6 Font Regular', monospace;
+    font-size: 14px;
+    font-family: monospace;
 }
 
 html {
@@ -37,7 +44,7 @@ html {
 }
 
 body {
-    padding: 10px;
+    padding: 30px;
     max-width: 960px;
 }
 
@@ -47,17 +54,21 @@ img {
 
 a {
     color: var(--color-link);
+    text-decoration: none;
 }
 
 a:visited {
     color: var(--color-link-visited);
 }
 
+ul {
+    list-style: disc;
+    margin-left: 20px;
+    padding: 0;
+}
+
 nav {
-    border-bottom: 3px solid black;
-    padding-bottom: 10px;
-    margin: 10px 0;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 nav a {
@@ -80,9 +91,7 @@ nav img {
 }
 
 footer {
-    padding-top: 10px;
-    margin: 10px 0;
-    border-top: 3px solid black;
+    margin-top: 30px;
 }
 
 .codehilite {
@@ -102,4 +111,42 @@ footer {
 
 .codehilite + .codehilite {
     margin-top: 10px;
+}
+
+h1 {
+    -webkit-font-smoothing: none;
+    font-family: 'HeinzHeinrich-Regular', serif;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+header .name {
+    font-size: 20px;
+    font-family: 'HeinzHeinrich-Regular', serif;
+}
+
+header .portrait {
+    max-width: 64px;
+    float: left;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+@media (max-width: 640px) {
+    nav a {
+        display: block;
+    }
+
+    nav a {
+        padding: 8px 0;
+    }
+
+    header .name {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    header .portrait {
+        display: none;
+    }
 }

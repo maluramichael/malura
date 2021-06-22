@@ -14,13 +14,15 @@ from .github_extension import get_github_infos
 
 from .html_parser import MetaDataHtmlParser
 from .page import Page
+from .twitter_extension import get_twitter_infos
 
 more_tag = '__MORE__'
 
 global_context = {
     'debug': os.environ.get('DEBUG') is not None,
     'github': get_github_infos(),
-    'npmjs': get_npm_infos()
+    'npmjs': get_npm_infos(),
+    'twitter': get_twitter_infos()
 }
 
 default_jinja_env = Environment(
