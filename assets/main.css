@@ -71,15 +71,21 @@ nav {
     font-size: 20px;
 }
 
-nav a {
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
     padding: 10px;
 }
 
-nav a:first-child {
+nav ul li:first-child {
     padding-left: 0;
 }
 
-nav a:last-child {
+nav ul li:last-child {
     padding-right: 0;
 }
 
@@ -138,11 +144,15 @@ header .portrait {
 }
 
 @media (max-width: 640px) {
-    nav a {
+    h1 {
+        margin-top: 10px;
+    }
+
+    nav ul li {
         display: block;
     }
 
-    nav a {
+    nav ul li {
         padding: 8px 0;
     }
 
