@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /var/log/nginx
+(/bin/zcat $(find . -name '*.gz' -type f | grep -v error); cat *.log) | /usr/bin/goaccess --log-format=COMBINED -o /var/www/stats/index.html
