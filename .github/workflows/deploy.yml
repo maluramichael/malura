@@ -46,4 +46,4 @@ jobs:
           NPMJS_TOKEN: ${{ secrets.NPMJS_TOKEN }}
         run: python build.py
       - name: Deploy
-        run: ./deploy.sh ${{ secrets.SSH_HOST }}
+        run: ./scripts/deploy.sh ${{ secrets.SSH_HOST }}
