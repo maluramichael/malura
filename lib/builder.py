@@ -75,20 +75,19 @@ def parse_file_and_create_page_entity(file_path):
         htmlParser = MetaDataHtmlParser()
         htmlParser.feed(page.content)
 
+        path_object = pathlib.Path(file_path)
+        stat = path_object.stat()
+        modification_date = datetime.datetime.fromtimestamp(stat.st_mtime)
+        page.last_update_time = modification_date
+
         if htmlParser.parsed and htmlParser.meta_data != None:
             names = set([f.name for f in fields(page)])
             for key, value in htmlParser.meta_data.items():
                 if key in names:
                     if key == 'date':
-                        setattr(page, key, datetime.datetime.strptime(
-                            value, "%Y-%m-%d"))
+                        setattr(page, key, datetime.datetime.strptime(value, "%Y-%m-%d"))
                     else:
                         setattr(page, key, value)
-
-        path_object = pathlib.Path(file_path)
-        stat = path_object.stat()
-        modification_date = datetime.datetime.fromtimestamp(stat.st_mtime)
-        page.last_update_time = modification_date
 
         if more_tag in page.content:
             more_start = page.content.index(more_tag)
