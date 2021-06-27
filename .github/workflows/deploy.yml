@@ -40,6 +40,8 @@ jobs:
               IdentityFile ~/.ssh/id_rsa
       - name: Adding Known Hosts
         run: ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Restore timestamps
+        run: ./scripts/restore-timestamps.sh
       - name: Build
         env:
           PAT: ${{ secrets.PAT }}
