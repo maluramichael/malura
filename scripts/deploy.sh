@@ -14,10 +14,13 @@ ssh $HOST <<EOF
     cd ${DESTINATION}
     chown -R root:root /etc/cron.hourly/generatestats
     chmod -R 755 /etc/cron.hourly/generatestats
+    ./etc/cron.hourly/generatestats
 
     chown -R www-data:www-data ${DESTINATION}
     chmod -R 755 ${DESTINATION}
 
     systemctl reload nginx
     systemctl restart cron
+
+
 EOF
