@@ -88,8 +88,6 @@ if not os.path.exists(os.path.join(output_dir, 'assets')):
 for asset_file in tqdm(asset_files, desc='Copy assets'):
     copy(asset_file, os.path.join(output_dir, 'assets'))
 
-copy('generatestats', os.path.join(output_dir))
-
 css_files = [str(file) for file in asset_files if str(file).endswith('.css')]
 combined_css_files = ''
 
