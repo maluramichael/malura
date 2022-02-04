@@ -105,6 +105,25 @@ footer {
     margin-top: 10px;
 }
 
+.full-size-image {
+    transition: all 0.3s;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 50%;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    object-fit: contain;
+}
+
+.full-size-image.hidden {
+    transform: translateX(-50%) translateY(-50%) scale(0) rotateZ(180deg);
+    top: -80%;
+}
+
+.hidden {
+    opacity: 0;
+}
+
 h1 {
     -webkit-font-smoothing: none;
     font-size: 20px;
@@ -125,6 +144,7 @@ header .portrait {
     float: left;
     margin-right: 10px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 @media (max-width: 640px) {

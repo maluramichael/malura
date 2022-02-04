@@ -2,9 +2,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="nsT3RSvlsBfDT50j64ssW5l2_EKvSqRqKrbk_e_4Qm4"/>
+    <meta name="google-site-verification" content="nsT3RSvlsBfDT50j64ssW5l2_EKvSqRqKrbk_e_4Qm4" />
     <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
     <title>{% block title %}Portfolio{% endblock %} - Michael Malura</title>
     <link rel="stylesheet" href="/assets/styles.css">
+    <script>
+        const openAvatar = () => {
+            let img = document.getElementById("overlay");
+
+            if (!img) {
+                img = document.createElement("img");
+                img.id = "overlay";
+                img.src = "/assets/michael_wasser.jpg";
+                img.classList = "hidden full-size-image";
+                img.onclick = () => img.classList = "hidden full-size-image";
+                document.body.prepend(img);
+                img.onload = () => img.classList = "full-size-image";
+            } else {
+                img.classList = img.classList.contains("hidden") ? "full-size-image" : "hidden full-size-image";
+            }
+        }
+    </script>
 </head>
