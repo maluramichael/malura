@@ -10,7 +10,7 @@ idna==2.10
 Jinja2==3.0.1
 Markdown==3.3.4
 MarkupSafe==2.0.1
-minify-html==0.4.11
+minify-html==0.8.0
 oauthlib==3.1.1
 pycparser==2.20
 pyee==8.1.0
