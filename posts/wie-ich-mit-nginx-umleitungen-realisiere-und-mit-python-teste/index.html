@@ -9,13 +9,13 @@
 <p>Ich brauchte fuer meinen Blog eine Moeglichkeit leicht und schnell ganz viele Redirects zu definieren. In diesem Post moechte ich meine Loesung vorstellen.</p>
 __MORE__
 <p>Zuerst muss eine .map File erstellt werden. Jede Zeile stellt ein Redirect da und sollte folgendes Format haben <code>VON NACH;</code>. Wichtig ist es jede Zeile mit einem ; zu beenden.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">/posts</span> <span class="s">/blog</span><span class="p">;</span>
+<div class="code"><pre><span></span><code><span class="k">/posts</span> <span class="s">/blog</span><span class="p">;</span>
 <span class="k">/en/blog</span> <span class="s">/blog</span><span class="p">;</span>
 <span class="k">/en/todo.html</span> <span class="s">/blog/todo</span><span class="p">;</span>
 </code></pre></div>
 
 <p>Die nginx Server Konfiguration sollte wie folgt aussehen.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">map_hash_bucket_size</span> <span class="mi">256</span><span class="p">;</span>
+<div class="code"><pre><span></span><code><span class="k">map_hash_bucket_size</span> <span class="mi">256</span><span class="p">;</span>
 
 <span class="k">map</span> <span class="nv">$uri</span> <span class="nv">$redirected_url</span> <span class="p">{</span>
   <span class="kn">default</span> <span class="s">&quot;none&quot;</span><span class="p">;</span>
@@ -32,7 +32,7 @@ __MORE__
 </code></pre></div>
 
 <p>Dieses Python Script kann genutzt werden um die Redirects zu testen. Es laed jede Zeile der <code>redirects.map</code>, fuehrt einen Request darauf aus und ueberprueft ob richtig umgeleitet wurde.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<div class="code"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urljoin</span>
 
 <span class="k">class</span> <span class="nc">bcolors</span><span class="p">:</span>

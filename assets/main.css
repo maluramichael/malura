@@ -1,171 +1,203 @@
+@font-face {
+  font-family: "pxplus_ibm_vga8regular";
+  src: url("/assets/PxPlus_IBM_VGA8.ttf") format("truetype");
+  font-weight: normal;
+}
+
 :root {
-    --color-bg: #fff;
-    --color-fg: #333;
-    --color-link: cornflowerblue;
-    --color-link-visited: #4e80dc;
+  --color-bg: #fff;
+  --color-fg: #333;
+  --color-link: cornflowerblue;
+  --color-link-visited: #4e80dc;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg: #333;
-        --color-fg: #fff;
-        --color-link: crimson;
-        --color-link-visited: crimson;
-    }
+  :root {
+    --color-bg: #333;
+    --color-fg: #fff;
+    --color-link: crimson;
+    --color-link-visited: crimson;
+  }
 }
 
-body, html {
-    padding: 0;
-    margin: 0;
-}
-
-body, html, code, pre {
-    font-size: 14px;
-    font-family: monospace;
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 html {
-    background-color: var(--color-bg);
-    color: var(--color-fg);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
 }
 
 body {
-    padding: 30px;
-    max-width: 960px;
+  padding: 1em;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 a {
-    color: var(--color-link);
-    text-decoration: none;
+  color: var(--color-link);
+  text-decoration: none;
 }
 
 a:visited {
-    color: var(--color-link-visited);
+  color: var(--color-link-visited);
 }
 
 ul {
-    list-style: disc;
-    margin-left: 20px;
-    padding: 0;
+  list-style: disc;
+  margin-left: 1em;
+  padding: 0;
+  line-height: 1.5;
 }
 
 nav {
-    font-size: 20px;
+  font-size: 1.2em;
 }
 
 nav ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li {
-    display: inline;
-    padding: 10px;
+  display: inline;
+  padding: 0.5em;
 }
 
 nav ul li:first-child {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 nav ul li:last-child {
-    padding-right: 0;
+  padding-right: 0;
 }
 
 nav img {
-    float: right;
-}
-
-.metadata {
+  float: right;
 }
 
 footer {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
-.codehilite {
-    padding: 10px;
-    overflow: auto;
+code {
+  font-family: monospace;
 }
 
-.codehilite pre {
-    line-height: 1;
-    margin: 0;
+.code {
+  padding: 10px;
+  overflow: auto;
 }
 
-.codehilite pre code {
-    font-family: monospace;
-    font-size: 16px;
+.code pre {
+  line-height: 1;
+  margin: 0;
 }
 
-.codehilite + .codehilite {
-    margin-top: 10px;
+.code + .code {
+  margin-top: 10px;
 }
 
 .full-size-image {
-    transition: all 0.3s;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 50%;
-    transform: translateX(-50%) translateY(-50%) scale(1);
-    object-fit: contain;
+  transition: all 0.3s;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 50%;
+  transform: translateX(-50%) translateY(-50%) scale(1);
+  object-fit: contain;
 }
 
 .full-size-image.hidden {
-    transform: translateX(-50%) translateY(-50%) scale(0) rotateZ(180deg);
-    top: -80%;
+  transform: translateX(-50%) translateY(-50%) scale(0) rotateZ(180deg);
+  top: -80%;
 }
 
 .hidden {
-    opacity: 0;
+  opacity: 0;
 }
 
 h1 {
-    -webkit-font-smoothing: none;
-    font-size: 20px;
-    margin-top: 30px;
+  font-size: 1.6em;
 }
 
-h2, h3, h4, h5, h6 {
-    font-size: 20px;
-    font-weight: bold;
+h2 {
+  font-size: 1.3em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+h4 {
+  font-size: 1.1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+header {
+  min-height: 64px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2em;
+}
+
+header .nav-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+header nav a:not(:last-child) {
+  margin-right: 1em;
 }
 
 header .name {
-    font-size: 20px;
+  font-size: 1.2em;
 }
 
 header .portrait {
-    max-width: 64px;
-    float: left;
-    margin-right: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+  max-width: 64px;
+  float: left;
+  margin-right: 0.8em;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 @media (max-width: 640px) {
-    h1 {
-        margin-top: 10px;
-    }
+  h1 {
+    margin-top: 10px;
+  }
 
-    nav ul li {
-        display: block;
-    }
+  nav ul li {
+    display: block;
+  }
 
-    nav ul li {
-        padding: 8px 0;
-    }
+  nav ul li {
+    padding: 8px 0;
+  }
 
-    header .name {
-        display: block;
-        margin-bottom: 20px;
-    }
+  header .name {
+    display: block;
+    margin-bottom: 20px;
+  }
 
-    header .portrait {
-        display: none;
-    }
+  header .portrait {
+    display: none;
+  }
 }

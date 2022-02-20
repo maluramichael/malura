@@ -6,18 +6,24 @@
 }
 -->
 
-<p>Ende 2017 haben wir die 40 Jahre alte Oelheizung durch eine neue Anlage von Viessmann ersetzt. Das moderne Geraet stellt viele verschiedene Datenpunkte bereit und ich erklaere wie ich diese auslese und verarbeite.</p>
+<p>Ende 2017 haben wir die 40 Jahre alte Oelheizung durch eine neue Anlage von Viessmann ersetzt. Das moderne Geraet
+    stellt viele verschiedene Datenpunkte bereit und ich erklaere wie ich diese auslese und verarbeite.</p>
 __MORE__
-<p><img alt="Grafana Dashboard" src="heizung.png" title="Grafana" /></p>
+<p><img alt="Grafana Dashboard" src="heizung.png" title="Grafana"/></p>
 <h2>Welche Anlage besitze ich?</h2>
 <ul>
-<li><a href="https://www.viessmann.de/de/wohngebaeude/oelheizung/oel-brennwertkessel/vitoladens-300-c.html">Vitoladens 300-C</a> mit einer Vitoconnect 200</li>
-<li><a href="https://www.viessmann.de/de/wohngebaeude/warmwasserbereiter/heizwasser-pufferspeicher/vitocell-360-m.html">Vitocell</a></li>
-<li><a href="https://www.viessmann.de/de/wohngebaeude/solarthermie/flachkollektoren/vitosol-200-fm.html">5 Solarpanele</a></li>
+    <li><a href="https://www.viessmann.de/de/wohngebaeude/oelheizung/oel-brennwertkessel/vitoladens-300-c.html">Vitoladens
+        300-C</a> mit einer Vitoconnect 200
+    </li>
+    <li>
+        <a href="https://www.viessmann.de/de/wohngebaeude/warmwasserbereiter/heizwasser-pufferspeicher/vitocell-360-m.html">Vitocell</a>
+    </li>
+    <li><a href="https://www.viessmann.de/de/wohngebaeude/solarthermie/flachkollektoren/vitosol-200-fm.html">5
+        Solarpanele</a></li>
 </ul>
 <h2>Welche Datenpunkte unterstuezt meine Anlage?</h2>
 <h2>Mein Influx Template</h2>
-<div class="codehilite"><pre><span></span><code>temperature,source=outside,provider=heating current=$1
+<div class="code"><pre><span></span><code>temperature,source=outside,provider=heating current=$1
 temperature,source=warm_water,provider=heating current=$2,desired=$3,output=$4
 temperature,source=reservoir,provider=heating current=$5
 temperature,source=solar_collector,provider=heating current=$6
@@ -34,11 +40,13 @@ power,source=solar,provider=heating all_time=$17,today=$18
 status,source=flame,provider=heating current=$19
 status,source=pump_solar_cell,provider=heating current=$20
 status,source=pump_internal,provider=heating current=$21
-</code></pre></div>
+</code></pre>
+</div>
 
 <h2>Meine vcontrold.xml</h2>
-<div class="codehilite"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-<span class="nt">&lt;V-Control</span> <span class="na">xmlns:vcontrol=</span><span class="s">&quot;https://www.openv.de/vcontrol&quot;</span><span class="nt">&gt;</span>
+<div class="code"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;V-Control</span> <span class="na">xmlns:vcontrol=</span><span class="s">&quot;https://www.openv.de/vcontrol&quot;</span><span
+            class="nt">&gt;</span>
   <span class="nt">&lt;unix&gt;</span>
     <span class="nt">&lt;config&gt;</span>
       <span class="nt">&lt;serial&gt;</span>
@@ -46,347 +54,574 @@ status,source=pump_internal,provider=heating current=$21
       <span class="nt">&lt;/serial&gt;</span>
       <span class="nt">&lt;net&gt;</span>
         <span class="nt">&lt;port&gt;</span>3002<span class="nt">&lt;/port&gt;</span>
-        <span class="nt">&lt;allow</span> <span class="na">ip=</span><span class="s">&#39;127.0.0.1&#39;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;allow</span> <span class="na">ip=</span><span class="s">&#39;192.168.178.0/24&#39;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;allow</span> <span class="na">ip=</span><span class="s">&#39;127.0.0.1&#39;</span><span
+            class="nt">/&gt;</span>
+        <span class="nt">&lt;allow</span> <span class="na">ip=</span><span
+            class="s">&#39;192.168.178.0/24&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;/net&gt;</span>
       <span class="nt">&lt;logging&gt;</span>
         <span class="nt">&lt;file&gt;</span>/home/pi/vcontrold.log<span class="nt">&lt;/file&gt;</span>
         <span class="nt">&lt;syslog&gt;</span>y<span class="nt">&lt;/syslog&gt;</span>
         <span class="nt">&lt;debug&gt;</span>y<span class="nt">&lt;/debug&gt;</span>
       <span class="nt">&lt;/logging&gt;</span>
-      <span class="nt">&lt;device</span> <span class="na">ID=</span><span class="s">&quot;20C8&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;device</span> <span class="na">ID=</span><span class="s">&quot;20C8&quot;</span><span
+            class="nt">/&gt;</span>
     <span class="nt">&lt;/config&gt;</span>
   <span class="nt">&lt;/unix&gt;</span>
 
   <span class="nt">&lt;units&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Aktuelle Betriebsart&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span
+            class="s">&#39;Aktuelle Betriebsart&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>ABA<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;Abschaltbetr. (Dauernd)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;Red. Betrieb (Schaltuhr)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span class="na">text=</span><span class="s">&#39;Normalbetrieb (Schaltuhr)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span class="na">text=</span><span class="s">&#39;Normalbetrieb (Dauernd)&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Abschaltbetr. (Dauernd)&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Red. Betrieb (Schaltuhr)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Normalbetrieb (Schaltuhr)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Normalbetrieb (Dauernd)&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Betriebsart&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Betriebsart&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>BA<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;Abschaltbetrieb&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;Nur Warmwasser&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span class="na">text=</span><span class="s">&#39;Heizen und Warmwasser&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span class="na">text=</span><span class="s">&#39;Dauernd red. Betrieb&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;04&#39;</span> <span class="na">text=</span><span class="s">&#39;Dauernd Normalbetrieb&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Abschaltbetrieb&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Nur Warmwasser&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Heizen und Warmwasser&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Dauernd red. Betrieb&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;04&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Dauernd Normalbetrieb&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Ferienbetrieb&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Ferienbetrieb&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>BFB<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>uchar<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&quot;(B7 &amp;amp; (0x01&amp;lt;&amp;lt;BP))&amp;gt;&amp;gt; BP&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;inaktiv&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;aktiv&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&quot;(B7 &amp;amp; (0x01&amp;lt;&amp;lt;BP))&amp;gt;&amp;gt; BP&quot;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;inaktiv&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;aktiv&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Bitstatus&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Bitstatus&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>BST<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>uchar<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&quot;(B0 &amp;amp; (0x01&amp;lt;&amp;lt;BP))&amp;gt;&amp;gt; BP&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&quot;(B0 &amp;amp; (0x01&amp;lt;&amp;lt;BP))&amp;gt;&amp;gt; BP&quot;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Anzahl&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Anzahl&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>CO<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span
+            class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>int<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Anzahl Liter&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Anzahl Liter&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>COL<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/1000&#39;</span> <span class="na">set=</span><span class="s">&#39;V*1000&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/1000&#39;</span> <span
+            class="na">set=</span><span class="s">&#39;V*1000&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>int<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>Liter<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Schaltzeit&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Schaltzeit&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>CT<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>cycletime<span class="nt">&lt;/type&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Systemkennung&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Systemkennung&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>DT<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;20 CB 00 2B 00 00 01 14&#39;</span> <span class="na">text=</span><span class="s">&#39;VScotHO1, ID: 20CB, Protokoll: KW2/P300&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span
+            class="s">&#39;20 CB 00 2B 00 00 01 14&#39;</span> <span class="na">text=</span><span class="s">&#39;VScotHO1, ID: 20CB, Protokoll: KW2/P300&#39;</span><span
+            class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Fehlermeldung&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Fehlermeldung&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>EM<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>errstate<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;Regelbetrieb (kein Fehler)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;0F&#39;</span> <span class="na">text=</span><span class="s">&#39;Wartung (für Reset Codieradresse 24 auf 0 stellen)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;10&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Außentemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;18&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Außentemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;20&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Vorlauftemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;21&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Rücklauftemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;28&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Außentemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;29&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Rücklauftemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;30&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Kesseltemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;38&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Kesseltemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;40&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Vorlauftemperatursensor M2&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;42&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Vorlauftemperatursensor M2&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;50&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Speichertemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;58&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Speichertemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;92&#39;</span> <span class="na">text=</span><span class="s">&#39;Solar: Kurzschluss Kollektortemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;93&#39;</span> <span class="na">text=</span><span class="s">&#39;Solar: Kurzschluss Sensor S3&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;94&#39;</span> <span class="na">text=</span><span class="s">&#39;Solar: Kurzschluss Speichertemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9A&#39;</span> <span class="na">text=</span><span class="s">&#39;Solar: Unterbrechung Kollektortemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9B&#39;</span> <span class="na">text=</span><span class="s">&#39;Solar: Unterbrechung Sensor S3&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9C&#39;</span> <span class="na">text=</span><span class="s">&#39;Solar: Unterbrechung Speichertemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9F&#39;</span> <span class="na">text=</span><span class="s">&#39;Solar: Fehlermeldung Solarteil (siehe Solarregler)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;A7&#39;</span> <span class="na">text=</span><span class="s">&#39;Bedienteil defekt&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B0&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Abgastemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B1&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler Bedieneinheit&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B4&#39;</span> <span class="na">text=</span><span class="s">&#39;Interner Fehler (Elektronik)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B5&#39;</span> <span class="na">text=</span><span class="s">&#39;Interner Fehler (Elektronik)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B6&#39;</span> <span class="na">text=</span><span class="s">&#39;Ungültige Hardwarekennung (Elektronik)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B7&#39;</span> <span class="na">text=</span><span class="s">&#39;Interner Fehler (Kesselkodierstecker)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B8&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Abgastemperatursensor&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B9&#39;</span> <span class="na">text=</span><span class="s">&#39;Interner Fehler (Dateneingabe wiederholen)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BA&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler Erweiterungssatz für Mischerkreis M2&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BC&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler Fernbedienung Vitorol, Heizkreis M1&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BD&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler Fernbedienung Vitorol, Heizkreis M2&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BE&#39;</span> <span class="na">text=</span><span class="s">&#39;Falsche Codierung Fernbedienung Vitorol&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C1&#39;</span> <span class="na">text=</span><span class="s">&#39;Externe Sicherheitseinrichtung (Kessel kühlt aus)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C2&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler Solarregelung&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C5&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler drehzahlgeregelte Heizkreispumpe, Heizkreis M1&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C6&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler drehzahlgeregelte Heizkreispumpe, Heizkreis M2&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C7&#39;</span> <span class="na">text=</span><span class="s">&#39;Falsche Codierung der Heizkreispumpe&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C9&#39;</span> <span class="na">text=</span><span class="s">&#39;Störmeldeeingang am Schaltmodul-V aktiv&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;CD&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler Vitocom 100 (KM-BUS)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;CE&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler Schaltmodul-V&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;CF&#39;</span> <span class="na">text=</span><span class="s">&#39;Kommunikationsfehler LON Modul&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;D1&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennerstörung&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;D4&#39;</span> <span class="na">text=</span><span class="s">&#39;Sicherheitstemperaturbegrenzer hat ausgelöst oder Störmeldemodul nicht richtig gesteckt&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DA&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Raumtemperatursensor, Heizkreis M1&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DB&#39;</span> <span class="na">text=</span><span class="s">&#39;Kurzschluss Raumtemperatursensor, Heizkreis M2&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DD&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Raumtemperatursensor, Heizkreis M1&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DE&#39;</span> <span class="na">text=</span><span class="s">&#39;Unterbrechung Raumtemperatursensor, Heizkreis M2&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;E4&#39;</span> <span class="na">text=</span><span class="s">&#39;Fehler Versorgungsspannung&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;E5&#39;</span> <span class="na">text=</span><span class="s">&#39;Interner Fehler (Ionisationselektrode)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;E6&#39;</span> <span class="na">text=</span><span class="s">&#39;Abgas- / Zuluftsystem verstopft&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F0&#39;</span> <span class="na">text=</span><span class="s">&#39;Interner Fehler (Regelung tauschen)&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F1&#39;</span> <span class="na">text=</span><span class="s">&#39;Abgastemperaturbegrenzer ausgelöst&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F2&#39;</span> <span class="na">text=</span><span class="s">&#39;Temperaturbegrenzer ausgelöst&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F3&#39;</span> <span class="na">text=</span><span class="s">&#39;Flammensigal beim Brennerstart bereits vorhanden&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F4&#39;</span> <span class="na">text=</span><span class="s">&#39;Flammensigal nicht vorhanden&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F7&#39;</span> <span class="na">text=</span><span class="s">&#39;Differenzdrucksensor defekt&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F8&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennstoffventil schließt zu spät&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F9&#39;</span> <span class="na">text=</span><span class="s">&#39;Gebläsedrehzahl beim Brennerstart zu niedrig&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FA&#39;</span> <span class="na">text=</span><span class="s">&#39;Gebläsestillstand nicht erreicht&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FD&#39;</span> <span class="na">text=</span><span class="s">&#39;Fehler Gasfeurungsautomat&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FE&#39;</span> <span class="na">text=</span><span class="s">&#39;Starkes Störfeld (EMV) in der Nähe oder Elektronik defekt&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FF&#39;</span> <span class="na">text=</span><span class="s">&#39;Starkes Störfeld (EMV) in der Nähe oder interner Fehler&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Regelbetrieb (kein Fehler)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;0F&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Wartung (für Reset Codieradresse 24 auf 0 stellen)&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;10&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Außentemperatursensor&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;18&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Unterbrechung Außentemperatursensor&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;20&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Vorlauftemperatursensor&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;21&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Rücklauftemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;28&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Unterbrechung Außentemperatursensor&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;29&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Unterbrechung Rücklauftemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;30&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Kesseltemperatursensor&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;38&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Unterbrechung Kesseltemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;40&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Vorlauftemperatursensor M2&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;42&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Unterbrechung Vorlauftemperatursensor M2&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;50&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Speichertemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;58&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Unterbrechung Speichertemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;92&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Solar: Kurzschluss Kollektortemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;93&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Solar: Kurzschluss Sensor S3&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;94&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Solar: Kurzschluss Speichertemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9A&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Solar: Unterbrechung Kollektortemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9B&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Solar: Unterbrechung Sensor S3&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9C&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Solar: Unterbrechung Speichertemperatursensor&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;9F&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Solar: Fehlermeldung Solarteil (siehe Solarregler)&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;A7&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Bedienteil defekt&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B0&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Abgastemperatursensor&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B1&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kommunikationsfehler Bedieneinheit&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B4&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Interner Fehler (Elektronik)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B5&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Interner Fehler (Elektronik)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B6&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Ungültige Hardwarekennung (Elektronik)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B7&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Interner Fehler (Kesselkodierstecker)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B8&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Unterbrechung Abgastemperatursensor&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;B9&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Interner Fehler (Dateneingabe wiederholen)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BA&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Kommunikationsfehler Erweiterungssatz für Mischerkreis M2&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BC&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Kommunikationsfehler Fernbedienung Vitorol, Heizkreis M1&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BD&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Kommunikationsfehler Fernbedienung Vitorol, Heizkreis M2&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;BE&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Falsche Codierung Fernbedienung Vitorol&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C1&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Externe Sicherheitseinrichtung (Kessel kühlt aus)&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C2&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kommunikationsfehler Solarregelung&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C5&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kommunikationsfehler drehzahlgeregelte Heizkreispumpe, Heizkreis M1&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C6&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kommunikationsfehler drehzahlgeregelte Heizkreispumpe, Heizkreis M2&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C7&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Falsche Codierung der Heizkreispumpe&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;C9&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Störmeldeeingang am Schaltmodul-V aktiv&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;CD&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kommunikationsfehler Vitocom 100 (KM-BUS)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;CE&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kommunikationsfehler Schaltmodul-V&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;CF&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kommunikationsfehler LON Modul&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;D1&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennerstörung&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;D4&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Sicherheitstemperaturbegrenzer hat ausgelöst oder Störmeldemodul nicht richtig gesteckt&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DA&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Raumtemperatursensor, Heizkreis M1&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DB&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Kurzschluss Raumtemperatursensor, Heizkreis M2&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DD&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Unterbrechung Raumtemperatursensor, Heizkreis M1&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;DE&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Unterbrechung Raumtemperatursensor, Heizkreis M2&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;E4&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Fehler Versorgungsspannung&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;E5&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Interner Fehler (Ionisationselektrode)&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;E6&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Abgas- / Zuluftsystem verstopft&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F0&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Interner Fehler (Regelung tauschen)&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F1&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Abgastemperaturbegrenzer ausgelöst&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F2&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Temperaturbegrenzer ausgelöst&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F3&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Flammensigal beim Brennerstart bereits vorhanden&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F4&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Flammensigal nicht vorhanden&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F7&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Differenzdrucksensor defekt&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F8&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennstoffventil schließt zu spät&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;F9&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Gebläsedrehzahl beim Brennerstart zu niedrig&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FA&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Gebläsestillstand nicht erreicht&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FD&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Fehler Gasfeurungsautomat&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FE&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Starkes Störfeld (EMV) in der Nähe oder Elektronik defekt&#39;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;FF&#39;</span> <span
+            class="na">text=</span><span
+            class="s">&#39;Starkes Störfeld (EMV) in der Nähe oder interner Fehler&#39;</span><span
+            class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Fehlerstatus&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Fehlerstatus&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>ES<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;kein Fehler&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;FEHLERMELDUNG&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;kein Fehler&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;FEHLERMELDUNG&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;FehlermeldungGWG&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;FehlermeldungGWG&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>ESG<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;Keine Störung&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span class="na">text=</span><span class="s">&#39;Fehler Sicherheitskette&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;04&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennerstörung 04&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;05&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennerstörung 05&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;07&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennerstörung 07&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;08&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennerstörung 09&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;08&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennerstörung 09&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;0A&#39;</span> <span class="na">text=</span><span class="s">&#39;Brennerstörung 10&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Keine Störung&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Fehler Sicherheitskette&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;04&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennerstörung 04&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;05&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennerstörung 05&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;07&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennerstörung 07&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;08&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennerstörung 09&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;08&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennerstörung 09&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;0A&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Brennerstörung 10&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Flammenstatus&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Flammenstatus&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>FLS<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;0B&#39;</span> <span class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;0B&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;HKP Pumpentyp&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;HKP Pumpentyp&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>HKT<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>uchar<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&quot;(B0 &amp;amp; (0x01&amp;lt;&amp;lt;BP))&amp;gt;&amp;gt; BP&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;stufig&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;drehzahlgeregelt&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&quot;(B0 &amp;amp; (0x01&amp;lt;&amp;lt;BP))&amp;gt;&amp;gt; BP&quot;</span><span
+            class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;stufig&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;drehzahlgeregelt&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Laufzeit Stunden&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Laufzeit Stunden&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>HS<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/3600&#39;</span> <span class="na">set=</span><span class="s">&#39;V*3600&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/3600&#39;</span> <span
+            class="na">set=</span><span class="s">&#39;V*3600&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>uint<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>Stunden<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;StatusPumpeIntern&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span
+            class="s">&#39;StatusPumpeIntern&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>IPS<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Prozent&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Prozent&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>PC<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span
+            class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>uchar<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>%<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Prozent&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Prozent&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>PC1<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/2&#39;</span> <span class="na">set=</span><span class="s">&#39;V*2&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/2&#39;</span> <span
+            class="na">set=</span><span class="s">&#39;V*2&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>short<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>%<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Prozent&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Prozent&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>PC2<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/10&#39;</span> <span class="na">set=</span><span class="s">&#39;V*10&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/10&#39;</span> <span
+            class="na">set=</span><span class="s">&#39;V*10&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>uchar<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>%<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;ReturnStatus&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;ReturnStatus&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>RT<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;1&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Sachnummer&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Sachnummer&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>SN<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>uint<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&#39;((((((((((((B0-48)*10)+(B1-48))*10)+(B2-48))*10)+(B3-48))*10)+(B4-48))*10)+(B5-48))*10)+B6-48&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;icalc</span> <span class="na">get=</span><span class="s">&#39;((((((((((((B0-48)*10)+(B1-48))*10)+(B2-48))*10)+(B3-48))*10)+(B4-48))*10)+(B5-48))*10)+B6-48&#39;</span><span
+            class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Quittung Status&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Quittung Status&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>SR<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;OK&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;05&#39;</span> <span class="na">text=</span><span class="s">&#39;SYNC (NOT OK)&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;OK&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;05&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;SYNC (NOT OK)&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Status&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Status&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>ST<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span
+            class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>char<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Systemzeit&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Systemzeit&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>TI<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>systime<span class="nt">&lt;/type&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Umschaltventil Stellung&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span
+            class="s">&#39;Umschaltventil Stellung&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>USV<span class="nt">&lt;/abbrev&gt;</span>
       <span class="nt">&lt;type&gt;</span>enum<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span class="na">text=</span><span class="s">&#39;UNDEFINIERT&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span class="na">text=</span><span class="s">&#39;Heizung&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span class="na">text=</span><span class="s">&#39;Mittelstellung&#39;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span class="na">text=</span><span class="s">&#39;Warmwasser&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;00&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;UNDEFINIERT&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;01&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Heizung&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;02&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Mittelstellung&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;enum</span> <span class="na">bytes=</span><span class="s">&#39;03&#39;</span> <span
+            class="na">text=</span><span class="s">&#39;Warmwasser&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;enum</span> <span class="na">text=</span><span class="s">&#39;?&#39;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Temperatur&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Temperatur&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>T1U<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span
+            class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>uchar<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>°C<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Temperatur&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Temperatur&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>TD<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/10&#39;</span> <span class="na">set=</span><span class="s">&#39;V*10&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/10&#39;</span> <span
+            class="na">set=</span><span class="s">&#39;V*10&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>short<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>°C<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Temperatur&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Temperatur&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>T1S<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/2&#39;</span> <span class="na">set=</span><span class="s">&#39;V*2&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/2&#39;</span> <span
+            class="na">set=</span><span class="s">&#39;V*2&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>uchar<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>°C<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Neigung&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Neigung&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>UN<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/10&#39;</span> <span class="na">set=</span><span class="s">&#39;V*10&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V/10&#39;</span> <span
+            class="na">set=</span><span class="s">&#39;V*10&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>short<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
-    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Volumenstrom&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;unit</span> <span class="na">name=</span><span class="s">&#39;Volumenstrom&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;abbrev&gt;</span>VS<span class="nt">&lt;/abbrev&gt;</span>
-      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;calc</span> <span class="na">get=</span><span class="s">&#39;V&#39;</span> <span class="na">set=</span><span
+            class="s">&#39;V&#39;</span><span class="nt">/&gt;</span>
       <span class="nt">&lt;type&gt;</span>ushort<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;entity&gt;</span>Liter<span class="nt">&lt;/entity&gt;</span>
     <span class="nt">&lt;/unit&gt;</span>
   <span class="nt">&lt;/units&gt;</span>
   <span class="nt">&lt;protocols&gt;</span>
-    <span class="nt">&lt;protocol</span> <span class="na">name=</span><span class="s">&#39;P300&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;protocol</span> <span class="na">name=</span><span class="s">&#39;P300&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;pid&gt;</span>41<span class="nt">&lt;/pid&gt;</span>
       <span class="nt">&lt;macros&gt;</span>
-        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;GETADDR&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;GETADDR&#39;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;command&gt;</span>SEND 00 01<span class="nt">&lt;/command&gt;</span>
         <span class="nt">&lt;/macro&gt;</span>
-        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;SETADDR&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;SETADDR&#39;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;command&gt;</span>SEND 00 02<span class="nt">&lt;/command&gt;</span>
         <span class="nt">&lt;/macro&gt;</span>
       <span class="nt">&lt;/macros&gt;</span>
       <span class="nt">&lt;commands&gt;</span>
-        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;getaddr&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;getaddr&quot;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;send&gt;</span>GETADDR $addr $hexlen;RECV $len $unit<span class="nt">&lt;/send&gt;</span>
         <span class="nt">&lt;/command&gt;</span>
-        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;setaddr&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;setaddr&quot;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;send&gt;</span>SETADDR $addr $hexlen;SEND BYTES $unit;RECV 1 SR<span class="nt">&lt;/send&gt;</span>
         <span class="nt">&lt;/command&gt;</span>
       <span class="nt">&lt;/commands&gt;</span>
     <span class="nt">&lt;/protocol&gt;</span>
-    <span class="nt">&lt;protocol</span> <span class="na">name=</span><span class="s">&#39;KW2&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;protocol</span> <span class="na">name=</span><span class="s">&#39;KW2&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;macros&gt;</span>
-        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;SYNC&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;SYNC&#39;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;command&gt;</span>SEND 04;WAIT 05<span class="nt">&lt;/command&gt;</span>
         <span class="nt">&lt;/macro&gt;</span>
-        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;GETADDR&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;GETADDR&#39;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;command&gt;</span>SEND 01 F7<span class="nt">&lt;/command&gt;</span>
         <span class="nt">&lt;/macro&gt;</span>
-        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;SETADDR&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;macro</span> <span class="na">name=</span><span class="s">&#39;SETADDR&#39;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;command&gt;</span>SEND 01 F4<span class="nt">&lt;/command&gt;</span>
         <span class="nt">&lt;/macro&gt;</span>
       <span class="nt">&lt;/macros&gt;</span>
       <span class="nt">&lt;commands&gt;</span>
-        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;getaddr&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;getaddr&quot;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;retry&gt;</span>3<span class="nt">&lt;/retry&gt;</span>
           <span class="nt">&lt;recvTimeout&gt;</span>4000<span class="nt">&lt;/recvTimeout&gt;</span>
-          <span class="nt">&lt;send&gt;</span>SYNC;GETADDR $addr $hexlen;RECV $len $unit<span class="nt">&lt;/send&gt;</span>
+          <span class="nt">&lt;send&gt;</span>SYNC;GETADDR $addr $hexlen;RECV $len $unit<span
+            class="nt">&lt;/send&gt;</span>
         <span class="nt">&lt;/command&gt;</span>
-        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;setaddr&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&quot;setaddr&quot;</span><span
+            class="nt">&gt;</span>
           <span class="nt">&lt;send&gt;</span>SYNC;SETADDR $addr $hexlen;SEND BYTES $unit;RECV 1 SR<span class="nt">&lt;/send&gt;</span>
         <span class="nt">&lt;/command&gt;</span>
       <span class="nt">&lt;/commands&gt;</span>
     <span class="nt">&lt;/protocol&gt;</span>
   <span class="nt">&lt;/protocols&gt;</span>
-  <span class="nt">&lt;extern</span> <span class="na">xmlns:xi=</span><span class="s">&quot;https://www.w3.org/2003/XInclude&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;xi:include</span> <span class="na">href=</span><span class="s">&quot;vito.xml&quot;</span> <span class="na">parse=</span><span class="s">&quot;xml&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;extern</span> <span class="na">xmlns:xi=</span><span class="s">&quot;https://www.w3.org/2003/XInclude&quot;</span><span
+            class="nt">&gt;</span>
+    <span class="nt">&lt;xi:include</span> <span class="na">href=</span><span
+            class="s">&quot;vito.xml&quot;</span> <span class="na">parse=</span><span
+            class="s">&quot;xml&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;/extern&gt;</span>
 <span class="nt">&lt;/V-Control&gt;</span>
-</code></pre></div>
+</code></pre>
+</div>
 
 <h2>Meine vito.xml</h2>
-<div class="codehilite"><pre><span></span><code><span class="nt">&lt;vito&gt;</span>
+<div class="code"><pre><span></span><code><span class="nt">&lt;vito&gt;</span>
   <span class="nt">&lt;devices&gt;</span>
-    <span class="nt">&lt;device</span> <span class="na">ID=</span><span class="s">&quot;20C8&quot;</span> <span class="na">name=</span><span class="s">&quot;VDens&quot;</span> <span class="na">protocol=</span><span class="s">&quot;P300&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;device</span> <span class="na">ID=</span><span class="s">&quot;20C8&quot;</span> <span
+            class="na">name=</span><span class="s">&quot;VDens&quot;</span> <span class="na">protocol=</span><span
+            class="s">&quot;P300&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;/devices&gt;</span>
   <span class="nt">&lt;commands&gt;</span>
     <span class="c">&lt;!-- BETRIEBSARTEN --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoBetriebsart&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoBetriebsart&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2323<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>BA<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Betriebsart<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoBetriebsart&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoBetriebsart&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2323<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>BA<span class="nt">&lt;/unit&gt;</span>
@@ -395,25 +630,34 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- PARTYBETRIEB --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoBetriebParty&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoBetriebParty&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2303<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>RT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Partybetrieb<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoBetriebParty&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoBetriebParty&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2303<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>RT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Partybetrieb<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempPartySoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempPartySoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2308<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Solltemperatur Partybetrieb in °C<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Solltemperatur Partybetrieb in °C<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTempPartySoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTempPartySoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2308<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
@@ -422,31 +666,39 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- FERIENBETRIEB --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoBetriebFerien&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoBetriebFerien&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2535<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>BFB<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Ferienbetrieb<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoFerienBeginn&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoFerienBeginn&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2309<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TI<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Abreisetag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoFerienBeginn&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoFerienBeginn&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2309<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TI<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Abreisetag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoFerienEnde&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoFerienEnde&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2311<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TI<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Rückreisetag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoFerienEnde&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoFerienEnde&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2311<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TI<span class="nt">&lt;/unit&gt;</span>
@@ -455,13 +707,15 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- SPARBETRIEB --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoBetriebSpar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoBetriebSpar&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2302<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>RT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Sparbetrieb<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoBetriebSpar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoBetriebSpar&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2302<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>RT<span class="nt">&lt;/unit&gt;</span>
@@ -470,25 +724,34 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- SOLLTEMPERATUREN --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempRaumNorSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempRaumNorSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2306<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Raumsolltemperatur Normal in °C<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Raumsolltemperatur Normal in °C<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTempRaumNorSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTempRaumNorSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2306<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Raumsolltemperatur Normal in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempRaumRedSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempRaumRedSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2307<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Raumsolltemperatur reduzierter Betrieb in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTempRaumRedSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTempRaumRedSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2307<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
@@ -497,7 +760,8 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- AUSSENTEMPERATUR --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempAussen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempAussen&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0800<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
@@ -506,7 +770,9 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- VERBRAUCH --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoOelVerbrauch&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoOelVerbrauch&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7574<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>COL<span class="nt">&lt;/unit&gt;</span>
@@ -515,37 +781,48 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- WARMWASSER --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempWWIst&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempWWIst&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0804<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Warmwassertemperatur in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempWWSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempWWSoll&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>6300<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Warmwassersolltemperatur in °C<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Warmwassersolltemperatur in °C<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTempWWSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTempWWSoll&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>6300<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>T1U<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Warmwassersolltemperatur in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempSpeicher&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempSpeicher&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0812<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Speichertemperatur in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempWWAuslauf&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempWWAuslauf&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0814<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Auslauftemperatur Warmwasser in °C<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Auslauftemperatur Warmwasser in °C<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusPumpeSpeicher&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusPumpeSpeicher&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>6513<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>RT<span class="nt">&lt;/unit&gt;</span>
@@ -554,43 +831,56 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- KESSEL / BRENNER --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempKesselIst&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempKesselIst&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0810<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Vorlauf- bzw. Kesseltemperatur in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempKesselSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempKesselSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>555A<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Kesselsolltemperatur in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusFlamme&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStatusFlamme&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>55DE<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>FLS<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Flammenstatus<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoLaufzeitBrenner&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoLaufzeitBrenner&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>08A7<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>4<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>HS<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Brenner Betriebsstunden<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStartsBrenner&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStartsBrenner&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>088A<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>4<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CO<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Brennerstarts<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusPumpeIntern&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStatusPumpeIntern&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7660<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>IPS<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Status interne Pumpe<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoDrehzahlPumpeIntern&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoDrehzahlPumpeIntern&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7663<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CO<span class="nt">&lt;/unit&gt;</span>
@@ -599,25 +889,33 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- HEIZKENNLINIE --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoKennlinieNeigung&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoKennlinieNeigung&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>27D3<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>UN<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Neigung Heizkennlinie<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoKennlinieNeigung&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoKennlinieNeigung&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>27D3<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>UN<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Neigung Heizkennlinie<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoKennlinieNiveau&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoKennlinieNiveau&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>27D4<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>ST<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Niveau Heizkennlinie<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoKennlinieNiveau&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoKennlinieNiveau&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>27D4<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>ST<span class="nt">&lt;/unit&gt;</span>
@@ -626,37 +924,48 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- HEIZKREIS --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoBetriebsartHK&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoBetriebsartHK&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2500<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>ABA<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Aktuelle Betriebsart des Heizkreises<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempVLSoll&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempVLSoll&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2544<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Vorlaufsolltemperatur in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempRLIst&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempRLIst&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0808<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Rücklauftemperatur in °C<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusPumpeHK&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStatusPumpeHK&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>3906<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>RT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Status Heizkreispumpe<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempRaumHK&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempRaumHK&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0896<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Heizkreis Raumtemperatur in °C<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Heizkreis Raumtemperatur in °C<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStatusPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0846<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>RT<span class="nt">&lt;/unit&gt;</span>
@@ -665,40 +974,54 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- SOLAR --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempSolarkol&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempSolarkol&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>6564<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Solar-Kollektortemperatur in °C<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Solar-Kollektortemperatur in °C<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTempSolarspeicher&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTempSolarspeicher&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>6566<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TD<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Solar-Speichertemperatur in °C<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Solar-Speichertemperatur in °C<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoLaufzeitSolar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoLaufzeitSolar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>6568<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>2<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CO<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Solar-Betriebsstunden<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoLeistungSolar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoLeistungSolar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>6560<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>4<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CO<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Solar-Wärmeenergie in kWh<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoErtragTagSolar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoErtragTagSolar&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>CF30<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>4<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CO<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Solarertrag aktueller Tag in W<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Solarertrag aktueller Tag in W<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
 
     <span class="c">&lt;!-- VENTILE --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusUmschaltventil&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusUmschaltventil&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0A10<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>USV<span class="nt">&lt;/unit&gt;</span>
@@ -707,85 +1030,113 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- HEIZZEITEN --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerMoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerMoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2000<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Montag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerMoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerMoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2000<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Montag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerDiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerDiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2008<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Dienstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerDiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerDiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2008<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Dienstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerMiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerMiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2010<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Mittwoch<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerMiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerMiHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2010<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Mittwoch<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerDoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerDoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2018<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Donnerstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerDoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerDoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2018<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Donnerstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerFrHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerFrHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2020<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Freitag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerFrHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerFrHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2020<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Freitag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerSaHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerSaHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2028<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Samstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerSaHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerSaHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2028<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Samstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerSoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerSoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2030<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Sonntag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerSoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerSoHeizen&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2030<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
@@ -794,85 +1145,121 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- WARMWASSERZEITEN --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerMoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerMoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2100<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Montag<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Montag<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerMoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerMoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2100<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Warmwasser Montag<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Warmwasser Montag<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerDiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerDiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2108<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Dienstag<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Dienstag<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerDiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerDiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2108<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Warmwasser Dienstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerMiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerMiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2110<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Mittwoch<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Mittwoch<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerMiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerMiWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2110<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Warmwasser Mittwoch<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerDoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerDoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2118<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Donnerstag<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Donnerstag<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerDoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerDoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2118<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Warmwasser Donnerstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerFrWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerFrWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2120<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Freitag<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Freitag<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerFrWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerFrWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2120<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Warmwasser Freitag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerSaWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerSaWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2128<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Samstag<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Samstag<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerSaWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerSaWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2128<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Warmwasser Samstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerSoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerSoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2130<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
-      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Sonntag<span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;description&gt;</span>Schaltzeit Warmwasser Sonntag<span
+            class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerSoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerSoWW&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2130<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
@@ -881,85 +1268,113 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- ZIRKULATIONSZEITEN --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerMoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerMoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2200<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Zirkulationspumpe Montag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerMoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerMoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2200<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Zirkulationspumpe Montag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerDiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerDiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2208<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Zirkulationspumpe Dienstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerDiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerDiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2208<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Zirkulationspumpe Dienstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerMiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerMiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2210<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Zirkulationspumpe Mittwoch<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerMiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerMiPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2210<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Zirkulationspumpe Mittwoch<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerDoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerDoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2218<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Zirkulationspumpe Donnerstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerDoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerDoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2218<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Zirkulationspumpe Donnerstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerFrPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerFrPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2220<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Zirkulationspumpe Freitag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerFrPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerFrPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2220<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Zirkulationspumpe Freitag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerSaPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerSaPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2228<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Zirkulationspumpe Samstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerSaPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerSaPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2228<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Setze Schaltzeit Zirkulationspumpe Samstag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoTimerSoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoTimerSoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2230<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Schaltzeit Zirkulationspumpe Sonntag<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoTimerSoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;setVitoTimerSoPumpeZirku&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>2230<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>CT<span class="nt">&lt;/unit&gt;</span>
@@ -968,67 +1383,88 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- STOERUNG --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStatusStoerung&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStatusStoerung&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>0A82<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>ES<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Status Störung<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung1&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung1&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7507<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 1<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung2&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung2&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7510<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 2<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung3&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung3&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7519<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 3<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung4&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung4&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7522<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 4<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung5&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung5&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>752B<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 5<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung6&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung6&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7534<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 6<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung7&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung7&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>753D<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 7<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung8&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung8&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7546<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 8<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung9&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoStoerung9&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>754F<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Störung Meldung 9<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung10&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoStoerung10&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7558<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>9<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>EM<span class="nt">&lt;/unit&gt;</span>
@@ -1037,13 +1473,15 @@ status,source=pump_internal,provider=heating current=$21
 
     <span class="c">&lt;!-- SYSTEMZEIT --&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoSystemzeit&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoSystemzeit&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>088E<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TI<span class="nt">&lt;/unit&gt;</span>
       <span class="nt">&lt;description&gt;</span>Systemzeit<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoSystemzeit&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;setVitoSystemzeit&#39;</span> <span
+            class="na">protocmd=</span><span class="s">&#39;setaddr&#39;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>088E<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>8<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>TI<span class="nt">&lt;/unit&gt;</span>
@@ -1054,7 +1492,9 @@ status,source=pump_internal,provider=heating current=$21
 <span class="c">}</span>
 <span class="c">--&gt;</span>
 
-    <span class="nt">&lt;command</span> <span class="na">name=</span><span class="s">&#39;getVitoAnlagenschema&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;command</span> <span class="na">name=</span><span
+            class="s">&#39;getVitoAnlagenschema&#39;</span> <span class="na">protocmd=</span><span class="s">&#39;getaddr&#39;</span><span
+            class="nt">&gt;</span>
       <span class="nt">&lt;addr&gt;</span>7700<span class="nt">&lt;/addr&gt;</span>
       <span class="nt">&lt;len&gt;</span>1<span class="nt">&lt;/len&gt;</span>
       <span class="nt">&lt;unit&gt;</span>ST<span class="nt">&lt;/unit&gt;</span>
@@ -1062,4 +1502,5 @@ status,source=pump_internal,provider=heating current=$21
     <span class="nt">&lt;/command&gt;</span>
   <span class="nt">&lt;/commands&gt;</span>
 <span class="nt">&lt;/vito&gt;</span>
-</code></pre></div>
+</code></pre>
+</div>

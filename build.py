@@ -15,7 +15,7 @@ posts_dir = 'posts'
 post_files = list(Path('posts').rglob('*.html'))
 page_files = list(Path('pages').rglob('*.html'))
 project_files = list(Path('projects').rglob('*.html'))
-asset_files = list(Path('assets').rglob('*'))
+asset_files = list(Path('assets').rglob('*.*'))
 
 context = {
     'projects': [

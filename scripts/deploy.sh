@@ -21,6 +21,4 @@ ssh $HOST <<EOF
 
     systemctl reload nginx
     systemctl restart cron
-
-
 EOF
