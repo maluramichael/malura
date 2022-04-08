@@ -19,6 +19,7 @@ from .page import Page
 from .steam_extension import get_steam_infos
 from .gog_extension import get_gog_infos
 from .twitter_extension import get_twitter_infos
+from .personal_extension import get_personal_infos
 
 more_tag = '__MORE__'
 
@@ -29,6 +30,7 @@ global_context = {
     'twitter': get_twitter_infos(),
     'steam': get_steam_infos(),
     'gog': get_gog_infos(),
+    'personal': get_personal_infos()
 }
 
 default_jinja_env = Environment(
