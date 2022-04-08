@@ -117,8 +117,7 @@ def write_page_as_html_to_disk(page_to_write, output_dir, destination_dir):
     page_to_write.rendered = rendered
 
     with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
-        minified = minify_html.minify(rendered)
-        f.write(minified)
+        f.write(rendered)
 
 
 def get_destination_dir_for_blog_post(entry, absolute=False):
@@ -188,9 +187,8 @@ def render_list_index(title, entries):
     list_template = default_jinja_env.get_template('list.html')
     published_entries = [p for p in entries if not p.draft]
     rendered = list_template.render(title=title, entries=published_entries, last_update_time=datetime.datetime.now())
-    minified = minify_html.minify(rendered)
 
-    return minified
+    return rendered
 
 
 def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
