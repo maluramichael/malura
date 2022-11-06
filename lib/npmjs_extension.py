@@ -4,18 +4,18 @@ import requests
 import os
 from diskcache import Cache
 from tqdm import tqdm
+from datetime import date
 
 cache = Cache("_cache")
 
-if 'NPMJS_TOKEN' not in os.environ:
-    raise EnvironmentError('NPMJS_TOKEN environment variable not defined')
+# if 'NPMJS_TOKEN' not in os.environ:
+#     raise EnvironmentError('NPMJS_TOKEN environment variable not defined')
 
-token = os.environ.get('NPMJS_TOKEN')
-
+# token = os.environ.get('NPMJS_TOKEN')
 
 @cache.memoize(expire=60 * 60 * 24 * 7)
 def get_downloads_for_package(name, today):
-    year = 2021
+    year = date.today().year - 1
 
     result = {
         'last-year': 0,
