@@ -3,59 +3,47 @@
   "title": "Willkommen"
 }
 -->
-<ul>
-    <li>... Michael hier, {{ personal.age }} Jahre jung und von Beruf 'Senior Software Developer'.</li>
-    <li>Mein Leben findet in einem kleinen Dorf nicht weit von <a rel="noopener" target="_blank" class="external"
-                                                                  href="https://de.wikipedia.org/wiki/Biberach_an_der_Ri%C3%9F">Biberach</a>
-        statt.
-    </li>
-    <li>
-        Geboren wurde ich in <a rel="noopener" target="_blank" class="external" href="https://de.wikipedia.org/wiki/Traben-Trarbach">Traben-Trarbach</a>
-        und bin aufgewachsen in <a rel="noopener" target="_blank" class="external"
-                                   href="https://de.wikipedia.org/wiki/Sohren">Sohren</a>. Leider habe ich die Welt noch
-        nicht bereist.
-    </li>
-    <li>
-        Mit 6 kam ich das erste mal mit einem Computer in Kontakt und mit 12 habe ich angefangen zu Programmieren. Seit
-        dem bin ich nicht mehr davon wegzukriegen.
-    </li>
-    <li>
-        Meine Ausbildung als <a rel="noopener" target="_blank" class="external"
-                                href="https://www.nta-isny.de/berufskollegs/ausbildungsgaenge/informatik-aik.html">AIK
-        (Assistent für Informations- und Kommunikationstechnik)</a> habe ich erfolgreich an der <a rel="noopener" target="_blank"
-                                                                                                   class="external"
-                                                                                                   href="https://de.wikipedia.org/wiki/Naturwissenschaftlich-Technische_Akademie_Isny">Naturwissenschaftlich-Technische
-        Akademie</a> in Isny abgeschlossen. Mit nun mehr als {{ personal.work_years }} Jahren Berufserfahrung kann ich mich mittlerweile stolz
-        'Senior Software Developer' nennen.
-    </li>
-    {% if steam and steam.games %}
-        <li>Auf <a rel="noopener" target="_blank" class="external" href="https://steamcommunity.com/id/leatherface90">Steam</a> besitze ich derzeit {{ steam.games }} Spiele.{% if gog and gog.games %} Auf <a rel="noopener" target="_blank" class="external" href="https://www.gog.com/u/maluramichael">Gog</a> {{ gog.games }}.</li>{% endif %}
-    {% endif %}
-    <li>
-        Ich liebe <a rel="noopener" target="_blank" class="external"
-                     href="https://steamcommunity.com/id/leatherface90/">Videospiele</a>,
-        <a rel="noopener" target="_blank" class="external" href="https://github.com/maluramichael">Programmieren</a>, die Sterne zu
-        beobachten, über das Leben nachzudenken und ganz viele Fragen zu stellen.
-    </li>
-    <li>
-        Über meinen Großvater bin ich mit <a href="https://de.wikipedia.org/wiki/Oswald_Malura">Oswald Malura</a>
-        verwandt.
-    </li>
-    <li>
-        Ich habe Wurzeln in <a href="https://de.wikipedia.org/wiki/Racib%C3%B3rz">Racibórz</a>.
-    </li>
-
-    {% if github %}
-    <li>Auf <a href="https://github.com/maluramichael">Github</a> habe ich {{ github.repo_count }} Repositories, {{
-        github.star_count }} Sterne und {{ github.fork_count }} Forks.
-    </li>
-    {% endif %}
-
-    {% if npmjs %}
-    <li>Meine Libraries auf <a href="https://www.npmjs.com/~maluramichael">NPM</a> wurden dieses Jahr {{
-        npmjs.downloads['this-year'] }} mal heruntergeladen. Letztes Jahr waren es {{ npmjs.downloads['last-year'] }}.
-    </li>
-    {% endif %}
-    <li>Dieser Blog hat {{ posts | length }} Beiträge.</li>
-    <li>Mein <a rel="me" href="https://mastodon.social/@malura">Mastodon</a> Account.</li>
-</ul>
+<p>
+Als passionierter Senior Software Developer habe ich bereits viele spannende Projekte realisiert und kann auf eine
+langjährige ({{ personal.work_years }} Jahre) Karriere zurückblicken. Geprägt von meiner frühen Begeisterung für Computer und Programmierung, habe ich während meiner
+Ausbildung an der <a rel="noopener" target="_blank" class="external"
+    href="https://de.wikipedia.org/wiki/Naturwissenschaftlich-Technische_Akademie_Isny">Naturwissenschaftlich-Technische
+    Akademie</a> in Isny wertvolle Kenntnisse erworben und mich stetig weiterentwickelt.
+</p>
+<p>
+Mein Leben spielt sich in einem kleinen Dorf bei <a rel="noopener" target="_blank" class="external"
+    href="https://de.wikipedia.org/wiki/Biberach_an_der_Ri%C3%9F">Biberach</a> ab, aber ich trage auch Wurzeln in <a
+    href="https://de.wikipedia.org/wiki/Racib%C3%B3rz">Racibórz</a> in mir.
+</p>
+<p>
+Geboren wurde ich in <a rel="noopener" target="_blank" class="external"
+    href="https://de.wikipedia.org/wiki/Traben-Trarbach">Traben-Trarbach</a> und bin aufgewachsen in <a rel="noopener"
+    target="_blank" class="external" href="https://de.wikipedia.org/wiki/Sohren">Sohren</a>.
+</p>
+<p>
+Obwohl ich die Welt bisher noch nicht bereist habe, gibt es viele Dinge, die mich begeistern und beschäftigen. So bin
+ich beispielsweise ein großer Fan von Videospielen und habe eine beeindruckende Sammlung auf Steam (<a rel="noopener"
+    target="_blank" class="external" href="https://steamcommunity.com/id/leatherface90">{{steam.games}}</a>) und Gog (<a
+    rel="noopener" target="_blank" class="external" href="https://www.gog.com/u/maluramichael">{{gog.games}}</a>)
+aufgebaut.
+</p>
+<p>
+Neben meiner Leidenschaft für Technologie habe ich auch eine tiefe Faszination für das Universum und die unendlichen
+Möglichkeiten des Lebens. Ich liebe es, über die Sterne zu beobachten und Fragen zu stellen, um ein tieferes Verständnis
+unserer Welt und unseres Daseins zu erlangen.
+</p>
+<p>
+Meine Beiträge zur Programmiergemeinschaft kann man auf <a href="https://github.com/maluramichael">Github</a> verfolgen,
+wo ich {{ github.repo_count }} Repositories, {{ github.star_count }} Sterne und {{ github.fork_count }} Forks vorweisen
+kann. Auch meine NPM Libraries sind bei Entwicklern sehr gefragt und werden jährlich immer häufiger heruntergeladen.
+Dieses Jahre waren es ganze {{ npmjs.downloads['this-year'] }} mal und letztes Jahr {{ npmjs.downloads['last-year'] }}.
+Mit {{ posts | length }} Beiträgen auf meinem Blog und meinem <a rel="me"
+    href="https://mastodon.social/@malura">Mastodon</a> bleibe ich auch weiterhin in Verbindung mit der Community.
+</p>
+<p>
+Und noch ein kleiner Fun Fact zu mir: Durch meinen Großvater bin ich mit <a
+    href="https://de.wikipedia.org/wiki/Oswald_Malura">Oswald Malura</a> verwandt
+</p>
+<p>
+Ich bin gespannt, was die Zukunft noch für mich bereithält und freue mich darauf, weiter zu wachsen und zu lernen.
+</p>
