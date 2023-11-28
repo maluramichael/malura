@@ -9,7 +9,7 @@
 __MORE__
 <p>If the numbers aren't consecutive i can tell that the collection is not valid.</p>
 <h2>Dataset</h2>
-<div class="code"><pre><span></span><code><span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+<div class="code breakout"><pre><span></span><code><span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">&#39;transactions&#39;</span><span class="o">:</span> <span class="p">[{</span>
     <span class="s1">&#39;transaction&#39;</span><span class="o">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span>
     <span class="s1">&#39;events&#39;</span><span class="o">:</span> <span class="p">[{</span>
@@ -36,7 +36,7 @@ __MORE__
 </code></pre></div>
 
 <h2>Code</h2>
-<div class="code"><pre><span></span><code><span class="kd">const</span> <span class="nx">eventsAreIncrementing</span> <span class="o">=</span> <span class="nx">R</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+<div class="code breakout"><pre><span></span><code><span class="kd">const</span> <span class="nx">eventsAreIncrementing</span> <span class="o">=</span> <span class="nx">R</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
   <span class="nx">R</span><span class="p">.</span><span class="nx">sortBy</span><span class="p">(</span><span class="nx">R</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">)),</span> <span class="c1">// Sort events</span>
   <span class="nx">R</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">R</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">)),</span> <span class="c1">// Get list of event numbers</span>
   <span class="nx">R</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">acc</span><span class="p">,</span> <span class="nx">current</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>

@@ -7,7 +7,7 @@
 -->
 <p>I needed to split a csv with 14k entries in multiple files because the import on one of our servers would crash when i try to import all at once.</p>
 __MORE__
-<div class="code"><pre><span></span><code><span class="c1"># split -l lines file_to_split output/</span>
+<div class="code breakout"><pre><span></span><code><span class="c1"># split -l lines file_to_split output/</span>
 <span class="o">$</span> <span class="n">split</span> <span class="o">-</span><span class="n">l</span> <span class="mi">4000</span> <span class="k">export</span><span class="o">.</span><span class="n">csv</span> <span class="k">export</span><span class="o">/</span><span class="n">venues</span>
 <span class="o">$</span> <span class="n">ls</span> <span class="n">venues</span>
 <span class="n">venuesaa</span> <span class="n">venuesab</span> <span class="n">venuesac</span> <span class="n">venuesad</span>

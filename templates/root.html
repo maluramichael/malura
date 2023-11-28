@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'head.html' %}
-<body>
-{% include 'header.html' %}
-{% block content %}{% endblock %}
-<footer>
-    {% block footer %}{% endblock %}
-</footer>
-</body>
+    {% include 'head.html' %}
+    <body>
+        <div class="page">
+            <div class="sidebar">
+                <img
+                    src="/assets/michael_wasser_small.jpg"
+                    alt="Portrait"
+                    class="portrait"
+                    onclick="openAvatar()"
+                />
+                {% include 'sidebar.html' %}
+            </div>
+            <div class="content">
+                {% block content %}{% endblock %}
+
+                <footer>
+                    {% block footer %}{% endblock %}
+                </footer>
+            </div>
+        </div>
+    </body>
 </html>

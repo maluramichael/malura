@@ -8,13 +8,13 @@
 
 <h2>Download httpd log files from multiple servers.</h2>
 <p>My <code>.ssh/servers</code> config looks something like this.</p>
-<div class="code"><pre><span></span><code>Host frontend
+<div class="code breakout"><pre><span></span><code>Host frontend
     HostName xxx
     IdentityFile xxx
     ....
 </code></pre></div>
 
-<div class="code"><pre><span></span><code><span class="k">for</span> server <span class="k">in</span> <span class="k">$(</span>egrep -i <span class="s1">&#39;^Host\s.+&#39;</span> ~/.ssh/servers <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span>
+<div class="code breakout"><pre><span></span><code><span class="k">for</span> server <span class="k">in</span> <span class="k">$(</span>egrep -i <span class="s1">&#39;^Host\s.+&#39;</span> ~/.ssh/servers <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span>
     mkdir -p <span class="nv">$server</span>
     scp -r <span class="nv">$server</span>:/var/log/httpd <span class="nv">$server</span>/
     scp -r <span class="nv">$server</span>:/var/app/current/var/log <span class="nv">$server</span>/
@@ -24,5 +24,5 @@
 <h2>Find unique errors in all logs.</h2>
 <p>My log file looks like this: <code>[2021-05-31 09:14:32] request.ERROR: Uncaught PHP Exception Symfony\...</code></p>
 <p>I had to remove the time and date, sort the lines, remove all whitespaces at the beginning of the line and pipe it through the uniq command.</p>
-<div class="code"><pre><span></span><code>cat <span class="k">$(</span>find . -name <span class="s2">&quot;prod.error.log&quot;</span> <span class="p">|</span> xargs<span class="k">)</span> <span class="p">|</span> awk <span class="s1">&#39;{$1=&quot;&quot;; $2=&quot;&quot;; print$0}&#39;</span> <span class="p">|</span> tr -d <span class="s1">&#39; &#39;</span> <span class="p">|</span> sort <span class="p">|</span> uniq &gt; errors.log
+<div class="code breakout"><pre><span></span><code>cat <span class="k">$(</span>find . -name <span class="s2">&quot;prod.error.log&quot;</span> <span class="p">|</span> xargs<span class="k">)</span> <span class="p">|</span> awk <span class="s1">&#39;{$1=&quot;&quot;; $2=&quot;&quot;; print$0}&#39;</span> <span class="p">|</span> tr -d <span class="s1">&#39; &#39;</span> <span class="p">|</span> sort <span class="p">|</span> uniq &gt; errors.log
 </code></pre></div>

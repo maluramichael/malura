@@ -5,17 +5,18 @@ import re
 from dataclasses import fields
 from glob import glob
 from shutil import copy
+import pprint
 
 from jinja2 import Environment, select_autoescape, FileSystemLoader, Template
 from tqdm import tqdm
 import pathlib
 import minify_html
 
-from .npmjs_extension import get_npm_infos
-from .github_extension import get_github_infos
-
 from .html_parser import MetaDataHtmlParser
 from .page import Page
+
+from .npmjs_extension import get_npm_infos
+from .github_extension import get_github_infos
 from .steam_extension import get_steam_infos
 from .gog_extension import get_gog_infos
 from .twitter_extension import get_twitter_infos
@@ -33,9 +34,12 @@ global_context = {
     'personal': get_personal_infos()
 }
 
+pp = pprint.PrettyPrinter()
+pp.pprint(global_context)
+
 default_jinja_env = Environment(
     loader=FileSystemLoader(['.', 'templates']),
-    autoescape=select_autoescape()
+    autoescape=select_autoescape(),
 )
 
 default_jinja_env.trim_blocks = True

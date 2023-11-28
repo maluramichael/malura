@@ -8,6 +8,9 @@ from lib import builder
 from lib.html_parser import LinkParser
 from lib.rss import generate_rss_feed_posts
 from lib.sitemap import generate_sitemap
+from dotenv import load_dotenv
+
+load_dotenv()
 
 output_dir = '_output'
 posts_dir = 'posts'
@@ -17,6 +20,9 @@ page_files = list(Path('pages').rglob('*.html'))
 project_files = list(Path('projects').rglob('*.html'))
 asset_files = list(Path('assets').rglob('*.*'))
 
+################################
+# Parse all documents and build context
+################################
 context = {
     'projects': [
         builder.parse_file_and_create_page_entity(file_path)
@@ -35,10 +41,16 @@ context = {
     'pages_grouped_by_tags': {}
 }
 
+################################
+# Sort context
+################################
 context['posts'].sort(key=lambda x: x.date, reverse=True)
 context['pages'].sort(key=lambda x: x.date, reverse=True)
 context['projects'].sort(key=lambda x: x.date, reverse=True)
 
+################################
+# Group pages by tags
+################################
 for post in tqdm(context['posts'] + context['projects'], desc='Group pages by tags'):
     for tag in post.tags.split(' '):
         if tag not in context['tags']:
@@ -54,6 +66,9 @@ for tag_group, pages_by_tag in context['pages_grouped_by_tags'].items():
 
 context['tags'].sort()
 
+################################
+# Gather external links
+################################
 for entry in context['posts'] + context['pages'] + context['projects']:
     parser = LinkParser()
     parser.feed(entry.content)

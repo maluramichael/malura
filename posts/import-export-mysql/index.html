@@ -7,7 +7,7 @@
 -->
 <p>With this snippets i can create a complete dump of a mysql database.</p>
 <h2>dump</h2>
-<div class="code"><pre><span></span><code>mysqldump --host<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> <span class="se">\</span>
+<div class="code breakout"><pre><span></span><code>mysqldump --host<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> <span class="se">\</span>
 --user<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> --password<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> <span class="se">\</span>
 --default-character-set<span class="o">=</span>latin1 <span class="se">\</span>
 --result-file<span class="o">=</span><span class="s2">&quot;./dump.sql&quot;</span> <span class="se">\</span>
@@ -17,13 +17,13 @@ databasename
 </code></pre></div>
 
 <h2>import</h2>
-<div class="code"><pre><span></span><code>mysql --user<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> --password<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> <span class="se">\</span>
+<div class="code breakout"><pre><span></span><code>mysql --user<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> --password<span class="o">=</span><span class="s2">&quot;xyz&quot;</span> <span class="se">\</span>
 --default-character-set<span class="o">=</span>utf8 <span class="se">\</span>
 databasename &lt; dump.sql
 </code></pre></div>
 
 <h2>better import</h2>
-<div class="code"><pre><span></span><code>mysql -u root -p
+<div class="code breakout"><pre><span></span><code>mysql -u root -p
 mysql&gt; SET names <span class="s1">&#39;utf8&#39;</span>
 mysql&gt; SOURCE dump.sql
 </code></pre></div>

@@ -9,7 +9,7 @@
 <p>Ende 2017 haben wir die 40 Jahre alte Oelheizung durch eine neue Anlage von Viessmann ersetzt. Das moderne Geraet
     stellt viele verschiedene Datenpunkte bereit und ich erklaere wie ich diese auslese und verarbeite.</p>
 __MORE__
-<p><img alt="Grafana Dashboard" src="heizung.png" title="Grafana"/></p>
+<img class="breakout" alt="Grafana Dashboard" src="heizung.png" title="Grafana"/>
 <h2>Welche Anlage besitze ich?</h2>
 <ul>
     <li><a href="https://www.viessmann.de/de/wohngebaeude/oelheizung/oel-brennwertkessel/vitoladens-300-c.html">Vitoladens
@@ -23,7 +23,7 @@ __MORE__
 </ul>
 <h2>Welche Datenpunkte unterstuezt meine Anlage?</h2>
 <h2>Mein Influx Template</h2>
-<div class="code"><pre><span></span><code>temperature,source=outside,provider=heating current=$1
+<div class="code breakout"><pre><span></span><code>temperature,source=outside,provider=heating current=$1
 temperature,source=warm_water,provider=heating current=$2,desired=$3,output=$4
 temperature,source=reservoir,provider=heating current=$5
 temperature,source=solar_collector,provider=heating current=$6
@@ -44,7 +44,7 @@ status,source=pump_internal,provider=heating current=$21
 </div>
 
 <h2>Meine vcontrold.xml</h2>
-<div class="code"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<div class="code breakout"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;V-Control</span> <span class="na">xmlns:vcontrol=</span><span class="s">&quot;https://www.openv.de/vcontrol&quot;</span><span
             class="nt">&gt;</span>
   <span class="nt">&lt;unix&gt;</span>
@@ -604,7 +604,7 @@ status,source=pump_internal,provider=heating current=$21
 </div>
 
 <h2>Meine vito.xml</h2>
-<div class="code"><pre><span></span><code><span class="nt">&lt;vito&gt;</span>
+<div class="code breakout"><pre><span></span><code><span class="nt">&lt;vito&gt;</span>
   <span class="nt">&lt;devices&gt;</span>
     <span class="nt">&lt;device</span> <span class="na">ID=</span><span class="s">&quot;20C8&quot;</span> <span
             class="na">name=</span><span class="s">&quot;VDens&quot;</span> <span class="na">protocol=</span><span
