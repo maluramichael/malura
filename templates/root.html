@@ -1,24 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" class="scroll-smooth">
     {% include 'head.html' %}
-    <body>
-        <div class="page">
-            <div class="sidebar">
-                <img
-                    src="/assets/michael_wasser_small.jpg"
-                    alt="Portrait"
-                    class="portrait"
-                    onclick="openAvatar()"
-                />
-                {% include 'sidebar.html' %}
-            </div>
-            <div class="content">
-                {% block content %}{% endblock %}
+    <body class="bg-stone-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+        <div class="flex min-h-screen">
+            <!-- Sidebar -->
+            <aside class="hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:w-72 xl:w-80 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-sm">
+                <div class="flex flex-col items-center p-8 space-y-6">
+                    <!-- Portrait -->
+                    <div class="relative group">
+                        <img
+                            src="/assets/michael_wasser_small.jpg"
+                            alt="Portrait"
+                            class="w-32 h-32 rounded-full object-cover ring-4 ring-primary-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-900 cursor-pointer transition-transform duration-300 hover:scale-105"
+                            onclick="openAvatar()"
+                        />
+                        <div class="absolute inset-0 rounded-full bg-primary-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                    </div>
 
-                <footer>
-                    {% block footer %}{% endblock %}
-                </footer>
+                    <!-- Name -->
+                    <div class="text-center">
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Michael Malura</h1>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Senior Software Developer</p>
+                    </div>
+
+                    <!-- Navigation -->
+                    {% include 'sidebar.html' %}
+                </div>
+            </aside>
+
+            <!-- Mobile Header -->
+            <div class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+                <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center space-x-3">
+                        <img
+                            src="/assets/michael_wasser_small.jpg"
+                            alt="Portrait"
+                            class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-500"
+                            onclick="openAvatar()"
+                        />
+                        <span class="font-bold text-lg">Michael Malura</span>
+                    </div>
+                    <button
+                        onclick="toggleMobileMenu()"
+                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Menu"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Mobile Navigation -->
+                <div id="mobile-menu" class="hidden border-t border-gray-200 dark:border-gray-800">
+                    {% include 'sidebar.html' %}
+                </div>
             </div>
+
+            <!-- Main Content -->
+            <main class="flex-1 lg:ml-72 xl:ml-80">
+                <div class="pt-20 lg:pt-0 px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+                    <div class="max-w-4xl mx-auto">
+                        {% block content %}{% endblock %}
+
+                        <!-- Footer -->
+                        <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+                            {% block footer %}{% endblock %}
+
+                            <!-- Site Footer -->
+                            <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-600 dark:text-gray-400">
+                                <p>Made with <span class="text-red-500">♥</span> by Michael Malura</p>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </main>
         </div>
+
+        <!-- Mobile Menu Toggle Script -->
+        <script>
+            function toggleMobileMenu() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            }
+        </script>
     </body>
 </html>

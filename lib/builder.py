@@ -197,6 +197,14 @@ def render_list_index(title, entries):
     return rendered
 
 
+def render_projects_index(projects):
+    projects_template = default_jinja_env.get_template('projects_index.html')
+    published_projects = [p for p in projects if not p.draft]
+    rendered = projects_template.render(projects=published_projects, github=global_context['github'])
+
+    return rendered
+
+
 def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
     tag_list_template = default_jinja_env.get_template('tag_list.html')
     tag_list_result = tag_list_template.render(

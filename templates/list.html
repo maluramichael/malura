@@ -2,19 +2,70 @@
 {% import 'helper_macros.html' as helper %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
+<!-- Header -->
 {% if title %}
-<h1>{{ title }}</h1>
+<div class="mt-8 mb-12 pb-8 border-b border-gray-200 dark:border-gray-800">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3">{{ title }}</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400">{{ entries|length }} Beiträge über Code, Projekte und alles was mich interessiert</p>
+</div>
 {% endif %}
-<ul>
+
+<!-- Blog Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {% for entry in entries %}
-        <li>
-            <a href="{{ entry.url }}">({{ helper.render_date(entry.date) }}) {{ entry.title }}</a>
+    <article class="group bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 hover:shadow-lg overflow-hidden">
+        <a href="{{ entry.url }}" class="block p-6">
+            <!-- Date Badge -->
+            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                {{ helper.render_date(entry.date) }}
+            </div>
+
+            <!-- Title -->
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+                {{ entry.title }}
+            </h2>
+
+            <!-- Teaser -->
             {% if entry.teaser %}
-            <div>
-                {{ entry.teaser|safe }}
+            <div class="text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
+                {{ entry.teaser|safe|striptags }}
             </div>
             {% endif %}
-        </li>
+
+            <!-- Read More Link -->
+            <div class="flex items-center text-primary-600 dark:text-primary-400 font-medium group-hover:translate-x-1 transition-transform duration-200">
+                <span>Weiterlesen</span>
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+
+            <!-- Tags (if available) -->
+            {% if entry.tags %}
+            <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div class="flex flex-wrap gap-2">
+                    {% for tag in entry.tags.split(' ')[:3] %}
+                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                        {{tag}}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </a>
+    </article>
     {% endfor %}
-</ul>
+</div>
+
+{% if entries|length == 0 %}
+<div class="text-center py-12">
+    <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    <p class="text-gray-600 dark:text-gray-400">Keine Beiträge gefunden</p>
+</div>
+{% endif %}
 {% endblock %}

@@ -1,16 +1,32 @@
 from pathlib import Path
 import os
-from shutil import copy
+import sys
+import argparse
+from shutil import copy, rmtree
 from tqdm import tqdm
 import rcssmin
+from dotenv import load_dotenv
+
+# Parse command line arguments
+parser = argparse.ArgumentParser(description='Build the static site')
+parser.add_argument('--clear-cache', action='store_true', help='Clear the cache before building')
+args = parser.parse_args()
+
+# Clear cache if requested
+if args.clear_cache:
+    cache_dir = '_cache'
+    if os.path.exists(cache_dir):
+        print(f'🗑️  Clearing cache directory: {cache_dir}')
+        rmtree(cache_dir)
+        print('✅ Cache cleared!')
+
+# Load environment variables before importing modules that need them
+load_dotenv()
 
 from lib import builder
 from lib.html_parser import LinkParser
 from lib.rss import generate_rss_feed_posts
 from lib.sitemap import generate_sitemap
-from dotenv import load_dotenv
-
-load_dotenv()
 
 output_dir = '_output'
 posts_dir = 'posts'
@@ -95,7 +111,7 @@ builder.write_list_entries(context['projects'], output_dir, 'projects')
 with open(os.path.join(output_dir, 'blog/index.html'), 'w') as output_file:
     output_file.write(builder.render_list_index('Blog', context['posts']))
 with open(os.path.join(output_dir, 'projects/index.html'), 'w') as output_file:
-    output_file.write(builder.render_list_index('Projekte', context['projects']))
+    output_file.write(builder.render_projects_index(context['projects']))
 
 if not os.path.exists(os.path.join(output_dir, 'assets')):
     os.makedirs(os.path.join(output_dir, 'assets'))

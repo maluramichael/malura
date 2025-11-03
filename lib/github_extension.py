@@ -15,7 +15,9 @@ g = Github(token)
 def get_repos():
     print('Get github repos')
     user = g.get_user()
-    repos = [repo for repo in user.get_repos(type='sources') if repo.owner.login == user.login and not repo.fork]
+    repos = [repo for repo in user.get_repos(type='sources') if repo.owner.login == user.login and not repo.fork and not repo.private]
+    # Sort by stars (descending)
+    repos.sort(key=lambda repo: repo.stargazers_count, reverse=True)
     return repos
 
 

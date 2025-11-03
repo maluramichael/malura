@@ -1,49 +1,184 @@
 <!--
 {
-  "title": "Willkommen"
+  "title": ""
 }
 -->
-<p>
-Als passionierter Senior Software Developer habe ich bereits viele spannende Projekte realisiert und kann auf eine
-langjährige ({{ personal.work_years }} Jahre) Karriere zurückblicken. Geprägt von meiner frühen Begeisterung für Computer und Programmierung, habe ich während meiner
-Ausbildung an der <a rel="noopener" target="_blank" class="external"
-    href="https://de.wikipedia.org/wiki/Naturwissenschaftlich-Technische_Akademie_Isny">Naturwissenschaftlich-Technische
-    Akademie</a> in Isny wertvolle Kenntnisse erworben und mich stetig weiterentwickelt.
-</p>
-<p>
-Mein Leben spielt sich in einem kleinen Dorf bei <a rel="noopener" target="_blank" class="external"
-    href="https://de.wikipedia.org/wiki/Biberach_an_der_Ri%C3%9F">Biberach</a> ab, aber ich trage auch Wurzeln in <a
-    href="https://de.wikipedia.org/wiki/Racib%C3%B3rz">Racibórz</a> in mir.
-</p>
-<p>
-Geboren wurde ich in <a rel="noopener" target="_blank" class="external"
-    href="https://de.wikipedia.org/wiki/Traben-Trarbach">Traben-Trarbach</a> und bin aufgewachsen in <a rel="noopener"
-    target="_blank" class="external" href="https://de.wikipedia.org/wiki/Sohren">Sohren</a>.
-</p>
-<p>
-Obwohl ich die Welt bisher noch nicht bereist habe, gibt es viele Dinge, die mich begeistern und beschäftigen. So bin
-ich beispielsweise ein großer Fan von Videospielen und habe eine beeindruckende Sammlung auf Steam (<a rel="noopener"
-    target="_blank" class="external" href="https://steamcommunity.com/id/leatherface90">{{steam.games}}</a>) und Gog (<a
-    rel="noopener" target="_blank" class="external" href="https://www.gog.com/u/maluramichael">{{gog.games}}</a>)
-aufgebaut.
-</p>
-<p>
-Neben meiner Leidenschaft für Technologie habe ich auch eine tiefe Faszination für das Universum und die unendlichen
-Möglichkeiten des Lebens. Ich liebe es, über die Sterne zu beobachten und Fragen zu stellen, um ein tieferes Verständnis
-unserer Welt und unseres Daseins zu erlangen.
-</p>
-<p>
-Meine Beiträge zur Programmiergemeinschaft kann man auf <a href="https://github.com/maluramichael">Github</a> verfolgen,
-wo ich {{ github.repo_count }} Repositories, {{ github.star_count }} Sterne und {{ github.fork_count }} Forks vorweisen
-kann. Auch meine NPM Libraries sind bei Entwicklern sehr gefragt und werden jährlich immer häufiger heruntergeladen.
-Dieses Jahre waren es ganze {{ npmjs.downloads['this-year'] }} mal und letztes Jahr {{ npmjs.downloads['last-year'] }}.
-Mit {{ posts | length }} Beiträgen auf meinem Blog und meinem <a rel="me"
-    href="https://mastodon.social/@malura">Mastodon</a> bleibe ich auch weiterhin in Verbindung mit der Community.
-</p>
-<p>
-Und noch ein kleiner Fun Fact zu mir: Durch meinen Großvater bin ich mit <a
-    href="https://de.wikipedia.org/wiki/Oswald_Malura">Oswald Malura</a> verwandt
-</p>
-<p>
-Ich bin gespannt, was die Zukunft noch für mich bereithält und freue mich darauf, weiter zu wachsen und zu lernen.
-</p>
+
+<!-- Hero Section -->
+<div class="mb-12 mt-8">
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 p-8 md:p-12 text-white shadow-2xl">
+        <div class="relative z-10">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">
+                Hey, ich bin Michael 👋
+            </h1>
+            <p class="text-lg md:text-xl text-primary-50 mb-6 max-w-2xl">
+                Seit {{ personal.work_years }} Jahren mache ich das, was ich liebe: Software entwickeln. Von kleinen Tools bis zu großen Projekten – hauptsache Code schreiben und Probleme lösen.
+            </p>
+            <div class="flex flex-wrap gap-3">
+                <a href="/blog" class="inline-flex items-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    Blog lesen
+                </a>
+                <a href="/projects" class="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-lg font-semibold hover:bg-white/20 transition-colors duration-200">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                    Projekte
+                </a>
+            </div>
+        </div>
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-72 h-72 bg-primary-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 -mb-4 -ml-4 w-72 h-72 bg-primary-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s"></div>
+    </div>
+</div>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+    <div class="bg-white dark:bg-gray-900 rounded-lg p-6 border border-gray-200 dark:border-gray-800 text-center hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-200">
+        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">{{ github.repo_count }}</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">GitHub Repos</div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-lg p-6 border border-gray-200 dark:border-gray-800 text-center hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-200">
+        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">{{ github.star_count }}</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">GitHub Stars</div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-lg p-6 border border-gray-200 dark:border-gray-800 text-center hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-200">
+        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">{{ posts | length }}</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">Blog Beiträge</div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-lg p-6 border border-gray-200 dark:border-gray-800 text-center hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-200">
+        <div class="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">{{ npmjs.downloads['this-year']|default('N/A') }}</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">NPM Downloads</div>
+    </div>
+</div>
+
+<!-- About Me -->
+<div class="prose prose-lg dark:prose-invert max-w-none">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Über mich</h2>
+
+    <div class="space-y-4 text-gray-700 dark:text-gray-300">
+        <p>
+            Als passionierter Senior Software Developer habe ich bereits viele spannende Projekte realisiert und kann auf eine
+            langjährige Karriere zurückblicken. Geprägt von meiner frühen Begeisterung für Computer und Programmierung, habe ich während meiner
+            Ausbildung an der <a href="https://de.wikipedia.org/wiki/Naturwissenschaftlich-Technische_Akademie_Isny" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 hover:underline">Naturwissenschaftlich-Technischen
+            Akademie</a> in Isny wertvolle Kenntnisse erworben und mich stetig weiterentwickelt.
+        </p>
+
+        <p>
+            Mein Leben spielt sich in einem kleinen Dorf bei <a href="https://de.wikipedia.org/wiki/Biberach_an_der_Ri%C3%9F" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 hover:underline">Biberach</a> ab, aber ich trage auch Wurzeln in <a href="https://de.wikipedia.org/wiki/Racib%C3%B3rz" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 hover:underline">Racibórz</a> in mir.
+            Geboren wurde ich in <a href="https://de.wikipedia.org/wiki/Traben-Trarbach" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 hover:underline">Traben-Trarbach</a> und bin aufgewachsen in <a href="https://de.wikipedia.org/wiki/Sohren" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 hover:underline">Sohren</a>.
+        </p>
+    </div>
+</div>
+
+<!-- Interests Section -->
+<div class="mt-12 grid md:grid-cols-2 gap-6">
+    <!-- Gaming -->
+    <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-6 border border-purple-200 dark:border-purple-800">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Gaming & Unterhaltung
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">
+            Beeindruckende Spielesammlung mit über <a href="https://steamcommunity.com/id/leatherface90" target="_blank" rel="noopener" class="text-purple-600 dark:text-purple-400 font-semibold hover:underline">{{steam.games}} Spielen auf Steam</a> und
+            <a href="https://www.gog.com/u/maluramichael" target="_blank" rel="noopener" class="text-purple-600 dark:text-purple-400 font-semibold hover:underline">{{gog.games}} auf GOG</a>.
+        </p>
+    </div>
+
+    <!-- Universe -->
+    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+            Universum & Philosophie
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300">
+            Tiefe Faszination für das Universum und die unendlichen Möglichkeiten des Lebens. Sternbeobachtung und philosophische Fragen über unsere Existenz.
+        </p>
+    </div>
+
+    <!-- Photography -->
+    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-lg p-6 border border-emerald-200 dark:border-emerald-800">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            Fotografie
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300">
+            Die Welt durch die Linse einfangen. Meine fotografischen Arbeiten und Experimente findest du auf <a href="https://www.deviantart.com/maluramichael" target="_blank" rel="noopener" class="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">DeviantArt</a>.
+        </p>
+    </div>
+
+    <!-- Nerd Culture -->
+    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-lg p-6 border border-orange-200 dark:border-orange-800">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Nerd Life
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300">
+            Kaffee in Code umwandeln, bis 3 Uhr morgens Code debuggen und dabei Musik hören.
+        </p>
+    </div>
+
+    <!-- Music -->
+    <div class="bg-gradient-to-br from-green-50 to-lime-50 dark:from-green-900/20 dark:to-lime-900/20 rounded-lg p-6 border border-green-200 dark:border-green-800">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+            </svg>
+            Musik & Code
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300">
+            Produktivität = Kaffee + Code + <a href="https://open.spotify.com/playlist/5yojPb15gcYrq5AXvuRbm2" target="_blank" rel="noopener" class="text-green-600 dark:text-green-400 font-semibold hover:underline">die perfekte Playlist</a>. Bug fixing funktioniert 73% besser mit den richtigen Beats.
+        </p>
+    </div>
+</div>
+
+<!-- Community Contribution -->
+<div class="mt-12 bg-white dark:bg-gray-900 rounded-lg p-8 border border-gray-200 dark:border-gray-800">
+    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Open Source & Community</h3>
+    <div class="space-y-4 text-gray-700 dark:text-gray-300">
+        <p>
+            Meine Beiträge zur Programmiergemeinschaft kann man auf <a href="https://github.com/maluramichael" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 font-semibold hover:underline">GitHub</a> verfolgen,
+            wo ich {{ github.repo_count }} Repositories, {{ github.star_count }} Sterne und {{ github.fork_count }} Forks vorweisen kann.
+        </p>
+        <p>
+            Meine NPM Libraries sind bei Entwicklern gefragt und werden jährlich immer häufiger heruntergeladen.
+            Dieses Jahr: <span class="font-bold text-primary-600 dark:text-primary-400">{{ npmjs.downloads['this-year'] }}</span>,
+            Letztes Jahr: <span class="font-bold">{{ npmjs.downloads['last-year'] }}</span>.
+        </p>
+    </div>
+</div>
+
+<!-- Fun Fact -->
+<div class="mt-8 p-6 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+    <div class="flex items-start">
+        <svg class="w-6 h-6 mr-3 mt-1 text-amber-600 dark:text-amber-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+        </svg>
+        <div>
+            <h4 class="font-bold text-gray-900 dark:text-white mb-2">Fun Fact</h4>
+            <p class="text-gray-700 dark:text-gray-300">
+                Durch meinen Großvater bin ich mit <a href="https://de.wikipedia.org/wiki/Oswald_Malura" target="_blank" rel="noopener" class="text-amber-600 dark:text-amber-400 font-semibold hover:underline">Oswald Malura</a> verwandt!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Closing Statement -->
+<div class="mt-12 text-center">
+    <p class="text-lg text-gray-600 dark:text-gray-400 italic">
+        Ich bin gespannt, was die Zukunft noch für mich bereithält und freue mich darauf, weiter zu wachsen und zu lernen.
+    </p>
+</div>

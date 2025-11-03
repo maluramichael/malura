@@ -1,6 +1,14 @@
 {% macro render_tag_list(tags) -%}
-{% for tag in tags.split(' ')|sort %}<a
-        href="/tag/{{tag}}">{{tag}}</a>{{ " - " if not loop.last else "" }}{% endfor %}
+<div class="flex flex-wrap gap-2">
+    {% for tag in tags.split(' ')|sort %}
+    <a href="/tag/{{tag}}" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors duration-200">
+        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+        </svg>
+        {{tag}}
+    </a>
+    {% endfor %}
+</div>
 {%- endmacro %}
 
 {% macro render_date(date) -%}
@@ -8,39 +16,93 @@
 {%- endmacro %}
 
 {% macro render_link(page) -%}
-<a href="{{page.url}}">{{ page.title }}</a>
+<a href="{{page.url}}" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors duration-200">{{ page.title }}</a>
 {%- endmacro %}
-
 
 {% macro render_related_pages(page) -%}
 {% if page.related_pages | length %}
-<div>Ähnliche Beiträge:</div>
-<ul>
-    {% for related in page.related_pages %}
-    <li>
-        {{render_link(related)}}
-    </li>
-    {% endfor %}
-</ul>
+<div class="mt-8 p-6 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        Ähnliche Beiträge
+    </h3>
+    <ul class="space-y-2">
+        {% for related in page.related_pages %}
+        <li class="flex items-start">
+            <svg class="w-4 h-4 mr-2 mt-1 text-primary-500 dark:text-primary-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            {{render_link(related)}}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endif %}
 {%- endmacro %}
 
 {% macro render_metadata(page) -%}
-<div class="metadata">
+<div class="space-y-4">
     {% if page %}
-    {% if page.show_create_date %}
-    Erstellt am: {{ render_date(page.date) }}
-    <br>
-    {% endif %}
-    {% if page.last_update_time %}
-    Letztes Update: {{ render_date(page.last_update_time) }}
-    {% elif last_update_time %}
-    Letztes Update: {{ render_date(last_update_time) }}
-    {% endif %}
+    <div class="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+        {% if page.show_create_date %}
+        <div class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span>Erstellt am {{ render_date(page.date) }}</span>
+        </div>
+        {% endif %}
+        {% if page.last_update_time %}
+        <div class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+            <span>Aktualisiert am {{ render_date(page.last_update_time) }}</span>
+        </div>
+        {% elif last_update_time %}
+        <div class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+            <span>Aktualisiert am {{ render_date(last_update_time) }}</span>
+        </div>
+        {% endif %}
+    </div>
     {% if page.tags | length > 0 %}
-    <br>
-    Tags: {{ render_tag_list(page.tags) }}
+    <div>
+        {{ render_tag_list(page.tags) }}
+    </div>
     {% endif %}
     {% endif %}
 </div>
+{%- endmacro %}
+
+{% macro render_metadata_inline(page) -%}
+{% if page %}
+<div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+    {% if page.show_create_date %}
+    <div class="flex items-center">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span>{{ render_date(page.date) }}</span>
+    </div>
+    {% endif %}
+    {% if page.last_update_time %}
+    <div class="flex items-center">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        <span>{{ render_date(page.last_update_time) }}</span>
+    </div>
+    {% endif %}
+    {% if page.tags | length > 0 %}
+    <div class="flex items-center">
+        {{ render_tag_list(page.tags) }}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
 {%- endmacro %}
