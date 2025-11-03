@@ -3,7 +3,7 @@
     --color-bg:           #ffffff;
     --color-fg:           #333333;
     --color-link:         cornflowerblue;
-    --color-link-visited: #4e80dc;
+    --color-link-visited: #9f4edc;
 }
 
 @media (prefers-color-scheme: dark)
@@ -140,11 +140,6 @@ a
 {
     color:           var(--color-link);
     text-decoration: none;
-}
-
-a:visited
-{
-    color: var(--color-link-visited);
 }
 
 ul

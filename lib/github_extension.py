@@ -7,7 +7,7 @@ cache = Cache("_cache")
 if 'PAT' not in os.environ:
     raise EnvironmentError('PAT environment variable not defined')
 
-token = os.environ.get('PAT')
+token = os.environ.get('PAT').strip()
 g = Github(token)
 
 
