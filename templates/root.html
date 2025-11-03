@@ -35,14 +35,14 @@
                         <img
                             src="/assets/michael_wasser_small.jpg"
                             alt="Portrait"
-                            class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-500"
+                            class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-500 cursor-pointer"
                             onclick="openAvatar()"
                         />
-                        <span class="font-bold text-lg">Michael Malura</span>
+                        <span class="font-bold text-lg text-gray-900 dark:text-white">Michael Malura</span>
                     </div>
                     <button
                         onclick="toggleMobileMenu()"
-                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        class="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                         aria-label="Menu"
                     >
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@
                     </button>
                 </div>
                 <!-- Mobile Navigation -->
-                <div id="mobile-menu" class="hidden border-t border-gray-200 dark:border-gray-800">
+                <div id="mobile-menu" class="hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
                     {% include 'sidebar.html' %}
                 </div>
             </div>
