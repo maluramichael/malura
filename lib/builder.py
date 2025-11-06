@@ -179,7 +179,7 @@ def render_entries(entries, context):
 
 def write_list_entries(entries, output_dir, destination_dir=''):
     for entry in tqdm(entries, desc='Write entries to disk'):
-        _, filename = os.path.split(entry.file_path)
+        directory, filename = os.path.split(entry.file_path)
         filename, extension = os.path.splitext(filename)
         final_dir = destination_dir
 
@@ -187,6 +187,11 @@ def write_list_entries(entries, output_dir, destination_dir=''):
             final_dir = os.path.join(final_dir, filename)
 
         write_page_as_html_to_disk(entry, output_dir, final_dir)
+
+        # Copy other files (like images) next to the entry
+        other_files = glob(f'{directory}/{filename}.*[!.html]')
+        for other_file in other_files:
+            copy(other_file, os.path.join(output_dir, final_dir))
 
 
 def render_list_index(title, entries):

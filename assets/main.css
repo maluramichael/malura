@@ -142,12 +142,84 @@ a
     text-decoration: none;
 }
 
+/* Tag styling - override link colors for tags */
+a.inline-flex.items-center.rounded-full
+{
+    color:              #047857 !important;
+    background-color:   #d1fae5;
+    text-decoration:    none;
+}
+
+a.inline-flex.items-center.rounded-full:hover
+{
+    background-color:   #a7f3d0;
+}
+
+@media (prefers-color-scheme: dark)
+{
+    a.inline-flex.items-center.rounded-full
+    {
+        color:              #6ee7b7;
+        background-color:   #064e3b;
+    }
+
+    a.inline-flex.items-center.rounded-full:hover
+    {
+        background-color:   #065f46;
+    }
+}
+
+/* Ensure links in content areas maintain their color */
+.prose a,
+.text-gray-700 a,
+.text-gray-300 a,
+article a
+{
+    color: var(--color-link) !important;
+}
+
+.prose a:visited,
+.text-gray-700 a:visited,
+.text-gray-300 a:visited,
+article a:visited
+{
+    color: var(--color-link-visited) !important;
+}
+
 ul
 {
-    list-style:  disc;
-    margin-left: 1em;
-    padding:     0;
-    line-height: 1.5;
+    list-style:     disc;
+    margin-left:    2em;
+    margin-bottom:  1.5em;
+    margin-top:     1em;
+    padding:        0;
+    line-height:    1.6;
+}
+
+ul li
+{
+    margin-bottom:  0.25em;
+}
+
+/* Add spacing between content elements */
+.prose p,
+.prose ul,
+.prose ol,
+.prose img,
+article p,
+article ul,
+article ol,
+article img
+{
+    margin-top:     1em;
+    margin-bottom:  1em;
+}
+
+.prose img,
+article img
+{
+    margin-top:     2em;
+    margin-bottom:  2em;
 }
 
 nav
