@@ -11,6 +11,7 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader, Template
 from tqdm import tqdm
 import pathlib
 import minify_html
+import markdown
 
 from .html_parser import MetaDataHtmlParser
 from .page import Page
@@ -60,7 +61,7 @@ def render_page_content(page_to_render, context):
     if not page_to_render.url.startswith('/'):
         page_to_render.url = '/' + page_to_render.url
 
-    string_file_path = str(page_to_render.file_path)
+    string_file_path = str(page_to_render.file_path).replace('\\', '/')
     template_directory = os.path.split(string_file_path)[0].replace('./', '').split('/')[0]
     temporary_template = default_jinja_env.get_template(string_file_path)
     page_to_render.rendered = temporary_template.render(page=page_to_render, **context, **global_context)
@@ -73,27 +74,62 @@ def render_page_content(page_to_render, context):
 
 
 def parse_file_and_create_page_entity(file_path):
-    with open(file_path) as f:
+    with open(file_path, encoding='utf-8') as f:
         page = Page()
         page.file_path = file_path
         page.content = f.read()
-
-        htmlParser = MetaDataHtmlParser()
-        htmlParser.feed(page.content)
 
         path_object = pathlib.Path(file_path)
         stat = path_object.stat()
         modification_date = datetime.datetime.fromtimestamp(stat.st_mtime)
         page.last_update_time = modification_date
 
-        if htmlParser.parsed and htmlParser.meta_data != None:
-            names = set([f.name for f in fields(page)])
-            for key, value in htmlParser.meta_data.items():
-                if key in names:
-                    if key == 'date':
-                        setattr(page, key, datetime.datetime.strptime(value, "%Y-%m-%d"))
-                    else:
-                        setattr(page, key, value)
+        # Handle markdown files
+        if str(file_path).endswith('.md'):
+            import re
+            # Extract frontmatter from markdown
+            frontmatter_match = re.match(r'^---\s*\n(.*?)\n---\s*\n(.*)$', page.content, re.DOTALL)
+            if frontmatter_match:
+                frontmatter_text = frontmatter_match.group(1)
+                page.content = frontmatter_match.group(2).strip()
+                
+                # Parse YAML-like frontmatter
+                meta_data = {}
+                for line in frontmatter_text.strip().split('\n'):
+                    if ':' in line:
+                        key, value = line.split(':', 1)
+                        key = key.strip()
+                        value = value.strip().strip('"\'')
+                        if value.lower() == 'true':
+                            value = True
+                        elif value.lower() == 'false':
+                            value = False
+                        meta_data[key] = value
+                
+                names = set([f.name for f in fields(page)])
+                for key, value in meta_data.items():
+                    if key in names:
+                        if key == 'date':
+                            setattr(page, key, datetime.datetime.strptime(value, "%Y-%m-%d"))
+                        else:
+                            setattr(page, key, value)
+        else:
+            # Handle HTML files
+            htmlParser = MetaDataHtmlParser()
+            htmlParser.feed(page.content)
+
+            if htmlParser.parsed and htmlParser.meta_data != None:
+                names = set([f.name for f in fields(page)])
+                for key, value in htmlParser.meta_data.items():
+                    if key in names:
+                        if key == 'date':
+                            setattr(page, key, datetime.datetime.strptime(value, "%Y-%m-%d"))
+                        else:
+                            setattr(page, key, value)
+
+        # Convert markdown to HTML if it's a markdown file
+        if str(file_path).endswith('.md'):
+            page.content = markdown.markdown(page.content)
 
         if more_tag in page.content:
             more_start = page.content.index(more_tag)
@@ -122,7 +158,7 @@ def write_page_as_html_to_disk(page_to_write, output_dir, destination_dir):
 
     page_to_write.rendered = rendered
 
-    with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
+    with open(os.path.join(destination_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(rendered)
 
 
@@ -217,7 +253,7 @@ def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
     destination_dir = os.path.join(output_dir, 'tag')
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
-    with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
+    with open(os.path.join(destination_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(tag_list_result)
 
     for tag_name, posts_grouped_by_tag in tqdm(pages_grouped_by_tags.items(), desc='Write tags to disk'):
@@ -226,7 +262,7 @@ def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
         destination_dir = os.path.join(output_dir, 'tag', tag_name)
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
-        with open(os.path.join(destination_dir, 'index.html'), 'w') as f:
+        with open(os.path.join(destination_dir, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(tag_list_result)
 
 

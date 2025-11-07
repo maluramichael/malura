@@ -1,12 +1,23 @@
 {% extends 'root.html' %}
 {% import 'helper_macros.html' as helper %}
 {% block content %}
-<h1>
-    {{ page.title }}
-</h1>
-{{ page.content|safe }}
+<!-- Blog Post -->
+<article class="prose prose-lg dark:prose-invert max-w-none">
+    {% if page.title %}
+    <header class="mt-8 mb-8 pb-6 border-b border-gray-200 dark:border-gray-800">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            {{ page.title }}
+        </h1>
+        {{ helper.render_metadata_inline(page) }}
+    </header>
+    {% endif %}
+
+    <!-- Content -->
+    <div class="prose prose-lg dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-gray-900 dark:prose-code:text-white prose-pre:bg-gray-900 dark:prose-pre:bg-gray-800 prose-pre:text-gray-100 max-w-none">
+        {{ page.content|safe }}
+    </div>
+</article>
 {% endblock %}
 {% block footer %}
-{{ helper.render_metadata(page) }}
 {{ helper.render_related_pages(page) }}
 {% endblock %}

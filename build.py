@@ -33,7 +33,7 @@ posts_dir = 'posts'
 
 post_files = list(Path('posts').rglob('*.html'))
 page_files = list(Path('pages').rglob('*.html'))
-project_files = list(Path('projects').rglob('*.html'))
+project_files = list(Path('projects').rglob('*.html')) + list(Path('projects').rglob('*.md'))
 asset_files = list(Path('assets').rglob('*.*'))
 
 ################################
@@ -62,7 +62,8 @@ context = {
 ################################
 context['posts'].sort(key=lambda x: x.date, reverse=True)
 context['pages'].sort(key=lambda x: x.date, reverse=True)
-context['projects'].sort(key=lambda x: x.date, reverse=True)
+# Sort projects: active first (by date desc), then abandoned (by date desc)
+context['projects'].sort(key=lambda x: (x.abandoned, -x.date.timestamp()))
 
 ################################
 # Group pages by tags
@@ -108,9 +109,9 @@ builder.write_blog_posts(context['posts'], output_dir)
 builder.write_list_entries(context['pages'], output_dir)
 builder.write_list_entries(context['projects'], output_dir, 'projects')
 
-with open(os.path.join(output_dir, 'blog/index.html'), 'w') as output_file:
+with open(os.path.join(output_dir, 'blog/index.html'), 'w', encoding='utf-8') as output_file:
     output_file.write(builder.render_list_index('Blog', context['posts']))
-with open(os.path.join(output_dir, 'projects/index.html'), 'w') as output_file:
+with open(os.path.join(output_dir, 'projects/index.html'), 'w', encoding='utf-8') as output_file:
     output_file.write(builder.render_projects_index(context['projects']))
 
 if not os.path.exists(os.path.join(output_dir, 'assets')):
