@@ -317,7 +317,9 @@ def set_related_pages(pages, pages_grouped_by_tags):
 
         for tag in page.tags.split():
             if tag in pages_grouped_by_tags.keys():
-                pages_by_tag = [p for p in pages_grouped_by_tags[tag] if p != page]
+                # Filter out abandoned projects and exclude current page
+                pages_by_tag = [p for p in pages_grouped_by_tags[tag] 
+                              if p != page and not getattr(p, 'abandoned', False)]
                 if len(pages_by_tag):
                     random_post_by_tag = random.choice(pages_by_tag)
 
