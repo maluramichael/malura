@@ -3,7 +3,7 @@
     --color-bg:           #ffffff;
     --color-fg:           #333333;
     --color-link:         cornflowerblue;
-    --color-link-visited: #9f4edc;
+    --color-link-visited: #14b8a6;
 }
 
 @media (prefers-color-scheme: dark)
@@ -13,7 +13,7 @@
         --color-bg:           #333333;
         --color-fg:           #ffffff;
         --color-link:         crimson;
-        --color-link-visited: crimson;
+        --color-link-visited: #2dd4bf;
     }
 }
 
@@ -142,6 +142,23 @@ a
     text-decoration: none;
 }
 
+/* Hero button styling */
+.hero-button
+{
+    color: white !important;
+}
+
+.hero-button svg
+{
+    color: white !important;
+    stroke: currentColor !important;
+}
+
+.hero-button svg path
+{
+    stroke: white !important;
+}
+
 /* Tag styling - override link colors for tags */
 a.inline-flex.items-center.rounded-full
 {
@@ -169,19 +186,11 @@ a.inline-flex.items-center.rounded-full:hover
     }
 }
 
-/* Ensure links in content areas maintain their color */
-.prose a,
-.text-gray-700 a,
-.text-gray-300 a,
-article a
-{
-    color: var(--color-link) !important;
-}
-
-.prose a:visited,
-.text-gray-700 a:visited,
-.text-gray-300 a:visited,
-article a:visited
+/* Ensure visited links in content areas maintain their color */
+.prose a:visited:not(.hero-button),
+.text-gray-700 a:visited:not(.hero-button),
+.text-gray-300 a:visited:not(.hero-button),
+article a:visited:not(.hero-button)
 {
     color: var(--color-link-visited) !important;
 }
