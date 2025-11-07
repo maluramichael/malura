@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:klima.tools.malura.de)",
+      "Bash(venv/Scripts/python.exe build.py:*)",
+      "Bash(python:*)",
+      "Bash(venvScriptsactivate.bat)",
+      "Bash(pip install:*)",
+      "Bash(venv/Scripts/pip.exe install:*)",
+      "Bash(git add:*)",
+      "Bash(git restore:*)",
+      "Bash(git commit:*)",
+      "Bash(findstr:*)",
+      "Bash(npx http-server:*)",
+      "Bash(venv/Scripts/python.exe:*)",
+      "Bash(rmdir:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

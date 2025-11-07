@@ -1,9 +1,10 @@
 {% extends 'root.html' %}
-{% block title %}Projekte{% endblock %}
+{% import 'helper_macros.html' as i18n %}
+{% block title %}{{ i18n.t('projects') }}{% endblock %}
 {% block content %}
 <!-- Header -->
 <div class="mt-8 mb-12 pb-8 border-b border-gray-200 dark:border-gray-800">
-    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3">Projekte</h1>
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3">{{ i18n.t('projects') }}</h1>
     <p class="text-lg text-gray-600 dark:text-gray-400">Dinge die ich gebaut habe – von kleinen Tools bis zu größeren Projekten</p>
 </div>
 
@@ -15,7 +16,7 @@
         <svg class="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
         </svg>
-        Active Projects
+        {{ i18n.t('active_projects') }}
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {% for project in active_projects %}
@@ -50,7 +51,7 @@
         <svg class="w-6 h-6 mr-3 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
         </svg>
-        Archived Projects
+        {{ i18n.t('archived_projects') }}
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {% for project in abandoned_projects %}
@@ -61,7 +62,7 @@
                         {{ project.title }}
                     </h3>
                     <span class="ml-3 px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
-                        Archived
+                        {{ i18n.t('archived') }}
                     </span>
                 </div>
                 {% if project.teaser %}
@@ -70,7 +71,7 @@
                 </div>
                 {% endif %}
                 <div class="flex items-center text-gray-400 dark:text-gray-600 font-medium">
-                    <span>No longer active</span>
+                    <span>{{ i18n.t('no_longer_active') }}</span>
                     <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"/>
                     </svg>

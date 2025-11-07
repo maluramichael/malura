@@ -1,0 +1,10 @@
+---
+title: "Group jekyll posts by date"
+date: 2018-10-29
+tags: code jekyll html blog
+draft: True
+---
+
+I wanted to remove the plain list of blog posts and create a list that is grouped by years and months.
+
+## Code

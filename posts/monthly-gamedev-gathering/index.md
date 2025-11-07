@@ -1,0 +1,19 @@
+---
+title: "Fourth gamedev gathering"
+date: 2018-10-28
+tags: gamedev-gathering bodensee toolbox gamedev
+---
+
+Some of you may know that a couple of game developers get to gether every month to code games, drink, talk and have a good time.
+
+The 27.10.2018 was one of this days. Again we met at the [Toolbox Bodensee](https://toolbox-bodensee.de/) a big hackspace here in south germany.
+
+We started at 10am with some Club Mate and talked a lot about our current projects. At 1pm i held a presentation about [Reverse engineering](https://files.malura.de/presentations/silver-reverse-engineering-presentation/)
+
+This time i didn't code so much. I just implemented a simple behavior stack for a game iam working in.
+
+I talked a lot to the developer of [Drag](https://www.indiedb.com/games/drag)
+
+At 12pm i packed my stuff and drove home.
+
+You can find more informations about our meetups [here](https://spieleentwicklung-bodensee.de/)

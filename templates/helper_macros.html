@@ -1,3 +1,6 @@
+<!-- Translation helper -->
+{% macro t(key) %}{{ get_translation(key, current_lang) }}{% endmacro %}
+
 {% macro render_tag_list(tags) -%}
 <div class="flex flex-wrap gap-2">
     {% for tag in tags.split(' ')|sort %}

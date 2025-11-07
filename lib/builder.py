@@ -22,6 +22,7 @@ from .steam_extension import get_steam_infos
 from .gog_extension import get_gog_infos
 from .twitter_extension import get_twitter_infos
 from .personal_extension import get_personal_infos
+from .translations import get_translation
 
 more_tag = '__MORE__'
 
@@ -45,6 +46,9 @@ default_jinja_env = Environment(
 
 default_jinja_env.trim_blocks = True
 
+# Add translation function to Jinja globals
+default_jinja_env.globals['get_translation'] = get_translation
+
 
 def strip_comments(html):
     return re.sub("(<!--.*?-->)", "", html, flags=re.MULTILINE)
@@ -63,9 +67,16 @@ def render_page_content(page_to_render, context):
 
     string_file_path = str(page_to_render.file_path).replace('\\', '/')
     template_directory = os.path.split(string_file_path)[0].replace('./', '').split('/')[0]
-    temporary_template = default_jinja_env.get_template(string_file_path)
-    page_to_render.rendered = temporary_template.render(page=page_to_render, **context, **global_context)
+    
+    # For markdown files, content is already converted to HTML, just set it as rendered
+    if str(page_to_render.file_path).endswith('.md'):
+        page_to_render.rendered = page_to_render.content
+    else:
+        # For HTML files, use template rendering
+        temporary_template = default_jinja_env.get_template(string_file_path)
+        page_to_render.rendered = temporary_template.render(page=page_to_render, **context, **global_context)
 
+    # Apply the layout template for all files
     template_name = directory_to_template[template_directory]
     temporary_template = default_jinja_env.get_template(template_name)
     rendered = temporary_template.render(page=page_to_render, **context, **global_context)
@@ -129,11 +140,24 @@ def parse_file_and_create_page_entity(file_path):
 
         # Convert markdown to HTML if it's a markdown file
         if str(file_path).endswith('.md'):
-            page.content = markdown.markdown(page.content)
+            page.content = markdown.markdown(
+                page.content, 
+                extensions=['codehilite', 'fenced_code'],
+                extension_configs={
+                    'codehilite': {
+                        'css_class': 'code',
+                        'use_pygments': True
+                    }
+                }
+            )
 
-        if more_tag in page.content:
-            more_start = page.content.index(more_tag)
-            page.teaser = page.content[0:more_start]
+        # Handle both __MORE__ and <!-- more --> markers
+        more_markers = [more_tag, '<!-- more -->']
+        for marker in more_markers:
+            if marker in page.content:
+                more_start = page.content.index(marker)
+                page.teaser = page.content[0:more_start]
+                break
 
         return page
 
@@ -163,13 +187,15 @@ def write_page_as_html_to_disk(page_to_write, output_dir, destination_dir):
 
 
 def get_destination_dir_for_blog_post(entry, absolute=False):
-    directory, filename = os.path.split(entry.file_path)
+    # Normalize path separators for consistent behavior across platforms
+    file_path = str(entry.file_path).replace('\\', '/')
+    directory, filename = os.path.split(file_path)
     destination_dir = 'blog/'
     filename, extension = os.path.splitext(filename)
     destination_dir += entry.date.strftime('%Y/%m/%d') + '/'
 
     if '/' in directory:
-        root_dir, subdir = os.path.split(directory)
+        root_dir, subdir = directory.rsplit('/', 1)  # Use rsplit to get the last part
         destination_dir += subdir + '/'
         entry.other_files = glob(f'{directory}/*[!.html]')
     else:
@@ -230,26 +256,45 @@ def write_list_entries(entries, output_dir, destination_dir=''):
             copy(other_file, os.path.join(output_dir, final_dir))
 
 
-def render_list_index(title, entries):
+def render_list_index(title, entries, context=None):
     list_template = default_jinja_env.get_template('list.html')
     published_entries = [p for p in entries if not p.draft]
-    rendered = list_template.render(title=title, entries=published_entries, last_update_time=datetime.datetime.now())
+    template_context = {
+        'title': title,
+        'entries': published_entries,
+        'last_update_time': datetime.datetime.now()
+    }
+    if context:
+        template_context.update(context)
+    rendered = list_template.render(**template_context)
 
     return rendered
 
 
-def render_projects_index(projects):
+def render_projects_index(projects, context=None):
     projects_template = default_jinja_env.get_template('projects_index.html')
     published_projects = [p for p in projects if not p.draft]
-    rendered = projects_template.render(projects=published_projects, github=global_context['github'])
+    template_context = {
+        'projects': published_projects, 
+        'github': global_context['github']
+    }
+    if context:
+        template_context.update(context)
+    rendered = projects_template.render(**template_context)
 
     return rendered
 
 
-def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
+def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir, context=None):
     tag_list_template = default_jinja_env.get_template('tag_list.html')
-    tag_list_result = tag_list_template.render(
-        tags=tags, pages_grouped_by_tags=pages_grouped_by_tags)
+    template_context = {
+        'tags': tags, 
+        'pages_grouped_by_tags': pages_grouped_by_tags
+    }
+    if context:
+        template_context.update(context)
+    tag_list_result = tag_list_template.render(**template_context)
+    
     destination_dir = os.path.join(output_dir, 'tag')
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
@@ -258,7 +303,7 @@ def render_and_write_tags_to_disk(tags, pages_grouped_by_tags, output_dir):
 
     for tag_name, posts_grouped_by_tag in tqdm(pages_grouped_by_tags.items(), desc='Write tags to disk'):
         tag_list_result = render_list_index(
-            f'Seiten mit dem Tag "{tag_name}"', posts_grouped_by_tag)
+            f'Seiten mit dem Tag "{tag_name}"', posts_grouped_by_tag, context)
         destination_dir = os.path.join(output_dir, 'tag', tag_name)
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
