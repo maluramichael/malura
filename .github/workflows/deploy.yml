@@ -1,49 +1,17 @@
-name: Python application
+name: Deploy to DokiDoki
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'true'
-          fetch-depth: 0
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Install dependencies
+      - name: Trigger DokiDoki Deployment
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_DEPLOY_SECRET }}
-          name: id_rsa
-          if_key_exists: fail
-          known_hosts: just-some-random-string
-          config: |
-            LogLevel ERROR
-            Host ${{ secrets.SSH_HOST }}
-              HostName ${{ secrets.SSH_HOST }}
-              Port ${{ secrets.SSH_PORT }}
-              User root
-              IdentityFile ~/.ssh/id_rsa
-      - name: Adding Known Hosts
-        run: ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-      - name: Restore timestamps
-        run: ./scripts/restore-timestamps.sh
-      - name: Build
-        env:
-          PAT: ${{ secrets.PAT }}
-          NPMJS_TOKEN: ${{ secrets.NPMJS_TOKEN }}
-        run: python build.py
-      - name: Deploy
-        run: ./scripts/deploy.sh ${{ secrets.SSH_HOST }}
+          set -e  # Exit on error
+          curl -f -X POST "https://dokidoki.malura.de/webhooks/deploy/malura" \
+            -H "X-Webhook-Secret: ${{ secrets.DOKIDOKI_WEBHOOK_SECRET }}" \
+            -H "Content-Type: application/json" \
+            || (echo "Deployment webhook failed!" && exit 1)
