@@ -2,4 +2,11 @@ version: 1
 
 runtime:
   type: static
-  subtype: node
+  subtype: custom
+
+build:
+  install_command: "python3 -m venv venv && venv/bin/pip install -r requirements.txt"
+  build_command: "venv/bin/python build.py"
+
+app:
+  serve_directory: "_output"
