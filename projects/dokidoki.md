@@ -19,4 +19,40 @@ Die Plattform nutzt systemd-nspawn für leichtgewichtige Container-Isolation, ve
 - Deployment-Historie mit Logs
 - CLI-Tools für Server-Administration
 
+**Beispiel-Konfigurationen:**
+
+Statische Site mit Node.js Build (React/Vite):
+
+```yaml
+runtime:
+  type: static
+  subtype: node
+
+app:
+  serve_directory: dist
+```
+
+Python Flask Anwendung:
+
+```yaml
+runtime:
+  type: python
+  version: "3.11"
+
+app:
+  start_command: "gunicorn --bind 0.0.0.0:${PORT} wsgi:app"
+  working_directory: "."
+  env_file: ".env"
+```
+
+Statische HTML-Site:
+
+```yaml
+runtime:
+  type: static
+
+app:
+  serve_directory: "."
+```
+
 Die Plattform hostet aktuell alle meine Web-Projekte und ermöglicht schnelle Iteration durch automatische Deployments direkt aus GitHub.
