@@ -162,7 +162,7 @@ a
 /* Tag styling - override link colors for tags */
 a.inline-flex.items-center.rounded-full
 {
-    color:              #047857 !important;
+    color:              #047857;
     background-color:   #d1fae5;
     text-decoration:    none;
 }
