@@ -4,7 +4,7 @@ date: 2018-09-01
 tags: gog downloads linux
 ---
 
-I wanted to backup all my games from gog. So i found this handy tool.
+I wanted to backup all my games from gog. So I found this handy tool.
 
 You need to get the lgogdownloader either from [github](https://github.com/Sude-/lgogdownloader) or via your package manager
 ```

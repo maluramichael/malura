@@ -21,5 +21,5 @@ venuesaa.csv venuesab.csv venuesac.csv venuesad.csv
 $ header=$(head -n 1 venuesaa.csv)
 
 # prepend header to every other file
-$ ls  grep -vv venuesaa  xargs echo -e "$header\n$(cat {})" > {}
+$ ls | grep -v venuesaa | xargs echo -e "$header\n$(cat {})" > {}
 ```

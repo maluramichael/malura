@@ -6,7 +6,7 @@ tags: linux shell
 
 Bisher habe ich unsere Fotos von Hand in folgende Ordnerstruktur einsortiert: `Jahr/Monat/Tag/Bildname-Nummer.format`
 
-Mit der Zeit wird sowas aber anstrengend und Fehleranfaellig. Darum habe ich mir ein Script geschrieben welches per cronjob aufgerufen wird und jeden Abend neue Bilder einsortiert.
+Mit der Zeit wird sowas aber anstrengend und fehleranfällig. Darum habe ich mir ein Script geschrieben welches per cronjob aufgerufen wird und jeden Abend neue Bilder einsortiert.
 ```
 #!/bin/sh
 
@@ -22,7 +22,7 @@ DIR="/tank/private"
 # "$DIR/unsorted" Unsortiere Quelle
 exiftool -r '-FileName '-FileName -d "$DIR/sorted/%Y/%m/%d/%f%%-c.%%le" "$DIR/unsorted"
 
-# Moegliche leere Verzeichnisse entfernen
+# Mögliche leere Verzeichnisse entfernen
 find "$DIR/unsorted" -type d -empty -delete
 
 # Rechte richtig setzen

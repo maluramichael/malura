@@ -4,8 +4,8 @@ date: 2019-09-24
 tags: viessmann data export openv cron
 ---
 
-Ende 2017 haben wir die 40 Jahre alte Oelheizung durch eine neue Anlage von Viessmann ersetzt. Das moderne Geraet
-stellt viele verschiedene Datenpunkte bereit und ich erklaere wie ich diese auslese und verarbeite.
+Ende 2017 haben wir die 40 Jahre alte Ölheizung durch eine neue Anlage von Viessmann ersetzt. Das moderne Gerät
+stellt viele verschiedene Datenpunkte bereit und ich erkläre wie ich diese auslese und verarbeite.
 
 ![Grafana Dashboard](./heizung.png "Grafana")
 
@@ -16,7 +16,9 @@ stellt viele verschiedene Datenpunkte bereit und ich erklaere wie ich diese ausl
 - [5
   Solarpanele](https://www.viessmann.de/de/wohngebaeude/solarthermie/flachkollektoren/vitosol-200-fm.html)
 
-## Welche Datenpunkte unterstuezt meine Anlage?
+## Welche Datenpunkte unterstützt meine Anlage?
+
+Die Anlage bietet über 100 verschiedene Datenpunkte, von Temperaturen über Laufzeiten bis hin zu Betriebsmodi. Die wichtigsten für mein Monitoring sind Außentemperatur, Kesseltemperatur, Warmwassertemperatur und Brennerlaufzeit.
 
 ## Mein Influx Template
 ```

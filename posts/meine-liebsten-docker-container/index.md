@@ -8,7 +8,7 @@ Die folgenden Docker Container laufen aktuell in meinem Homelab.
 
 ## Deluge
 
-Deluge ist ein Torrent Server. Ich lade meine Linux ISOs am liebsten ueber Torrent und moechte der Community natuerlich auch etwas zurueck geben.
+Deluge ist ein Torrent Server. Ich lade meine Linux ISOs am liebsten über Torrent und möchte der Community natürlich auch etwas zurück geben.
 
 Darum seede ich meine lieblings ISOs von meinem Homeserver aus in die weite Welt hinaus.
 ```
@@ -34,7 +34,7 @@ services:
 ```
 ## Plex
 
-Natuerlich darf die Home-Version von Netflix nicht fehlen
+Natürlich darf die Home-Version von Netflix nicht fehlen
 ```
 version: "3"
 services:

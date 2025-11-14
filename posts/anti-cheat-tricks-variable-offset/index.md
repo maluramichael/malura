@@ -4,9 +4,11 @@ date: 2018-11-14
 tags: cpp reverse-engineering code
 ---
 
-A little class which shows you how some developers obfuscate values in their games.
+A little class which shows you how some developers obfuscate values in their games to prevent memory editing.
+
+This technique adds a random offset to stored values, making them harder to find and modify in memory scanners.
 ```
-#include
+#include <iostream>
 
 template<typename T>
 class OffsetVariable {

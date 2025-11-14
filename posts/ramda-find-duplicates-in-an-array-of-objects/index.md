@@ -4,9 +4,9 @@ date: 2018-11-05
 tags: code ramda javascript
 ---
 
-For my current project i need to verify that a list of transactions doesn't contain any duplicates based on the transaction id.
+For my current project I need to verify that a list of transactions doesn't contain any duplicates based on the transaction id.
 
-So i'll show you how i search for duplicates in lists based on a property.
+So I'll show you how I search for duplicates in lists based on a property.
 ```
 const R = require('ramda');
 const data = {

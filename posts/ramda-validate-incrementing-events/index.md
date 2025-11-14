@@ -4,9 +4,9 @@ date: 2018-11-05
 tags: javascript ramda code
 ---
 
-I need to verify that i don't miss any events. So i came up with the concept of a number which needs to increment with every event.
+I need to verify that I don't miss any events. So I came up with the concept of a number which needs to increment with every event.
 
-If the numbers aren't consecutive i can tell that the collection is not valid.
+If the numbers aren't consecutive I can tell that the collection is not valid.
 
 ## Dataset
 ```

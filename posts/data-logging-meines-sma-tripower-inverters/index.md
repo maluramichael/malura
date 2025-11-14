@@ -4,19 +4,19 @@ date: 2019-09-20
 tags: sma data export curl cron
 ---
 
-Mein neuer Inverter bietet eine Vielzahl von Datenpunkten welche ich aktiv mitlogge. Ich erklaere wie ich diese auslese und verabeite.
+Mein neuer Inverter bietet eine Vielzahl von Datenpunkten welche ich aktiv mitlogge. Ich erkläre wie ich diese auslese und verarbeite.
 
 ![Grafana Dashboard](./pv.png "Grafana")
 
 ## Erste Schritte mit Modbus
 
-Da der Inverter Modbus unterstüzt war das natürlich mein erster Versuch an die Daten zu kommen. Mit Python und [pymodbus](https://pymodbus.readthedocs.io/en/latest/readme.html) habe ich mir einen kleinen Modbus Master Service geschrieben welcher alle 10 Sekunden rund 20 Datenpunkte abfragt.
+Da der Inverter Modbus unterstützt war das natürlich mein erster Versuch an die Daten zu kommen. Mit Python und [pymodbus](https://pymodbus.readthedocs.io/en/latest/readme.html) habe ich mir einen kleinen Modbus Master Service geschrieben welcher alle 10 Sekunden rund 20 Datenpunkte abfragt.
 
-Das lief auch einige Stunden ganz gut. Ich musste dann aber feststellen dass das Modbus Modul Nachts, um Strom zu sparen, ausgeschalten wird. Desweiteren war Modbus garnicht so zuverlaessig wie gedacht. Ich denke ich hab den Inverter etwas mit der Abfragegeschwindigkeit überfordert.
+Das lief auch einige Stunden ganz gut. Ich musste dann aber feststellen dass das Modbus Modul nachts, um Strom zu sparen, ausgeschaltet wird. Desweiteren war Modbus garnicht so zuverlässig wie gedacht. Ich denke ich hab den Inverter etwas mit der Abfragegeschwindigkeit überfordert.
 
-## Eine andere Loesung muss her
+## Eine andere Lösung muss her
 
-Ein moderner Inverter von SMA bietet ein Webinterface an welches die Daten in verschiedenen Charts darstellt. Ich dachte vielleicht gibt es eine oeffentliche API dazu aber leider konnte ich nichts dazu finden.
+Ein moderner Inverter von SMA bietet ein Webinterface an welches die Daten in verschiedenen Charts darstellt. Ich dachte vielleicht gibt es eine öffentliche API dazu aber leider konnte ich nichts dazu finden.
 
 Also habe ich mir mal den Traffic zum Inverter über die Devtools des Browsers angeschaut.
 
@@ -44,7 +44,7 @@ POST /dyn/getFS.json?sid=xxx
         {
           "f": "DA190912.ZIP", // Dateiname
           "tm": 1568310258, // Timestamp
-          "s": 32200 // Dateigroesse
+          "s": 32200 // Dateigröße
         },
         {
           "f": "DA190919.ZIP",

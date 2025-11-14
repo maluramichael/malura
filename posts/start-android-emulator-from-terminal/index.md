@@ -6,16 +6,16 @@ tags: android linux osx shell
 
 I needed a way to start my android emulator without opening Android Studio.
 
-First i tried to run the avd with the standard emulator command but that didn't worked.
+First I tried to run the avd with the standard emulator command but that didn't work.
 ```
 $ emulator -avd Pixel_XL_API_25
 PANIC: Missing emulator engine program for 'x86' CPU.
 ```
-So i searched the web and found out that i need to run some other emulator and symlink it somewhere else.
-I dind't liked the idea.
+So I searched the web and found out that I need to run some other emulator and symlink it somewhere else.
+I didn't like the idea.
 My next thought was "What is android studio doing?". I watched my processes and started the emulator from Android Studio.
 ```
-$ ps aux  grep qemu
+$ ps aux | grep qemu
 ... /usr/lib/android-sdk/emulator/qemu/linux-x86_64/qemu-system-x86_64 -netdelay none -netspeed full -no-snapshot-load -avd Pixel_XL_API_25
 ```
 Nice this looks promising.

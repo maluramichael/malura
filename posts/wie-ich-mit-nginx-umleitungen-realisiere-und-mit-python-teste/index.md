@@ -4,7 +4,7 @@ date: 2020-02-11
 tags: code python nginx http script
 ---
 
-Ich brauchte fuer meinen Blog eine Moeglichkeit leicht und schnell ganz viele Redirects zu definieren. In diesem Post moechte ich meine Loesung vorstellen.
+Ich brauchte für meinen Blog eine Möglichkeit leicht und schnell ganz viele Redirects zu definieren. In diesem Post möchte ich meine Lösung vorstellen.
 
 Zuerst muss eine .map File erstellt werden. Jede Zeile stellt ein Redirect da und sollte folgendes Format haben `VON NACH;`. Wichtig ist es jede Zeile mit einem ; zu beenden.
 ```
@@ -29,7 +29,7 @@ server {
   # ...
 }
 ```
-Dieses Python Script kann genutzt werden um die Redirects zu testen. Es laed jede Zeile der `redirects.map`, fuehrt einen Request darauf aus und ueberprueft ob richtig umgeleitet wurde.
+Dieses Python Script kann genutzt werden um die Redirects zu testen. Es lädt jede Zeile der `redirects.map`, führt einen Request darauf aus und überprüft ob richtig umgeleitet wurde.
 ```
 import requests
 from urllib.parse import urljoin
