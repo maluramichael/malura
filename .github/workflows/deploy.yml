@@ -11,7 +11,21 @@ jobs:
       - name: Trigger DokiDoki Deployment
         run: |
           set -e  # Exit on error
-          curl -f -X POST "https://dokidoki.malura.de/webhooks/deploy/malura" \
-            -H "X-Webhook-Secret: ${{ secrets.DOKIDOKI_WEBHOOK_SECRET }}" \
+          curl -f -X POST "https://dokidoki.malura.de/webhooks" \
             -H "Content-Type: application/json" \
+            -H "X-Webhook-Secret: ${{ secrets.DOKIDOKI_WEBHOOK_SECRET }}" \
+            -d '{
+              "container_name": "malura",
+              "action": "trigger-deployment",
+              "repository": {
+                "full_name": "${{ github.repository }}",
+                "url": "${{ github.event.repository.ssh_url }}"
+              },
+              "metadata": {
+                "triggered_by": "${{ github.actor }}",
+                "commit_hash": "${{ github.sha }}",
+                "commit_message": "${{ github.event.head_commit.message }}",
+                "branch": "${{ github.ref_name }}"
+              }
+            }' \
             || (echo "Deployment webhook failed!" && exit 1)
