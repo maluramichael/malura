@@ -1,0 +1,29 @@
+{
+  "name": "malura",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bs-config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./assets/tailwind.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/tailwind.css -o ./assets/tailwind.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maluramichael/malura.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/maluramichael/malura/issues"
+  },
+  "homepage": "https://github.com/maluramichael/malura#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.18"
+  }
+}

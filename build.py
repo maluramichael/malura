@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import sys
 import argparse
+import subprocess
 from shutil import copy, rmtree
 from tqdm import tqdm
 import rcssmin
@@ -22,6 +23,18 @@ if args.clear_cache:
 
 # Load environment variables before importing modules that need them
 load_dotenv()
+
+# Build Tailwind CSS before processing
+print('Building Tailwind CSS...')
+try:
+    subprocess.run(['npm', 'run', 'build:css'], check=True)
+    print('Tailwind CSS built successfully!')
+except subprocess.CalledProcessError as e:
+    print(f'Error building Tailwind CSS: {e}')
+    sys.exit(1)
+except FileNotFoundError:
+    print('npm not found. Skipping Tailwind CSS build.')
+    print('Install Node.js and run "npm install" to enable CSS building.')
 
 from lib import builder
 from lib.html_parser import LinkParser
