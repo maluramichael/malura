@@ -16,6 +16,47 @@
     <div class="prose prose-lg dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-gray-900 dark:prose-code:text-white prose-pre:bg-gray-900 dark:prose-pre:bg-gray-800 prose-pre:text-gray-100 max-w-none">
         {{ page.content|safe }}
     </div>
+
+    <!-- Navigation between posts -->
+    {% if page.previous_post or page.next_post %}
+    <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between gap-4">
+        {% if page.previous_post %}
+        <a href="{{ page.previous_post.url }}" class="group flex-1 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-200 hover:shadow-md">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-primary-600 dark:text-primary-400 group-hover:translate-x-[-4px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                <div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Vorheriger Beitrag</div>
+                    <div class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        {{ page.previous_post.title }}
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% else %}
+        <div class="flex-1"></div>
+        {% endif %}
+        
+        {% if page.next_post %}
+        <a href="{{ page.next_post.url }}" class="group flex-1 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-200 hover:shadow-md text-right">
+            <div class="flex items-center justify-end">
+                <div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Nächster Beitrag</div>
+                    <div class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        {{ page.next_post.title }}
+                    </div>
+                </div>
+                <svg class="w-5 h-5 ml-3 text-primary-600 dark:text-primary-400 group-hover:translate-x-[4px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </a>
+        {% else %}
+        <div class="flex-1"></div>
+        {% endif %}
+    </nav>
+    {% endif %}
 </article>
 {% endblock %}
 {% block footer %}

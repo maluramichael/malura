@@ -4,11 +4,7 @@ date: 2025-11-21
 tags: rimworld guide strategy
 ---
 
-# RimWorld: Ein vollständiger Step-by-Step Guide zum Durchspielen
-
 Dieser Leitfaden bietet eine klare, praktische Schritt-für-Schritt-Struktur, um eine stabile Kolonie aufzubauen und das Spiel über das klassische Raumschiff-Ending erfolgreich abzuschließen. Der Fokus liegt auf einem Standardspiel mit Crashlanded-Start und mittlerem Schwierigkeitsgrad.
-
----
 
 ## Phase 1 – Start (Tag 1–3): Überleben sichern
 
@@ -33,8 +29,6 @@ Dieser Leitfaden bietet eine klare, praktische Schritt-für-Schritt-Struktur, um
 7. **Erste Verteidigung**  
    Engpass, Sandbags, Startwaffen verteilen.
 
----
-
 ## Phase 2 – Frühe Kolonie (Tag 3–15): Stabilisierung
 
 8. **Landwirtschaft ausbauen**  
@@ -54,8 +48,6 @@ Dieser Leitfaden bietet eine klare, praktische Schritt-für-Schritt-Struktur, um
 
 13. **Verteidigungsstruktur verbessern**  
     Kill-Zone mit Fallen, Cover und klaren Angriffswegen.
-
----
 
 ## Phase 3 – Mittlere Kolonie (Tag 15–60): Wirtschaft & Tech
 
@@ -77,8 +69,6 @@ Dieser Leitfaden bietet eine klare, praktische Schritt-für-Schritt-Struktur, um
 19. **Forschung Richtung Schiff**  
     Multi-analyzer und Ship-Tech freischalten.
 
----
-
 ## Phase 4 – Späte Kolonie (Tag 60+): Raumschiffbau
 
 20. **Alle Ship-Techs erforschen**  
@@ -93,8 +83,6 @@ Dieser Leitfaden bietet eine klare, praktische Schritt-für-Schritt-Struktur, um
 23. **Materialien sichern**  
     Stahl, Plasteel, Uran, Components, Advanced Components.  
     Deep Drills + Scanner nutzen.
-
----
 
 ## Phase 5 – Endgame: Reaktorstart und Überleben
 
@@ -112,8 +100,6 @@ Dieser Leitfaden bietet eine klare, praktische Schritt-für-Schritt-Struktur, um
 
 28. **Starten und fliehen**  
     Timer abgelaufen, alle im Schiff: Abflug und Spielabschluss.
-
----
 
 ## Häufige Fehler und wichtige Grundregeln
 

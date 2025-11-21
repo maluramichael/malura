@@ -122,6 +122,7 @@ def build_for_language(lang='de'):
                 context['external_links'].append(link)
 
     builder.set_blog_post_urls(context['posts'])
+    builder.set_blog_post_navigation(context['posts'])
     builder.set_related_pages(context['posts'] + context['projects'], context['pages_grouped_by_tags'])
     builder.set_urls(context['projects'], 'projects')
     builder.set_urls(context['pages'])

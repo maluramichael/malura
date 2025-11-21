@@ -54,6 +54,36 @@ def strip_comments(html):
     return re.sub("(<!--.*?-->)", "", html, flags=re.MULTILINE)
 
 
+def add_list_classes(html_content):
+    """Add 'markdown-list' class to ul and ol elements in markdown content"""
+    # Add class to ul elements - handle both with and without existing attributes
+    def add_ul_class(match):
+        tag = match.group(0)
+        if 'class=' in tag:
+            # Replace existing class attribute
+            tag = re.sub(r'class="([^"]*)"', r'class="\1 markdown-list markdown-list-ul"', tag)
+        else:
+            # Add class attribute
+            tag = tag.replace('<ul', '<ul class="markdown-list markdown-list-ul"')
+        return tag
+    
+    def add_ol_class(match):
+        tag = match.group(0)
+        if 'class=' in tag:
+            # Replace existing class attribute
+            tag = re.sub(r'class="([^"]*)"', r'class="\1 markdown-list markdown-list-ol"', tag)
+        else:
+            # Add class attribute
+            tag = tag.replace('<ol', '<ol class="markdown-list markdown-list-ol"')
+        return tag
+    
+    # Match ul and ol tags
+    html_content = re.sub(r'<ul[^>]*>', add_ul_class, html_content)
+    html_content = re.sub(r'<ol[^>]*>', add_ol_class, html_content)
+    
+    return html_content
+
+
 directory_to_template = {
     'posts': 'post.html',
     'pages': 'page.html',
@@ -150,6 +180,8 @@ def parse_file_and_create_page_entity(file_path):
                     }
                 }
             )
+            # Add class to lists for styling
+            page.content = add_list_classes(page.content)
 
         # Handle both __MORE__ and <!-- more --> markers
         more_markers = [more_tag, '<!-- more -->']
@@ -325,3 +357,37 @@ def set_related_pages(pages, pages_grouped_by_tags):
 
                     if random_post_by_tag not in page.related_pages:
                         page.related_pages.append(random_post_by_tag)
+
+
+def set_blog_post_navigation(posts):
+    """Set next and previous post for each blog post based on date"""
+    # Filter out drafts and sort posts by date (newest first)
+    published_posts = [p for p in posts if not getattr(p, 'draft', False)]
+    sorted_posts = sorted(published_posts, key=lambda x: x.date, reverse=True)
+    
+    for post in posts:
+        # Skip drafts
+        if getattr(post, 'draft', False):
+            post.previous_post = None
+            post.next_post = None
+            continue
+        
+        # Find index of current post in sorted list
+        try:
+            i = sorted_posts.index(post)
+        except ValueError:
+            post.previous_post = None
+            post.next_post = None
+            continue
+        
+        # Previous post (newer, higher index)
+        if i > 0:
+            post.previous_post = sorted_posts[i - 1]
+        else:
+            post.previous_post = None
+        
+        # Next post (older, lower index)
+        if i < len(sorted_posts) - 1:
+            post.next_post = sorted_posts[i + 1]
+        else:
+            post.next_post = None
